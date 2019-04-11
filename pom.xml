@@ -24,6 +24,17 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+       <artifactId>javafx-base</artifactId>
+      <version>13-ea+4</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>13-ea+4</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -45,7 +56,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>M1_MIAGE.App</mainClass>
+                <mainClass>M1_MIAGE.game.gui.GameGUI</mainClass>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>dependency-jars/</classpathPrefix>
               </manifest>
@@ -64,7 +75,7 @@
             </execution>
           </executions>
           <configuration>
-            <mainClass>M1_MIAGE.App</mainClass>
+            <mainClass>M1_MIAGE.game.gui.GameGUI</mainClass>
           </configuration>
         </plugin>
         <plugin>
