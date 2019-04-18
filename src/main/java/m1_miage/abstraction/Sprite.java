@@ -1,10 +1,13 @@
-package M1_MIAGE.sprite;
+package m1_miage.abstraction;
 
 
-import M1_MIAGE.game.GameBoard;
+import m1_miage.presenter.GameBoard;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Shape;
 
+/**
+ * cette classe doit etre surchargée pour crée un objet de jeu, qu'on pourra animer
+ */
 public abstract class Sprite {
 	protected double x;
 	protected double y;
@@ -19,6 +22,11 @@ public abstract class Sprite {
 		this.speedY = speedY; 
 	}
 
+	/**
+	 * Cette méthode permet d'animer un objet de jeu
+	 * @param time
+	 * @param b
+	 */
 	public void update(double time, GameBoard b) {
 		x += speedX * time;
 		y += speedY * time;
@@ -29,8 +37,11 @@ public abstract class Sprite {
 	public abstract void render(GraphicsContext gc);
 	
 	public abstract void handleCollision(GameBoard b, Sprite p);
-	
-	
+
+	/*
+	 *  getters/setters
+	 */
+
 	public double getX() {
 		return x;
 	}

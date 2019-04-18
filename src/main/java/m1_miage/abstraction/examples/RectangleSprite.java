@@ -1,9 +1,9 @@
-package M1_MIAGE.sprite;
+package m1_miage.abstraction.examples;
 
-import java.awt.*;
 import java.util.Random;
 
-import M1_MIAGE.game.GameBoard;
+import m1_miage.abstraction.Sprite;
+import m1_miage.presenter.GameBoard;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;

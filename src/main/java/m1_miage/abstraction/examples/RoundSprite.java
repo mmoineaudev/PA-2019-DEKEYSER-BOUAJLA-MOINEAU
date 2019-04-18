@@ -1,6 +1,7 @@
-package M1_MIAGE.sprite;
+package m1_miage.abstraction.examples;
 
-import M1_MIAGE.game.GameBoard;
+import m1_miage.abstraction.Sprite;
+import m1_miage.presenter.GameBoard;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
