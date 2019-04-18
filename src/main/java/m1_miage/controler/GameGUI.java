@@ -1,4 +1,4 @@
-package m1_miage.controler.gui;
+package m1_miage.controler;
 
 
 import javafx.animation.AnimationTimer;
@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import m1_miage.controler.GameLoop;
 import m1_miage.presenter.GameBoard;
 
 import m1_miage.abstraction.examples.RectangleSprite;

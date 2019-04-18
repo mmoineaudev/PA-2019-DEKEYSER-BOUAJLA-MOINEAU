@@ -1,4 +1,4 @@
-package m1_miage.controler.gui;
+package m1_miage.controler;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;

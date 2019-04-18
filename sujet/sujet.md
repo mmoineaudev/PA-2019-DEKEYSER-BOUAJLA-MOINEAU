@@ -1,5 +1,9 @@
 # Projet Programmation avancée 2018-2019
 
+## Lancement 
+
+mvn install exec:java
+
 ## Description  
 Le but de ce projet est d'écrire un petit jeu utilisant l'API JavaFX pour la partie graphique et une architecture à plugins. 
 

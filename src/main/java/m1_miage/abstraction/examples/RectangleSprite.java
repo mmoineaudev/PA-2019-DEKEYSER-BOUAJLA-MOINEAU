@@ -10,6 +10,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+/**
+ * On garde les classes exemples pour s'en servir de modele, mais il faut les enlever avant de merge
+ */
 public class RectangleSprite extends Sprite {
 	private int w =20;
 	private int h = 20;
