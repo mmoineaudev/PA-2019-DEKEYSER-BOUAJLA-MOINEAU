@@ -18,7 +18,7 @@ import java.io.FileNotFoundException;
  * Le futur objet de jeu, le vaisseau
  */
 public class VaisseauSprite extends IntelligentSprite {
-    private final int L = 50, l=50;
+    private final int L = 20, l=50;
     private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
     private int lifes = 5;
 
