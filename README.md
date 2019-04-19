@@ -4,3 +4,7 @@ Notre projet est un jeu vidéo Astéroids. Le joueur contrôle un vaisseau spati
 Le joueur (vaisseau spatial) se déplace avec les flèches directionnelles. 
 
 Quand un des vaisseaux n'a plus de vies le jeu s'arrête et l'écran de départ s'affiche.
+
+# Lancement 
+
+mvn install exec:java
