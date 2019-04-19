@@ -13,20 +13,19 @@ public class RoundSprite extends Sprite {
 	
 	private int diameter; 
 
-	public RoundSprite(double x, double y, double speedX, double speedY, int diameter) {
-		super(x, y, speedX, speedY);
+	public RoundSprite(double x, double y, int diameter) {
+		super(x, y);
 		this.diameter = diameter;
 	}
 
 	
 	@Override
 	public void update(double time, GameBoard b) {
-		super.update(time, b);
 		if ((this.x+diameter)>b.getWidth() || (this.x) < 0) {
-			this.speedX=-this.speedX;
+			//this.speedX=-this.speedX;
 		}
 		if ((this.y+diameter)>b.getWidth() || (this.y) < 0) {
-			this.speedY=-this.speedY;
+			//this.speedY=-this.speedY;
 		}
 	}
 	

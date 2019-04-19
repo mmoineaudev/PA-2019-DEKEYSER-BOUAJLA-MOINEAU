@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import m1_miage.abstraction.Sprite;
+import m1_miage.abstraction.game_objects.AsteroidSprite;
 import m1_miage.presenter.GameBoard;
 
 import java.util.Iterator;
@@ -32,12 +33,17 @@ public class GameLoop extends AnimationTimer {
 
         double t = (currentNanoTime - lastUpdateNanoTime) / 1000000000.0;
 
-        graphicsContext.setFill(Color.AZURE);
+        graphicsContext.setFill(Color.DARKBLUE);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         graphicsContext.setFill(Color.BLACK);
 
         board.animate(t, graphicsContext);
         lastUpdateNanoTime = currentNanoTime;
+        if(Math.random()<0.01) addAsteroid();
+    }
+
+    public void addAsteroid(){
+        board.addSprite(new AsteroidSprite(Math.random()*board.getWidth(),Math.random()*board.getHeight()));
     }
 
 }

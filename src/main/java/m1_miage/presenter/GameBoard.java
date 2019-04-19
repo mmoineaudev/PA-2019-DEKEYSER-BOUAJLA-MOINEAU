@@ -15,7 +15,7 @@ public class GameBoard {
 	private int height;
 
 	private ArrayList<Sprite> list = new ArrayList<>();
-	
+
 	public GameBoard(int width, int height) {
 		super();
 		this.width = width;
@@ -77,4 +77,13 @@ public class GameBoard {
 	}
 
 
+	public void removeSprite(Sprite p) {
+		Iterator<Sprite> it = spriteIterator();
+		while (it.hasNext()) {
+			Sprite d = it.next();
+			if(d.equals(p)) {
+				it.remove();
+			}
+		}
+	}
 }

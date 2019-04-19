@@ -9,6 +9,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import m1_miage.abstraction.game_objects.AsteroidSprite;
+import m1_miage.abstraction.game_objects.IntelligentSprite;
+import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.controler.GameLoop;
 import m1_miage.presenter.GameBoard;
 
@@ -43,11 +46,12 @@ public class GameGUI extends Application {
 
 		board = new GameBoard(512, 512);
 
-		RectangleSprite r = new RectangleSprite(50, 10, 0, 100);
+		/*RectangleSprite r = new RectangleSprite(50, 10);
 		board.addSprite(r);
-		RoundSprite rs = new RoundSprite(50, 200, 0, -100, 20);
+		RoundSprite rs = new RoundSprite(50, 200, 100);
 		board.addSprite(rs);
-
+		*/
+        board.addSprite(new VaisseauSprite(250, 250));
 
 		//c'est notre boucle de jeu principale
 		new GameLoop(gc, board, canvas).start();

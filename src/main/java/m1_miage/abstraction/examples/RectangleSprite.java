@@ -22,19 +22,18 @@ public class RectangleSprite extends Sprite {
 	
 	private Random r = new Random();
 	
-	public RectangleSprite(double x, double y, double speedX, double speedY) {
-		super(x, y, speedX, speedY);
+	public RectangleSprite(double x, double y) {
+		super(x, y);
 	}
 	
 
 	@Override
 	public void update(double time, GameBoard b) {
-		super.update(time, b);
 		if ((this.x+w)>b.getWidth() || this.x < 0) {
-			this.speedX=-this.speedX;
+			//this.speedX=-this.speedX;
 		}
 		if ((this.y+h)>b.getWidth() || this.y < 0) {
-			this.speedY=-this.speedY;
+			//this.speedY=-this.speedY;
 		}
 	}
 
