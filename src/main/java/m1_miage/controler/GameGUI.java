@@ -20,6 +20,7 @@ import m1_miage.abstraction.examples.RoundSprite;
 import m1_miage.abstraction.Sprite;
 
 
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 
 /**
@@ -51,7 +52,11 @@ public class GameGUI extends Application {
 		RoundSprite rs = new RoundSprite(50, 200, 100);
 		board.addSprite(rs);
 		*/
-        board.addSprite(new VaisseauSprite(250, 250));
+		try {
+			board.addSprite(new VaisseauSprite(250, 250));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		//c'est notre boucle de jeu principale
 		new GameLoop(gc, board, canvas).start();

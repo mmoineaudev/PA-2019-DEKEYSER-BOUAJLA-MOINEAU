@@ -1,6 +1,7 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -9,12 +10,18 @@ import m1_miage.abstraction.Sprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 /**
  * Le futur objet de jeu, le vaisseau
  */
 public class VaisseauSprite extends IntelligentSprite {
-    private final int L = 25, l=15;
-    public VaisseauSprite(double x, double y) {
+    private final int L = 50, l=50;
+    private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
+    private int lifes = 5;
+
+    public VaisseauSprite(double x, double y) throws FileNotFoundException {
         super(x, y);
     }
 
@@ -22,6 +29,7 @@ public class VaisseauSprite extends IntelligentSprite {
     public void update(double time, GameBoard b) {
         speed+=1;
         this.direction = Direction.values()[(int) (Math.random()*Direction.values().length)];
+        super.update(time,b);
     }
 
     @Override
@@ -32,13 +40,15 @@ public class VaisseauSprite extends IntelligentSprite {
     @Override
     public void render(GraphicsContext gc) {
         Paint save = gc.getFill();
-        gc.setFill(Color.RED);
-        gc.fillRect(x,y,l,L);
+        gc.drawImage(image, x, y);
         gc.setFill(save);
     }
 
     @Override
     public void handleCollision(GameBoard b, Sprite p) {
-        System.out.println(" Le vaisseau a explosé :'( ");
+        speed = 0;
+        lifes--;
+        if(lifes==0) System.out.println(" Le vaisseau a explosé :'( ");
+
     }
 }
