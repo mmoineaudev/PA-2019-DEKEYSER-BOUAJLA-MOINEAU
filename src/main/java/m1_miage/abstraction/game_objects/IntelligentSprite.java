@@ -17,6 +17,8 @@ public class IntelligentSprite extends Sprite {
 
     protected double speed;
     protected Direction direction = Direction.values()[(int) (Math.random()* values().length)];
+    protected int lifes = 5;
+
 
     public IntelligentSprite(double x, double y) {
         super(x, y);
@@ -30,14 +32,18 @@ public class IntelligentSprite extends Sprite {
     public void update(double time, GameBoard b){
 
         switch (direction){
-            case NORTH:this.y+= speed*time;break;
+            case NORTH:this.y-= speed*time;break;
 
             case EAST:this.x+= speed*time;break;
 
-            case SOUTH:this.y-= speed*time;break;
+            case SOUTH:this.y+= speed*time;break;
 
             case WEST:this.x-= speed*time;break;
         }
+    }
+
+    public boolean isDead(){
+        return this.lifes==0;
     }
 
     @Override
@@ -50,9 +56,14 @@ public class IntelligentSprite extends Sprite {
         throw new UnsupportedOperationException("not implemented");
     }
 
+    /**
+     * On perd une vie
+     * @param b
+     * @param p
+     */
     @Override
     public void handleCollision(GameBoard b, Sprite p) {
-        throw new UnsupportedOperationException("not implemented");
+        lifes--;
     }
 
     //getters / setters
@@ -72,4 +83,5 @@ public class IntelligentSprite extends Sprite {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
+
 }
