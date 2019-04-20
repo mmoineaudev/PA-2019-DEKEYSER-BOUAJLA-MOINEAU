@@ -2,6 +2,7 @@ package m1_miage.presenter;
 
 import javafx.scene.canvas.GraphicsContext;
 import m1_miage.abstraction.Sprite;
+import m1_miage.abstraction.game_objects.IntelligentSprite;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,6 +38,7 @@ public class GameBoard {
 	 * @param graphicsContext
 	 */
 	public void animate(double t, GraphicsContext graphicsContext) {
+		removeTheDead();
 		Iterator<Sprite> it = spriteIterator();
 		while (it.hasNext()) {
 			Sprite s = it.next();
@@ -44,6 +46,19 @@ public class GameBoard {
 			checkForCollision(s);
 			s.render(graphicsContext);
 		}
+	}
+
+	/**
+	 * Empeche l'animation des {@link IntelligentSprite} morts
+	 */
+	private void removeTheDead() {
+		ArrayList<Sprite> newList = new ArrayList<>();
+		list.stream().forEach(sprite -> {
+			if((sprite instanceof IntelligentSprite) && !((IntelligentSprite) sprite).isDead()){
+				newList.add(sprite);
+			}
+		});
+		list = newList;
 	}
 
 	public int getWidth() {
