@@ -18,6 +18,7 @@ public class AsteroidSprite extends IntelligentSprite {
     public AsteroidSprite(double x, double y) {
         super(x, y);
         this.setSpeed(Math.random()*max_speed);
+        lifes = 1;
     }
 
     @Override
