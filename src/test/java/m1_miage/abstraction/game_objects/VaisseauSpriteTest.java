@@ -2,34 +2,47 @@ package m1_miage.abstraction.game_objects;
 
 import org.junit.Before;
 import org.junit.Test;
+import tools.MakeEveryThingPublic;
 
-import java.io.FileNotFoundException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-public class VaisseauSpriteTest extends VaisseauSprite {
+public class VaisseauSpriteTest {
 
-    public VaisseauSpriteTest() throws FileNotFoundException {
-        super(0, 0);
-    }
-
+    private Object vaisseauSprite;
     @Before
-    public void setUp() throws Exception {
+    public void init(){
+        Class c;
+        Constructor classConstructor;
+        try {
+            c = MakeEveryThingPublic.getClassWithPublicAccess("m1_miage.abstraction.game_objects.VaisseauSprite");
+            classConstructor = getClass().getDeclaredConstructors()[0];
+            vaisseauSprite = classConstructor.newInstance();
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+
+        } catch (InstantiationException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+
+        } catch (InvocationTargetException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+
+        }
+
     }
 
     @Test
-    public void update1() {
-    }
+    public void testForMakingEveryThingPublic(){
+        System.out.println("vaisseauSprite = " + vaisseauSprite);
 
-    @Test
-    public void getBoundingShape1() {
-    }
-
-    @Test
-    public void render1() {
-    }
-
-    @Test
-    public void handleCollision1() {
+        assertTrue(vaisseauSprite instanceof VaisseauSprite);
     }
 }
