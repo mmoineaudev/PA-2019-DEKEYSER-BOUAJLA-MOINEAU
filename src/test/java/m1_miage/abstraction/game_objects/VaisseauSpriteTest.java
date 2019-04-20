@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class VaisseauSpriteTest {
 
@@ -15,34 +16,26 @@ public class VaisseauSpriteTest {
     @Before
     public void init(){
         Class c;
-        Constructor classConstructor;
+        Constructor[] classConstructor;
         try {
             c = MakeEveryThingPublic.getClassWithPublicAccess("m1_miage.abstraction.game_objects.VaisseauSprite");
-            classConstructor = getClass().getDeclaredConstructors()[0];
-            vaisseauSprite = classConstructor.newInstance();
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            System.out.println("c = " + c);
+            classConstructor = getClass().getDeclaredConstructors();
+            System.out.println("classConstructor = " + classConstructor);
+            vaisseauSprite = classConstructor[0].newInstance();
+            System.out.println("vaisseauSprite = " + vaisseauSprite.getClass().getSimpleName());//we have a problem
+        }catch(Exception e) {
+            System.out.println("EXCEPTION :"+e.getMessage()+"\n"+e.getCause());
 
-        } catch (InstantiationException e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
-
-        } catch (InvocationTargetException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-
+        }finally {
+            fail();
         }
-
     }
 
     @Test
     public void testForMakingEveryThingPublic(){
-        System.out.println("vaisseauSprite = " + vaisseauSprite);
-
+        System.out.println("vaisseauSprite = " + vaisseauSprite.getClass().getSimpleName());
         assertTrue(vaisseauSprite instanceof VaisseauSprite);
     }
 }
