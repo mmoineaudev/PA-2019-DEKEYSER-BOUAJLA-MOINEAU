@@ -1,22 +1,20 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import m1_miage.abstraction.Sprite;
+import m1_miage.abstraction.BasicSprite;
 import m1_miage.presenter.GameBoard;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-public class IntelligentSpriteTest extends IntelligentSprite {
+public class IntelligentBasicSpriteTest extends IntelligentSprite {
 
     private IntelligentSprite instance = new IntelligentSprite(0,0);
     private GameBoard g = new GameBoard(100,100);
 
-    public IntelligentSpriteTest() {
+    public IntelligentBasicSpriteTest() {
         super(0., 0.);
     }
 
@@ -84,9 +82,9 @@ public class IntelligentSpriteTest extends IntelligentSprite {
         g.addSprite(instance);
         g.addSprite(new IntelligentSprite(20, 20));
 
-        Iterator<Sprite> it = g.spriteIterator();
+        Iterator<BasicSprite> it = g.spriteIterator();
         while (it.hasNext()){
-            Sprite s = it.next();
+            BasicSprite s = it.next();
             try{
                 g.checkForCollision(s);
                 assertTrue(instance.lifes == 5);//pas de collision
@@ -105,9 +103,9 @@ public class IntelligentSpriteTest extends IntelligentSprite {
         g.addSprite(instance);
         g.addSprite(new IntelligentSprite(0, 0));
 
-        Iterator<Sprite> it = g.spriteIterator();
+        Iterator<BasicSprite> it = g.spriteIterator();
         while (it.hasNext()){
-            Sprite s = it.next();
+            BasicSprite s = it.next();
             try{
                 g.checkForCollision(s);
                 assertFalse(instance.lifes == 5);//pas de collision

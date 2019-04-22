@@ -4,11 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import m1_miage.abstraction.Sprite;
 import m1_miage.abstraction.game_objects.AsteroidSprite;
 import m1_miage.presenter.GameBoard;
-
-import java.util.Iterator;
 
 /**
  * Boucle de jeu, qui doit appeller les actions des différents objets de jeu

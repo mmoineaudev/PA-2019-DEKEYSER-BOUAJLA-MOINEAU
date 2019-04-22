@@ -1,10 +1,9 @@
 package m1_miage.presenter;
 
 import javafx.scene.canvas.GraphicsContext;
-import m1_miage.abstraction.Sprite;
-import m1_miage.abstraction.game_objects.IntelligentSprite;
+import m1_miage.abstraction.BasicSprite;
+import m1_miage.abstraction.SpriteProvider;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -14,22 +13,22 @@ public class GameBoard {
 
 	private int width;
 	private int height;
-
-	private ArrayList<Sprite> list = new ArrayList<>();
+	private SpriteProvider spriteProvider;
 
 	public GameBoard(int width, int height) {
 		super();
 		this.width = width;
 		this.height = height;
+		spriteProvider = new SpriteProvider();
 	}
 
 	
-	public void addSprite(Sprite p) {
-		this.list.add(p);
+	public void addSprite(BasicSprite p) {
+		spriteProvider.add(p);
 	}
 	
-	public Iterator<Sprite> spriteIterator() {
-		return list.iterator();
+	public Iterator<BasicSprite> spriteIterator() {
+		return spriteProvider.iterator();
 	}
 
 	/**
@@ -38,28 +37,17 @@ public class GameBoard {
 	 * @param graphicsContext
 	 */
 	public void animate(double t, GraphicsContext graphicsContext) {
-		removeTheDead();
-		Iterator<Sprite> it = spriteIterator();
+		spriteProvider.removeTheDead();
+		Iterator<BasicSprite> it = spriteIterator();
 		while (it.hasNext()) {
-			Sprite s = it.next();
+			BasicSprite s = it.next();
 			s.update(t, this);
 			checkForCollision(s);
 			s.render(graphicsContext);
 		}
 	}
 
-	/**
-	 * Empeche l'animation des {@link IntelligentSprite} morts
-	 */
-	private void removeTheDead() {
-		ArrayList<Sprite> newList = new ArrayList<>();
-		list.stream().forEach(sprite -> {
-			if((sprite instanceof IntelligentSprite) && !((IntelligentSprite) sprite).isDead()){
-				newList.add(sprite);
-			}
-		});
-		list = newList;
-	}
+
 
 	public int getWidth() {
 		return width;
@@ -77,10 +65,10 @@ public class GameBoard {
 		this.height = height;
 	}
 
-	public void checkForCollision(Sprite s) {
-		Iterator<Sprite> it = spriteIterator();
+	public void checkForCollision(BasicSprite s) {
+		Iterator<BasicSprite> it = spriteIterator();
 		while (it.hasNext()) {
-			Sprite d = it.next();
+			BasicSprite d = it.next();
 			if (d != s) {
 				if (s.getBoundingShape().getBoundsInParent().intersects(d.getBoundingShape().getBoundsInParent())) {
 					System.out.println(" it's a crash !!!");
@@ -92,10 +80,10 @@ public class GameBoard {
 	}
 
 
-	public void removeSprite(Sprite p) {
-		Iterator<Sprite> it = spriteIterator();
+	public void removeSprite(BasicSprite p) {
+		Iterator<BasicSprite> it = spriteIterator();
 		while (it.hasNext()) {
-			Sprite d = it.next();
+			BasicSprite d = it.next();
 			if(d.equals(p)) {
 				it.remove();
 			}

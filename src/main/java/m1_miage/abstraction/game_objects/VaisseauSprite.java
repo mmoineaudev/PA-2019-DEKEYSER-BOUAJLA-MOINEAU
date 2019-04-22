@@ -7,7 +7,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
-import m1_miage.abstraction.Sprite;
+import m1_miage.abstraction.BasicSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
@@ -95,7 +95,7 @@ public class VaisseauSprite extends IntelligentSprite {
      * @param p
      */
     @Override
-    public void handleCollision(GameBoard b, Sprite p) {
+    public void handleCollision(GameBoard b, BasicSprite p) {
         super.handleCollision(b,p);//pour décrémenter le nombre de vies
         speed = 0;
         if(isDead()) image=null;

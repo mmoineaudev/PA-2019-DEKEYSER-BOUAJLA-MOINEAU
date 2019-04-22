@@ -1,10 +1,8 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import m1_miage.abstraction.Sprite;
+import m1_miage.abstraction.BasicSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
@@ -13,7 +11,7 @@ import static m1_miage.abstraction.game_objects.navigation.Direction.*;
 /**
  * une sourcouche de sprite, mais qui se déplace seule
  */
-public class IntelligentSprite extends Sprite {
+public class IntelligentSprite extends BasicSprite {
 
     protected double speed;
     protected Direction direction = Direction.values()[(int) (Math.random()* values().length)];
@@ -62,7 +60,7 @@ public class IntelligentSprite extends Sprite {
      * @param p
      */
     @Override
-    public void handleCollision(GameBoard b, Sprite p) {
+    public void handleCollision(GameBoard b, BasicSprite p) {
         lifes--;
     }
 

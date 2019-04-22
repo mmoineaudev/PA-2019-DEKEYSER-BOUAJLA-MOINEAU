@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AsteroidSpriteTest extends AsteroidSprite {
+public class AsteroidBasicSpriteTest extends AsteroidSprite {
 
-    public AsteroidSpriteTest() {
+    public AsteroidBasicSpriteTest() {
         super(0, 0);
     }
 

@@ -1,6 +1,6 @@
 package m1_miage.abstraction.examples;
 
-import m1_miage.abstraction.Sprite;
+import m1_miage.abstraction.BasicSprite;
 import m1_miage.presenter.GameBoard;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
@@ -9,7 +9,7 @@ import javafx.scene.shape.Shape;
 /**
  * On garde les classes exemples pour s'en servir de modele, mais il faut les enlever avant de merge
  */
-public class RoundSprite extends Sprite {
+public class RoundSprite extends BasicSprite {
 	
 	private int diameter; 
 
@@ -39,7 +39,7 @@ public class RoundSprite extends Sprite {
 
 
 	@Override
-	public void handleCollision(GameBoard b, Sprite p) {
+	public void handleCollision(GameBoard b, BasicSprite p) {
 		System.out.println("RoundSprite.handleCollision()");
 	}
 

@@ -8,11 +8,11 @@ import javafx.scene.shape.Shape;
 /**
  * cette classe doit etre surchargée pour crée un objet de jeu, qu'on pourra animer
  */
-public abstract class Sprite {
+public abstract class BasicSprite {
 	protected double x;
 	protected double y;
 
-	public Sprite(double x, double y) {
+	public BasicSprite(double x, double y) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -30,7 +30,7 @@ public abstract class Sprite {
 	
 	public abstract void render(GraphicsContext gc);
 	
-	public abstract void handleCollision(GameBoard b, Sprite p);
+	public abstract void handleCollision(GameBoard b, BasicSprite p);
 
 	/*
 	 *  getters/setters

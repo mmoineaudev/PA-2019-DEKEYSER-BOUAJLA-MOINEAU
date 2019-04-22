@@ -1,27 +1,17 @@
 package m1_miage.controler;
 
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import m1_miage.abstraction.game_objects.AsteroidSprite;
-import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
-import m1_miage.controler.GameLoop;
 import m1_miage.presenter.GameBoard;
-
-import m1_miage.abstraction.examples.RectangleSprite;
-import m1_miage.abstraction.examples.RoundSprite;
-import m1_miage.abstraction.Sprite;
 
 
 import java.io.FileNotFoundException;
-import java.util.Iterator;
 
 /**
  * TODO refactor

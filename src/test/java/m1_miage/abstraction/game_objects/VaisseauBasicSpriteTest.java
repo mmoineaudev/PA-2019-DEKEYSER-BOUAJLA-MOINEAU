@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class VaisseauSpriteTest {
+public class VaisseauBasicSpriteTest {
 
     private Object vaisseauSprite;
     @Before

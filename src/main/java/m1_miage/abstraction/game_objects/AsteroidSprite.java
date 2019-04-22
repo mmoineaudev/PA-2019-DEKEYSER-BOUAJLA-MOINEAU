@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
-import m1_miage.abstraction.Sprite;
+import m1_miage.abstraction.BasicSprite;
 import m1_miage.presenter.GameBoard;
 
 /**
@@ -43,7 +43,7 @@ public class AsteroidSprite extends IntelligentSprite {
     }
 
     @Override
-    public void handleCollision(GameBoard b, Sprite p) {
+    public void handleCollision(GameBoard b, BasicSprite p) {
         super.handleCollision(b,p);
         this.setSpeed(0);
     }
