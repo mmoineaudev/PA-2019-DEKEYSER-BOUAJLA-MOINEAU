@@ -13,12 +13,13 @@ import m1_miage.presenter.GameBoard;
  */
 public class AsteroidSprite extends IntelligentSprite {
     private final int max_speed = 100;
-    private final int diameter = (int) (Math.random()*30);
+    private int diameter = (int) (Math.random()*30);
 
     public AsteroidSprite(double x, double y) {
         super(x, y);
         this.setSpeed(Math.random()*max_speed);
         lifes = 1;
+        if(diameter<10) diameter=10;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class AsteroidSprite extends IntelligentSprite {
 
     @Override
     public void handleCollision(GameBoard b, Sprite p) {
-        System.out.println("explosion !");
+        super.handleCollision(b,p);
         this.setSpeed(0);
     }
 
