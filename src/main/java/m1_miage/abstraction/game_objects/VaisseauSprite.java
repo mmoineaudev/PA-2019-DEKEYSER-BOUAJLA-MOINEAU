@@ -8,11 +8,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import m1_miage.abstraction.BasicSprite;
+import m1_miage.abstraction.game_objects.Plugins.AnnotationPOC;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Le futur objet de jeu, le vaisseau
@@ -21,8 +24,14 @@ public class VaisseauSprite extends IntelligentSprite {
     private final int L = 20, l=50;
     private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
 
+    //@Retention(value = RetentionPolicy.RUNTIME) //ahbon
+    @AnnotationPOC(speed=10.)
     public VaisseauSprite(double x, double y) throws FileNotFoundException {
         super(x, y);
+        AnnotationPOC annotationPOC = this.getClass().getAnnotation(AnnotationPOC.class);
+        System.out.println("annotationPOC = " + annotationPOC);
+        speed = annotationPOC.speed();
+        System.out.println("speed = " + speed);
     }
 
     @Override
