@@ -24,6 +24,22 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-base</artifactId>
+      <version>13-ea+4</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>13-ea+4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-graphics</artifactId>
+      <version>13-ea+4</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -34,8 +50,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
           <configuration>
-            <source>8</source>
-            <target>8</target>
+            <source>1.8</source>
+            <target>1.8</target>
           </configuration>
         </plugin>
         <plugin>
@@ -45,7 +61,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>M1_MIAGE.App</mainClass>
+                <mainClass>m1_miage.controler.GameGUI</mainClass>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>dependency-jars/</classpathPrefix>
               </manifest>
@@ -64,7 +80,7 @@
             </execution>
           </executions>
           <configuration>
-            <mainClass>M1_MIAGE.App</mainClass>
+            <mainClass>m1_miage.controler.GameGUI</mainClass>
           </configuration>
         </plugin>
         <plugin>
