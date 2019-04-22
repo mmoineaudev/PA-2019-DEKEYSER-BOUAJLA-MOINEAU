@@ -86,7 +86,7 @@ public class IntelligentBasicSpriteTest extends IntelligentSprite {
         while (it.hasNext()){
             BasicSprite s = it.next();
             try{
-                g.checkForCollision(s);
+                g.spriteProvider.checkForCollision(s, g);
                 assertTrue(instance.lifes == 5);//pas de collision
             }catch(Exception e){
                 assertTrue(e instanceof UnsupportedOperationException);//on doit spécifier le IntelligentSprite mais pas
@@ -107,7 +107,7 @@ public class IntelligentBasicSpriteTest extends IntelligentSprite {
         while (it.hasNext()){
             BasicSprite s = it.next();
             try{
-                g.checkForCollision(s);
+                g.spriteProvider.checkForCollision(s, g);
                 assertFalse(instance.lifes == 5);//pas de collision
             }catch(Exception e){
                 assertTrue(e instanceof UnsupportedOperationException);//on doit spécifier le IntelligentSprite mais pas

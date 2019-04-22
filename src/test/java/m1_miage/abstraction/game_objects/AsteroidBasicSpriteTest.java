@@ -2,7 +2,6 @@ package m1_miage.abstraction.game_objects;
 
 import javafx.scene.shape.Circle;
 import m1_miage.presenter.GameBoard;
-import m1_miage.presenter.GameBoardTest;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -36,7 +35,7 @@ public class AsteroidBasicSpriteTest extends AsteroidSprite {
         AsteroidSprite b = new AsteroidSprite(30, 30);
         g.addSprite(a);
         g.addSprite(b);
-        g.checkForCollision(a);
+        g.spriteProvider.checkForCollision(a, g);
         assertTrue(!a.isDead());
     }
     @Test
@@ -46,7 +45,7 @@ public class AsteroidBasicSpriteTest extends AsteroidSprite {
         AsteroidSprite b = new AsteroidSprite(10, 10);//diametre de 10 au minimum
         g.addSprite(a);
         g.addSprite(b);
-        g.checkForCollision(a);
+        g.spriteProvider.checkForCollision(a, g);
         assertTrue(a.isDead());
     }
 }

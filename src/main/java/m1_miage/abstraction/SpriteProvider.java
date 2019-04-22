@@ -1,6 +1,7 @@
 package m1_miage.abstraction;
 
 import m1_miage.abstraction.game_objects.IntelligentSprite;
+import m1_miage.presenter.GameBoard;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,5 +41,19 @@ public class SpriteProvider {
             }
         });
         list = newList;
+    }
+
+    public void checkForCollision(BasicSprite s, GameBoard gameBoard) {
+        Iterator<BasicSprite> it = gameBoard.spriteIterator();
+        while (it.hasNext()) {
+            BasicSprite d = it.next();
+            if (d != s) {
+                if (s.getBoundingShape().getBoundsInParent().intersects(d.getBoundingShape().getBoundsInParent())) {
+                    System.out.println(" it's a crash !!!");
+                    s.handleCollision(gameBoard, d);
+                }
+            }
+        }
+
     }
 }
