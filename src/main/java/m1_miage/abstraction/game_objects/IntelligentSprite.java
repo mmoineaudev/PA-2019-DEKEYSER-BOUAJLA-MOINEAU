@@ -26,7 +26,7 @@ public class IntelligentSprite extends Sprite {
 
 
     /**
-     *
+     * Un objet dans l'espace qui se déplace a vitesse constante
      * @param time
      */
     public void update(double time, GameBoard b){
@@ -84,4 +84,12 @@ public class IntelligentSprite extends Sprite {
         this.direction = direction;
     }
 
+
+    @Override
+    public String toString() {
+        System.out.println();
+        return "{ x = " + x + "y = " + y+"\n"+
+                "Direction = " + direction.name()+"\n"+
+                "speed = " + speed+ "}";
+    }
 }

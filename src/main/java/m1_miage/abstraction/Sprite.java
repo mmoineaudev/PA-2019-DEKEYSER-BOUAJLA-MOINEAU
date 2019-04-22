@@ -11,8 +11,6 @@ import javafx.scene.shape.Shape;
 public abstract class Sprite {
 	protected double x;
 	protected double y;
-	protected double speedX;
-	protected double speedY;
 
 	public Sprite(double x, double y) {
 		super();
