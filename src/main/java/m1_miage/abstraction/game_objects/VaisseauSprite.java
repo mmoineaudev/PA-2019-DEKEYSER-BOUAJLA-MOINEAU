@@ -15,6 +15,12 @@ import m1_miage.presenter.GameBoard;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import static m1_miage.presenter.PNGTools.drawRotatedImage;
 
 /**
  * Le futur objet de jeu, le vaisseau
@@ -27,7 +33,17 @@ public class VaisseauSprite extends IntelligentSprite {
     //@Retention(value = RetentionPolicy.RUNTIME) //ahbon
     public VaisseauSprite(double x, double y, int weaponID) throws FileNotFoundException {
         super(x, y);
-        weaponByPlugin = getWeaponByPlugin(weaponID);
+        try {
+            weaponByPlugin = getWeaponByPlugin(weaponID);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }finally {
+            weaponByPlugin = new Weapon(x,y,direction).basicWeapon();
+        }
     }
 
     /**
@@ -35,8 +51,14 @@ public class VaisseauSprite extends IntelligentSprite {
      * @param weaponID
      * @return une instance de Weapon, héritée de intelligentSprite
      */
-    private Weapon getWeaponByPlugin(int weaponID) {
-        //TODO
+    private Weapon getWeaponByPlugin(int weaponID) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException {
+        Class weapon = Class.forName("m1_miage.abstraction.game_objects.Plugins.Weapon");
+        for(Method m : weapon.getMethods()) {
+            WeaponType weaponType = (WeaponType) m.getAnnotation(WeaponType.class);
+            if(weaponType.type() == weaponID)
+                return (Weapon) m.invoke(x,y,direction);
+        }
+        return null;
     }
 
     @Override
@@ -91,13 +113,6 @@ public class VaisseauSprite extends IntelligentSprite {
         }
     }
 
-    /**
-     * Permet la rotation d'une image fonction de la direction du sprite qu'elle représente
-     * @return un angle en degré
-     */
-    private double getAngle() {
-        return direction.getValue()*90;
-    }
 
     /**
      * Comportement en cas de collision :
@@ -123,29 +138,7 @@ public class VaisseauSprite extends IntelligentSprite {
     }
 
 
-    //-- TODO refactor vers gameboard
-    /**
-     * source : https://stackoverflow.com/questions/18260421/how-to-draw-image-rotated-on-javafx-canvas
-     * Draws an image on a graphics context.
-     *
-     * The image is drawn at (tlpx, tlpy) rotated by angle pivoted around the point:
-     *   (tlpx + image.getWidth() / 2, tlpy + image.getHeight() / 2)
-     *
-     * @param gc the graphics context the image is to be drawn on.
-     * @param angle the angle of rotation.
-     * @param tlpx the top left x co-ordinate where the image will be plotted (in canvas co-ordinates).
-     * @param tlpy the top left y co-ordinate where the image will be plotted (in canvas co-ordinates).
-     */
-    private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy) {
-        gc.save(); // saves the current state on stack, including the current transform
-        rotate(gc, angle, tlpx + image.getWidth() / 2, tlpy + image.getHeight() / 2);
-        gc.drawImage(image, tlpx, tlpy);
-        gc.restore(); // back to original state (before rotation)
-    }
-    private void rotate(GraphicsContext gc, double angle, double px, double py) {
-        Rotate r = new Rotate(angle, px, py);
-        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-    }
+
 
 
 }

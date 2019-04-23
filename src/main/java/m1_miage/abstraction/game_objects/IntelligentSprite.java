@@ -64,6 +64,15 @@ public class IntelligentSprite extends BasicSprite {
         lifes--;
     }
 
+    /**
+     * Permet la rotation d'une image fonction de la direction du sprite qu'elle représente
+     * @return un angle en degré
+     */
+    protected double getAngle() {
+        return direction.getValue()*90;
+    }
+
+
     //getters / setters
 
     public double getSpeed() {

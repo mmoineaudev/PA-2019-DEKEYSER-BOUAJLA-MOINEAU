@@ -1,15 +1,23 @@
 package m1_miage.abstraction.game_objects.Plugins;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 import m1_miage.abstraction.BasicSprite;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+import static m1_miage.presenter.PNGTools.drawRotatedImage;
+
 public class Weapon extends IntelligentSprite {
+    protected Image image = null;
     private static final int default_speed = 15;
-    public Weapon(double x, double y, Direction direction) {
+    public Weapon(double x, double y, Direction direction) throws FileNotFoundException {
         super(x, y);
         this.direction = direction;
         this.speed=default_speed;
@@ -28,12 +36,18 @@ public class Weapon extends IntelligentSprite {
 
     @Override
     public Shape getBoundingShape() {
-        //TODO
+
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        //TODO
+        if(image!=null){
+            Paint save = gc.getFill();
+            //gc.drawImage(image, x, y);
+            drawRotatedImage(gc, image, getAngle(), x,y);
+            gc.setFill(save);
+
+        }
     }
 
     @Override
@@ -67,13 +81,13 @@ public class Weapon extends IntelligentSprite {
     }
 
     @WeaponType(type=1)
-    public BasicWeapon basicWeapon(){
-        return new BasicWeapon();
+    public BasicWeapon basicWeapon() throws FileNotFoundException {
+        return new BasicWeapon(x, y, direction);
     }
 
     @WeaponType(type=2)
-    public BasicWeapon advancedWeapon(){
-        return new AdvancedWeapon();
+    public AdvancedWeapon advancedWeapon(){
+        return new AdvancedWeapon(x,y,direction);
     }
 
 

@@ -18,7 +18,6 @@ public abstract class BasicSprite {
 		this.y = y;
 	}
 
-
 	/**
 	 * Cette méthode permet d'animer un objet de jeu
 	 * @param time
