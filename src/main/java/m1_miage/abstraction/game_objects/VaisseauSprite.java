@@ -20,17 +20,16 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Le futur objet de jeu, le vaisseau
  */
+@AnnotationPOC()
 public class VaisseauSprite extends IntelligentSprite {
     private final int L = 20, l=50;
     private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
 
     //@Retention(value = RetentionPolicy.RUNTIME) //ahbon
-    @AnnotationPOC(speed=10.)
     public VaisseauSprite(double x, double y) throws FileNotFoundException {
         super(x, y);
         AnnotationPOC annotationPOC = this.getClass().getAnnotation(AnnotationPOC.class);
-        System.out.println("annotationPOC = " + annotationPOC);
-        speed = annotationPOC.speed();
+        System.out.println("AnnotationPOC.instance.getInstance() = " + AnnotationPOC.instance.getInstance());
         System.out.println("speed = " + speed);
     }
 
