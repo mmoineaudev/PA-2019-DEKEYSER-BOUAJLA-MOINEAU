@@ -12,5 +12,6 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 \.idea/
+*.iml
 
 PROJET_JAVA_PLUGINS_M1\.iml
