@@ -85,8 +85,7 @@ public class IntelligentSprite extends BasicSprite {
 
     @Override
     public String toString() {
-        System.out.println();
-        return "{ x = " + x + "y = " + y+"\n"+
+        return this.getClass().getSimpleName() + "{ x = " + x + "y = " + y+"\n"+
                 "Direction = " + direction.name()+"\n"+
                 "speed = " + speed+ "}";
     }

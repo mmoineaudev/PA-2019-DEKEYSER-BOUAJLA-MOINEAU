@@ -8,14 +8,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import m1_miage.abstraction.BasicSprite;
-import m1_miage.abstraction.game_objects.Plugins.AnnotationPOC;
+import m1_miage.abstraction.game_objects.Plugins.Weapon;
+import m1_miage.abstraction.game_objects.Plugins.WeaponType;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * Le futur objet de jeu, le vaisseau
@@ -23,15 +22,21 @@ import java.lang.annotation.RetentionPolicy;
 public class VaisseauSprite extends IntelligentSprite {
     private final int L = 20, l=50;
     private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
+    private Weapon weaponByPlugin;
 
     //@Retention(value = RetentionPolicy.RUNTIME) //ahbon
-    @AnnotationPOC(speed=10.)
-    public VaisseauSprite(double x, double y) throws FileNotFoundException {
+    public VaisseauSprite(double x, double y, int weaponID) throws FileNotFoundException {
         super(x, y);
-        AnnotationPOC annotationPOC = this.getClass().getAnnotation(AnnotationPOC.class);
-        System.out.println("annotationPOC = " + annotationPOC);
-        speed = annotationPOC.speed();
-        System.out.println("speed = " + speed);
+        weaponByPlugin = getWeaponByPlugin(weaponID);
+    }
+
+    /**
+     * Accède la classe weapon par l'annotaion {@link WeaponType} pour renvoyer le stripe qui convient
+     * @param weaponID
+     * @return une instance de Weapon, héritée de intelligentSprite
+     */
+    private Weapon getWeaponByPlugin(int weaponID) {
+        //TODO
     }
 
     @Override
