@@ -32,7 +32,6 @@ public class IntelligentSpriteTest extends IntelligentSprite {
         assertFalse(oldx != instance.getX()||oldy != instance.getY());//on bouge pas
         assertFalse(oldspeed != instance.getSpeed());//on accélère pas
 
-
     }
     @Test
     public void update2() {
