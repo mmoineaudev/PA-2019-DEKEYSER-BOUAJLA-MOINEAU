@@ -26,7 +26,7 @@ public class GameGUI extends Application {
 
 	private void initGame(Stage stage) {
 
-		stage.setTitle("Demo de jeu");
+		stage.setTitle("M1 MIAGE WAR");
 		Group root = new Group();
 		Scene theScene = new Scene(root);
 		stage.setScene(theScene);
@@ -42,11 +42,7 @@ public class GameGUI extends Application {
 		RoundSprite rs = new RoundSprite(50, 200, 100);
 		board.addSprite(rs);
 		*/
-		try {
-			board.addSprite(new VaisseauSprite(250, 250));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		initBoard(board);
 
 		//c'est notre boucle de jeu principale
 		new GameLoop(gc, board, canvas).start();
@@ -55,7 +51,15 @@ public class GameGUI extends Application {
 
 	}
 
-
+	private void initBoard(GameBoard board) {
+		System.out.println("initBoard");
+		try {
+			board.addSprite(new VaisseauSprite(150, 150, 1));
+			//board.addSprite(new VaisseauSprite(350, 350, 1));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 	public static void main(String[] args) {

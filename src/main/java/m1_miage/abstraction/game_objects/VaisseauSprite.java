@@ -35,30 +35,30 @@ public class VaisseauSprite extends IntelligentSprite {
         super(x, y);
         try {
             weaponByPlugin = getWeaponByPlugin(weaponID);
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }finally {
-            weaponByPlugin = new Weapon(x,y,direction).basicWeapon();
         }
     }
 
     /**
-     * Accède la classe weapon par l'annotaion {@link WeaponType} pour renvoyer le stripe qui convient
-     * @param weaponID
+     * Accède la classe weapon par l'annotation {@link WeaponType} pour renvoyer le stripe qui convient
+     * @param weaponID : récupéré de l'écran menu (unimplemented yet)
      * @return une instance de Weapon, héritée de intelligentSprite
      */
-    private Weapon getWeaponByPlugin(int weaponID) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException {
+    private Weapon getWeaponByPlugin(int weaponID) throws Exception {
         Class weapon = Class.forName("m1_miage.abstraction.game_objects.Plugins.Weapon");
+        System.out.println("getWeaponByPlugin : "+((weapon==null)?"weapon class is null": weapon.getName()));
         for(Method m : weapon.getMethods()) {
             WeaponType weaponType = (WeaponType) m.getAnnotation(WeaponType.class);
-            if(weaponType.type() == weaponID)
-                return (Weapon) m.invoke(x,y,direction);
+            System.out.print(((weapon==null)?"weapon class is null":weapon.getClass().getName())+": ");
+            System.out.println("weaponType.type() = " + weaponType.type());//returns null
+            if (weaponType.type() == weaponID) {
+                System.out.println("weapon method found "+m.getName());
+                return (Weapon) m.invoke(x, y, direction);
+            }
+
         }
-        return null;
+        throw new Exception("getWeaponByPlugin : weapon method not found");
     }
 
     @Override
@@ -136,9 +136,5 @@ public class VaisseauSprite extends IntelligentSprite {
         x=b.getWidth()/2;
         y=b.getHeight()/2;
     }
-
-
-
-
 
 }

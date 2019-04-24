@@ -3,6 +3,7 @@ package m1_miage.abstraction.game_objects.Plugins;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import m1_miage.abstraction.BasicSprite;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
@@ -17,6 +18,7 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
 public class Weapon extends IntelligentSprite {
     protected Image image = null;
     private static final int default_speed = 15;
+
     public Weapon(double x, double y, Direction direction) throws FileNotFoundException {
         super(x, y);
         this.direction = direction;
@@ -26,7 +28,7 @@ public class Weapon extends IntelligentSprite {
 
     @Override
     public void update(double time, GameBoard b) {
-        super.update(time, b);
+        super.update(time, b);//avance en ligne droite
     }
 
     @Override
@@ -36,17 +38,16 @@ public class Weapon extends IntelligentSprite {
 
     @Override
     public Shape getBoundingShape() {
-
+        return new Rectangle(1,1,1,1);
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        if(image!=null){
+        if(!isDead()){
             Paint save = gc.getFill();
             //gc.drawImage(image, x, y);
             drawRotatedImage(gc, image, getAngle(), x,y);
             gc.setFill(save);
-
         }
     }
 
@@ -80,13 +81,14 @@ public class Weapon extends IntelligentSprite {
         return super.toString();
     }
 
+    //méthodes qu'on cherche a appeller par introspection
     @WeaponType(type=1)
     public BasicWeapon basicWeapon() throws FileNotFoundException {
         return new BasicWeapon(x, y, direction);
     }
 
     @WeaponType(type=2)
-    public AdvancedWeapon advancedWeapon(){
+    public AdvancedWeapon advancedWeapon() throws FileNotFoundException {
         return new AdvancedWeapon(x,y,direction);
     }
 
