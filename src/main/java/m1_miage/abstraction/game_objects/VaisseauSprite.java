@@ -49,12 +49,17 @@ public class VaisseauSprite extends IntelligentSprite {
         Class weapon = Class.forName("m1_miage.abstraction.game_objects.Plugins.Weapon");
         System.out.println("getWeaponByPlugin : "+((weapon==null)?"weapon class is null": weapon.getName()));
         for(Method m : weapon.getMethods()) {
+            System.out.println("m = " + m.getName());
             WeaponType weaponType = (WeaponType) m.getAnnotation(WeaponType.class);
-            System.out.print(((weapon==null)?"weapon class is null":weapon.getClass().getName())+": ");
-            System.out.println("weaponType.type() = " + weaponType.type());//returns null
-            if (weaponType.type() == weaponID) {
-                System.out.println("weapon method found "+m.getName());
-                return (Weapon) m.invoke(x, y, direction);
+
+            if(weaponType!=null) {
+
+                System.out.println("weaponType.type() = " + weaponType.type());//returns null
+
+                if (weaponType.type() == weaponID) {
+                    System.out.println("weapon method found " + m.getName());
+                    return (Weapon) m.invoke(new Weapon(x, y, direction));//invoke needs a reference to a compatible objet for 1st param
+                }
             }
 
         }

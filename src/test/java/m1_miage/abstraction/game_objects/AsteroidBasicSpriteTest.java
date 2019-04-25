@@ -32,10 +32,13 @@ public class AsteroidBasicSpriteTest extends AsteroidSprite {
     public void handleCollision1() {
         GameBoard g = new GameBoard(100, 100);
         AsteroidSprite a = new AsteroidSprite(0,0);
-        AsteroidSprite b = new AsteroidSprite(31, 31);
         g.addSprite(a);
+
+        AsteroidSprite b = new AsteroidSprite(60, 60);//ne devrait pas toucher l'autre
         g.addSprite(b);
+
         g.spriteProvider.checkForCollision(a, g);
+
         assertTrue(!a.isDead());
     }
     @Test
