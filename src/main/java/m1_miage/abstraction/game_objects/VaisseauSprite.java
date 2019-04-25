@@ -100,7 +100,13 @@ public class VaisseauSprite extends IntelligentSprite {
             drawRotatedImage(gc, image, getAngle(), x,y);
             drawLifesRemaining(gc, x, y);
             gc.setFill(save);
+            drawWeapon(gc);
+        }
+    }
 
+    private void drawWeapon(GraphicsContext gc) {
+        if(weaponByPlugin!=null){
+            weaponByPlugin.render(gc);
         }
     }
 
