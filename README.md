@@ -18,6 +18,6 @@ Une partie du jeu se déroule de la façon suivante :
 
 Nos plugins implementés : 
 
-### Lancement projet
+## Lancement projet
 
 mvn install exec:java
