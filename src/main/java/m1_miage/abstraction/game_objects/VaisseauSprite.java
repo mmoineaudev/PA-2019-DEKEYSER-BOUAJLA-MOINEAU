@@ -19,6 +19,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import static m1_miage.presenter.PNGTools.drawRotatedImage;
 
@@ -28,13 +30,14 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
 public class VaisseauSprite extends IntelligentSprite {
     private final int L = 20, l=50;
     private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
-    private Weapon weaponByPlugin;
+    private List<Weapon> weaponsByPlugin;
+    private int weaponID;
 
-    //@Retention(value = RetentionPolicy.RUNTIME) //ahbon
     public VaisseauSprite(double x, double y, int weaponID) throws FileNotFoundException {
         super(x, y);
+        this.weaponID = weaponID; // depuis la page de menu
         try {
-            weaponByPlugin = getWeaponByPlugin(weaponID);
+            weaponsByPlugin= new ArrayList<Weapon>();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,6 +74,24 @@ public class VaisseauSprite extends IntelligentSprite {
         speed+=1;
         avoidBorders(b);
         super.update(time,b);
+        //update des plugins
+        updatePlugins(time,b);
+        if(b.facesAnEnemy(this)) {
+            try {
+                shoot();
+            } catch (Exception e) {
+                System.out.println("Broken weapon :'( ");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void shoot() throws Exception {
+        weaponsByPlugin.add(getWeaponByPlugin(weaponID));
+    }
+
+    private void updatePlugins(double time, GameBoard b) {
+        for(Weapon weaponByPlugin : weaponsByPlugin) weaponByPlugin.update(time,b);
     }
 
     /**
@@ -94,20 +115,22 @@ public class VaisseauSprite extends IntelligentSprite {
 
     @Override
     public void render(GraphicsContext gc) {
-        if(image!=null){
+        if(!isDead()){
             Paint save = gc.getFill();
             //gc.drawImage(image, x, y);
             drawRotatedImage(gc, image, getAngle(), x,y);
             drawLifesRemaining(gc, x, y);
             gc.setFill(save);
-            drawWeapon(gc);
+            //on affiche ci les plugins
+            drawWeapons(gc);
         }
+
     }
 
-    private void drawWeapon(GraphicsContext gc) {
-        if(weaponByPlugin!=null){
-            weaponByPlugin.render(gc);
-        }
+    private void drawWeapons(GraphicsContext gc) {
+        for(Weapon weaponByPlugin : weaponsByPlugin)
+            if(weaponByPlugin!=null)
+                weaponByPlugin.render(gc);
     }
 
     /**
@@ -140,6 +163,19 @@ public class VaisseauSprite extends IntelligentSprite {
         speed = 0;
         if(isDead()) image=null;
         else respawn(b);//try again
+        handleCollisionWithWeapon(b,p);
+    }
+
+    /**
+     * shoot them all
+     * @param b
+     * @param p
+     */
+    private void handleCollisionWithWeapon(GameBoard b, BasicSprite p) {
+        for(Weapon e : weaponsByPlugin){
+            e.handleCollision(b,p);
+        }
+
     }
 
     private void respawn(GameBoard b) {

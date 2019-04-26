@@ -6,7 +6,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import m1_miage.abstraction.BasicSprite;
+import m1_miage.abstraction.game_objects.AsteroidSprite;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
+import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
@@ -17,7 +19,7 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
 
 public class Weapon extends IntelligentSprite {
     protected Image image = null;
-    private static final int default_speed = 15;
+    private static final int default_speed = 50;
 
     public Weapon(double x, double y, Direction direction) throws FileNotFoundException {
         super(x, y);
@@ -53,7 +55,10 @@ public class Weapon extends IntelligentSprite {
 
     @Override
     public void handleCollision(GameBoard b, BasicSprite p) {
-        super.handleCollision(b, p);
+        if(p instanceof VaisseauSprite || p instanceof AsteroidSprite) {
+            super.handleCollision(b, p);
+            System.out.println("Touché : " + p.toString());
+        }
     }
 
     @Override

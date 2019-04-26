@@ -36,12 +36,30 @@ public class SpriteProvider {
     public void removeTheDead() {
         ArrayList<BasicSprite> newList = new ArrayList<>();
         list.stream().forEach(sprite -> {
-            if((sprite instanceof IntelligentSprite) && !((IntelligentSprite) sprite).isDead()){
+            if((sprite instanceof IntelligentSprite)
+                    && !((IntelligentSprite) sprite).isDead()
+            ){
                 newList.add(sprite);
             }
         });
         list = newList;
     }
+    /**
+     * Empeche l'animation des {@link IntelligentSprite} à l'exterieur de la map
+     *///TODO test
+    public void removeLostSprites(GameBoard b) {
+        ArrayList<BasicSprite> newList = new ArrayList<>();
+        list.stream().forEach(sprite -> {
+            if((sprite instanceof IntelligentSprite)
+                    && sprite.getX() > 0 && sprite.getX() < b.getWidth()
+                    && sprite.getY() > 0 && sprite.getY() < b.getHeight()
+            ){
+                newList.add(sprite);
+            }
+        });
+        list = newList;
+    }
+
 
     public void checkForCollision(BasicSprite s, GameBoard gameBoard) {
         Iterator<BasicSprite> it = gameBoard.spriteIterator();
