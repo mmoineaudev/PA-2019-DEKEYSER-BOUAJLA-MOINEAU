@@ -7,6 +7,7 @@ import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.Plugins.Weapon;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -49,6 +50,7 @@ public class GameBoard {
 	public void animate(double t, GraphicsContext graphicsContext) {
 		spriteProvider.removeTheDead();
 		spriteProvider.removeLostSprites(this);
+		spriteProvider.addShots();
 		Iterator<BasicSprite> it = spriteIterator();
 		while (it.hasNext()) {
 			BasicSprite s = it.next();
@@ -65,7 +67,7 @@ public class GameBoard {
 	 *///TODO TEST
 	public boolean facesAnEnemy(VaisseauSprite vaisseauSprite) {
 		Iterator<BasicSprite> it = spriteIterator();
-		int delta = 50;
+		int delta = 10;
 		while (it.hasNext()) {
 			BasicSprite s = it.next();
 			if(!s.equals(vaisseauSprite)){

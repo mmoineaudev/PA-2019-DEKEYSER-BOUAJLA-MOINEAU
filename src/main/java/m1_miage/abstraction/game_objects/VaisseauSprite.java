@@ -20,6 +20,7 @@ import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static m1_miage.presenter.PNGTools.drawRotatedImage;
@@ -50,9 +51,9 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     private Weapon getWeaponByPlugin(int weaponID) throws Exception {
         Class weapon = Class.forName("m1_miage.abstraction.game_objects.Plugins.Weapon");
-        System.out.println("getWeaponByPlugin : "+((weapon==null)?"weapon class is null": weapon.getName()));
+        //System.out.println("getWeaponByPlugin : "+((weapon==null)?"weapon class is null": weapon.getName()));
         for(Method m : weapon.getMethods()) {
-            System.out.println("m = " + m.getName());
+          //  System.out.println("m = " + m.getName());
             WeaponType weaponType = (WeaponType) m.getAnnotation(WeaponType.class);
 
             if(weaponType!=null) {
@@ -86,8 +87,15 @@ public class VaisseauSprite extends IntelligentSprite {
         }
     }
 
+    /**
+     * ne peut tirer qu'une fois par seconde
+     */
+    private long timestamp = 0;
     private void shoot() throws Exception {
-        weaponsByPlugin.add(getWeaponByPlugin(weaponID));
+        if(System.currentTimeMillis()-timestamp>1000)
+        {   timestamp=System.currentTimeMillis();
+            weaponsByPlugin.add(getWeaponByPlugin(weaponID));
+        }
     }
 
     private void updatePlugins(double time, GameBoard b) {
@@ -184,4 +192,7 @@ public class VaisseauSprite extends IntelligentSprite {
         y=b.getHeight()/2;
     }
 
+    public Collection<? extends BasicSprite> getWeaponsByPlugin() {
+        return this.weaponsByPlugin;
+    }
 }

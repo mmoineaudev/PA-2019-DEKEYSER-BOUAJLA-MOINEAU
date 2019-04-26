@@ -1,6 +1,7 @@
 package m1_miage.abstraction;
 
 import m1_miage.abstraction.game_objects.IntelligentSprite;
+import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.presenter.GameBoard;
 
 import java.util.ArrayList;
@@ -67,11 +68,24 @@ public class SpriteProvider {
             BasicSprite d = it.next();
             if (d != s) {
                 if (s.getBoundingShape().getBoundsInParent().intersects(d.getBoundingShape().getBoundsInParent())) {
-                    System.out.println(" it's a crash !!!");
                     s.handleCollision(gameBoard, d);
                 }
             }
         }
 
+    }
+
+    /**
+     * ajoute a la memoire du tableau de jeu les balles tirées
+     * (sinon ca les affiche mais ca ne peut pas appeller de méthodes dessus dans la boucle animate)
+     */
+    public void addShots() {
+        ArrayList<BasicSprite> newList = new ArrayList<>();
+        list.stream().forEach(sprite -> {
+            if((sprite instanceof VaisseauSprite)){
+                newList.addAll(((VaisseauSprite) sprite).getWeaponsByPlugin());
+            }
+        });
+        list.addAll(newList);
     }
 }
