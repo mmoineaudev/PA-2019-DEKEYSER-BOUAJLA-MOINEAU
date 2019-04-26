@@ -35,11 +35,14 @@ public class AsteroidSprite extends IntelligentSprite {
 
     @Override
     public void render(GraphicsContext gc) {
-        Paint save = gc.getFill();
-        gc.setFill(Color.DARKSLATEGRAY);
-        gc.strokeOval(x,y, diameter, diameter);
-        gc.fillOval(x, y, diameter, diameter);
-        gc.setFill(save);
+        if(!isDead()) {
+            Paint save = gc.getFill();
+            gc.setFill(Color.DARKSLATEGRAY);
+            gc.strokeOval(x, y, diameter, diameter);
+            gc.fillOval(x, y, diameter, diameter);
+            gc.setFill(save);
+            drawLifesRemaining(gc, x, y);
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package m1_miage.abstraction.game_objects.Plugins;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import m1_miage.abstraction.BasicSprite;
@@ -40,12 +41,12 @@ public class Weapon extends IntelligentSprite {
 
     @Override
     public Shape getBoundingShape() {
-        return new Rectangle(1,1,1,1);
+        return new Circle(x, y, 10);
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        if(!isDead()){
+        if(!isDead() && image!=null){
             Paint save = gc.getFill();
             //gc.drawImage(image, x, y);
             drawRotatedImage(gc, image, getAngle(), x,y);
@@ -55,7 +56,7 @@ public class Weapon extends IntelligentSprite {
 
     @Override
     public void handleCollision(GameBoard b, BasicSprite p) {
-        if(p instanceof VaisseauSprite || p instanceof AsteroidSprite) {
+        if(p instanceof VaisseauSprite || p instanceof AsteroidSprite) { //on va tirer que sur les asteroids pour l'instant
             super.handleCollision(b, p);
             System.out.println("Touché : " + p.toString());
         }

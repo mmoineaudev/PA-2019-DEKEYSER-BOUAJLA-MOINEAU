@@ -62,6 +62,7 @@ public class VaisseauSprite extends IntelligentSprite {
 
                 if (weaponType.type() == weaponID) {
                     System.out.println("weapon method found " + m.getName());
+
                     return (Weapon) m.invoke(new Weapon(x, y, direction));//invoke needs a reference to a compatible objet for 1st param
                 }
             }
@@ -72,7 +73,7 @@ public class VaisseauSprite extends IntelligentSprite {
 
     @Override
     public void update(double time, GameBoard b) {
-        speed+=1;
+        if(speed<100) speed+=1;//on peut accélérer mais pas trop quand même
         avoidBorders(b);
         super.update(time,b);
         //update des plugins
@@ -92,7 +93,7 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     private long timestamp = 0;
     private void shoot() throws Exception {
-        if(System.currentTimeMillis()-timestamp>1000)
+        if(System.currentTimeMillis()-timestamp>1000 && !isDead())
         {   timestamp=System.currentTimeMillis();
             weaponsByPlugin.add(getWeaponByPlugin(weaponID));
         }
@@ -136,23 +137,10 @@ public class VaisseauSprite extends IntelligentSprite {
     }
 
     private void drawWeapons(GraphicsContext gc) {
-        for(Weapon weaponByPlugin : weaponsByPlugin)
-            if(weaponByPlugin!=null)
-                weaponByPlugin.render(gc);
-    }
-
-    /**
-     * fait apparaitre les vies sur le gameboard
-     */
-    private void drawLifesRemaining(GraphicsContext gc, double x, double y) {
-        if (image != null) {
-            Paint save = gc.getFill();
-            gc.setFill(Color.RED);
-            for(int i = 0; i < lifes ; i ++){
-                gc.strokeOval(x+i*7, y-7, 5, 5);
-                gc.fillOval(x+i*7, y-7, 5, 5);
-            }gc.setFill(save);
-        }
+        if(!isDead())
+            for(Weapon weaponByPlugin : weaponsByPlugin)
+                if(weaponByPlugin!=null)
+                    weaponByPlugin.render(gc);
     }
 
 
@@ -167,11 +155,13 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     @Override
     public void handleCollision(GameBoard b, BasicSprite p) {
-        super.handleCollision(b,p);//pour décrémenter le nombre de vies
-        speed = 0;
         if(isDead()) image=null;
-        else respawn(b);//try again
-        handleCollisionWithWeapon(b,p);
+        else {
+            super.handleCollision(b, p);//pour décrémenter le nombre de vies
+            handleCollisionWithWeapon(b, p);
+            speed = 0;
+            respawn(b);//try again
+        }
     }
 
     /**

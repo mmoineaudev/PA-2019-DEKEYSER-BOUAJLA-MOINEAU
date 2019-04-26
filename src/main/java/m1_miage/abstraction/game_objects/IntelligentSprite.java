@@ -1,6 +1,8 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 import m1_miage.abstraction.BasicSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
@@ -52,6 +54,20 @@ public class IntelligentSprite extends BasicSprite {
     @Override
     public void render(GraphicsContext gc) {
         throw new UnsupportedOperationException("not implemented");
+    }
+
+    /**
+     * fait apparaitre les vies sur le gameboard
+     */
+    public void drawLifesRemaining(GraphicsContext gc, double x, double y) {
+        if (!isDead()) {
+            Paint save = gc.getFill();
+            gc.setFill(Color.RED);
+            for(int i = 0; i < lifes ; i ++){
+                gc.strokeOval(x+i*7, y-7, 5, 5);
+                gc.fillOval(x+i*7, y-7, 5, 5);
+            }gc.setFill(save);
+        }
     }
 
     /**
