@@ -12,7 +12,7 @@ import m1_miage.abstraction.game_objects.VaisseauSprite;
 import java.util.Iterator;
 
 /**
- * L'objet qui contient le jeu
+ * L'objet qui contient le jeu, la carte
  */
 public class GameBoard {
 
@@ -62,6 +62,10 @@ public class GameBoard {
 		}
 	}
 
+	/**
+	 * Affiche un compteur d'éléments dans le gameboard a chaque frame
+	 * @param graphicsContext
+	 */
 	private void displayNumberOfSprites(GraphicsContext graphicsContext) {
 		Paint save = graphicsContext.getFill();
 		graphicsContext.setFill(Color.RED);
