@@ -54,7 +54,7 @@ public class GameGUI extends Application {
 	private void initBoard(GameBoard board) {
 		System.out.println("initBoard");
 		try {
-			board.addSprite(new VaisseauSprite(150, 150, 1));
+			board.addSprite(new VaisseauSprite(150, 150, 2));
 			//board.addSprite(new VaisseauSprite(350, 350, 1));
 		} catch (Exception e) {
 			e.printStackTrace();

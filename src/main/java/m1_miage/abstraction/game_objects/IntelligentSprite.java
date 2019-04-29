@@ -7,12 +7,27 @@ import javafx.scene.shape.Shape;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
+import java.util.Random;
+
 import static m1_miage.abstraction.game_objects.navigation.Direction.*;
 
 /**
  * Un objet de jeu affichable
  */
 public class IntelligentSprite extends BasicSprite {
+    protected String id = this.getClass().getSimpleName()+"#"+randomName();
+
+    private String randomName() {
+        Random random = new Random();
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+
+        char[] text = new char[4];
+        for (int i = 0; i < 4; i++) {
+            text[i] = characters.charAt(random.nextInt(characters.length()));
+        }
+
+        return new String(text);
+    }
 
     protected double speed;
     protected Direction direction = Direction.values()[(int) (Math.random()* values().length)];
@@ -110,9 +125,7 @@ public class IntelligentSprite extends BasicSprite {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "{ x = " + x + "y = " + y+"\n"+
-                "Direction = " + direction.name()+"\n"+
-                "speed = " + speed+ "}";
+        return id + " { x = " + (int)x + " y = " + (int)y+" ; "+ "Direction = " + direction.name()+" ; "+ "speed = " + (int)speed+ "}";
     }
 
 
