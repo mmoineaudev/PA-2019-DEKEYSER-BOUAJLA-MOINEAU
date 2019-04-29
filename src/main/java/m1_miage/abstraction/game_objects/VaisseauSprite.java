@@ -140,7 +140,7 @@ public class VaisseauSprite extends IntelligentSprite {
      * il ne peut tirer qu'une fois par seconde
      */
     private long timestamp = 0;
-    private void shoot() throws Exception {
+    public void shoot() throws Exception {
         if(System.currentTimeMillis()-timestamp>1000 && !isDead())
         {   timestamp=System.currentTimeMillis();
             weaponsByPlugin.add(getWeaponByPlugin(weaponID));//on utilise une liste pour stocker les armes

@@ -11,7 +11,6 @@ import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import static m1_miage.presenter.PNGTools.drawRotatedImage;
@@ -43,6 +42,11 @@ public class Weapon extends IntelligentSprite {
         else return null;
     }
 
+    /**
+     * S'il n'a pas été détruit on affiche le projectile,
+     * sinon non et il sera retiré de la liste par le {@link m1_miage.abstraction.SpriteProvider}
+     * @param gc
+     */
     @Override
     public void render(GraphicsContext gc) {
         if(!isDead()){
@@ -57,9 +61,9 @@ public class Weapon extends IntelligentSprite {
     public void handleCollision(GameBoard b, IntelligentSprite p) {
         if(isDead()) image=null;
         else if(p instanceof VaisseauSprite || p instanceof AsteroidSprite) { //on va tirer que sur les asteroids pour l'instant
+            System.out.println("Touché : " + p+ " lifes : remaining : "+p.getLifes());
             super.handleCollision(b, p);
             speed=0;
-            System.out.println("Touché : " + p.toString());
         }
     }
 
