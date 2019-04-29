@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
  */
 public class GameGUI extends Application {
 	private GameBoard board;
+	private final int W=1600, H=1200;
 
 	@Override
 	public void start(Stage stage) {
@@ -30,12 +31,12 @@ public class GameGUI extends Application {
 		Group root = new Group();
 		Scene theScene = new Scene(root);
 		stage.setScene(theScene);
-		Canvas canvas = new Canvas(512, 512);
+		Canvas canvas = new Canvas(W, H);
 		root.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		stage.sizeToScene();
 
-		board = new GameBoard(512, 512);
+		board = new GameBoard(W, H);
 
 		/*RectangleSprite r = new RectangleSprite(50, 10);
 		board.addSprite(r);
