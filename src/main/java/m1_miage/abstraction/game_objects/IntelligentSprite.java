@@ -126,7 +126,7 @@ public class IntelligentSprite extends BasicSprite {
 
     @Override
     public String toString() {
-        return id + " { x = " + (int)x + " y = " + (int)y+" ; "+ "Direction = " + direction.name()+" ; "+ "speed = " + (int)speed+ "}";
+        return id + " pv: "+ lifes +" { x = " + (int)x + " y = " + (int)y+" ; "+ "Direction = " + direction.name()+" ; "+ "speed = " + (int)speed+ "}";
     }
 
 

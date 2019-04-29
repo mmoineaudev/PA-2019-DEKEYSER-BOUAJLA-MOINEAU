@@ -62,6 +62,7 @@ public class Weapon extends IntelligentSprite {
         if(isDead()) image=null;
         else if(p instanceof VaisseauSprite || p instanceof AsteroidSprite) { //on va tirer que sur les asteroids pour l'instant
             System.out.println("Touché : " + p+ " lifes : remaining : "+p.getLifes());
+            p.handleCollision(b,this);
             super.handleCollision(b, p);
             speed=0;
         }

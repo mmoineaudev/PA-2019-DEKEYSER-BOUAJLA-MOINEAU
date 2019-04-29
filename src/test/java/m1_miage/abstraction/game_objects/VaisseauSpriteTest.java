@@ -1,6 +1,7 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import m1_miage.abstraction.game_objects.Plugins.BasicWeapon;
 import m1_miage.abstraction.game_objects.Plugins.Weapon;
 import m1_miage.abstraction.game_objects.navigation.Direction;
@@ -46,7 +47,9 @@ public class VaisseauSpriteTest {
             Weapon weapon = new BasicWeapon(50,50, NORTH);
             gameBoard.addSprite(weapon);
             gameBoard.addSprite(instance);
-            gameBoard.animate(0.1, new Canvas(100,100).getGraphicsContext2D());
+            GraphicsContext gc =new Canvas(100,100).getGraphicsContext2D();
+            gameBoard.animate(0.1, gc);
+            gameBoard.animate(0.1, gc);
             System.out.println("handleCollision instance.lifes = " + instance.getLifes());
             assertTrue(instance.getLifes()==4);
             assertTrue(weapon.isDead());
@@ -80,12 +83,23 @@ public class VaisseauSpriteTest {
     public void updateShoot() {
         System.out.println("* updateShoot()");
 
-        gameBoard.addSprite(new AsteroidSprite(50, 0));
-        gameBoard.addSprite(instance);
-        gameBoard.animate(2000, new Canvas(100,100).getGraphicsContext2D());
+
         instance.setDirection(NORTH);
+        gameBoard.addSprite(instance);
+        gameBoard.animate(0.001, new Canvas(100,100).getGraphicsContext2D());
+        gameBoard.addSprite(new AsteroidSprite(50, 0));
+        gameBoard.addSprite(new AsteroidSprite(20, 40));
+        gameBoard.addSprite(new AsteroidSprite(70, 70));
 
         System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.spriteProvider.getLength());
+
+        gameBoard.spriteProvider.iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
+        assertTrue(gameBoard.spriteProvider.getLength()==4);
+        
+        gameBoard.animate(0.001, new Canvas(100,100).getGraphicsContext2D());
+
+        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.spriteProvider.getLength());
+        gameBoard.spriteProvider.iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
         assertTrue(gameBoard.spriteProvider.getLength()==3);
     }
 

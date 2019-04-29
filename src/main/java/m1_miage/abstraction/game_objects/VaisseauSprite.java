@@ -213,6 +213,7 @@ public class VaisseauSprite extends IntelligentSprite {
         if(isDead()) image=null;
         else {
             super.handleCollision(b, p);//pour décrémenter le nombre de vies
+            System.out.println("lifes remaining : "+ this.lifes);
             handleCollisionWithWeapon(b, p);
             speed = 0;
             respawn(b);//try again

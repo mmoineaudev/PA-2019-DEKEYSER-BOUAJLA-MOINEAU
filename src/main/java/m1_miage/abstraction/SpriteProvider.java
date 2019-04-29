@@ -39,9 +39,7 @@ public class SpriteProvider {
     public void removeTheDead() {
         ArrayList<IntelligentSprite> newList = new ArrayList<>();
         list.stream().forEach(sprite -> {
-            if((sprite instanceof IntelligentSprite)
-                    && !((IntelligentSprite) sprite).isDead()
-            ){
+            if(!sprite.isDead()){
                 newList.add(sprite);
             }
         });
@@ -70,7 +68,7 @@ public class SpriteProvider {
         while (it.hasNext()) {
             IntelligentSprite d = it.next();
             if (d != s) {
-                if(!d.isDead() && !s.isDead() )
+                if(!d.isDead() && !s.isDead())
                     if (s.getBoundingShape().getBoundsInParent().intersects(d.getBoundingShape().getBoundsInParent())) {
                         s.handleCollision(gameBoard, d);
                     }
