@@ -95,7 +95,7 @@ public class VaisseauSpriteTest {
 
         gameBoard.spriteProvider.iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
         assertTrue(gameBoard.spriteProvider.getLength()==4);
-        
+
         gameBoard.animate(0.001, new Canvas(100,100).getGraphicsContext2D());
 
         System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.spriteProvider.getLength());

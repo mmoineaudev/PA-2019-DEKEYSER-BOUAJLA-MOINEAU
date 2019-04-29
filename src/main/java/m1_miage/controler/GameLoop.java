@@ -30,7 +30,7 @@ public class GameLoop extends AnimationTimer {
 
         double t = (currentNanoTime - lastUpdateNanoTime) / 1000000000.0;
 
-        graphicsContext.setFill(Color.DARKVIOLET);
+        graphicsContext.setFill(Color.color(Math.random(),Math.random(),Math.random()));
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         graphicsContext.setFill(Color.BLACK);
 

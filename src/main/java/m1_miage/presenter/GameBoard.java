@@ -53,6 +53,7 @@ public class GameBoard {
 		spriteProvider.removeTheDead();
 		spriteProvider.removeLostSprites(this);
 		displayNumberOfSprites(graphicsContext);
+		displayEPILEPSY(graphicsContext);
 		Iterator<IntelligentSprite> it = spriteIterator();
 		while (it.hasNext()) {
 			IntelligentSprite s = it.next();
@@ -71,6 +72,26 @@ public class GameBoard {
 		graphicsContext.setFill(Color.RED);
 		graphicsContext.strokeText("NumberOFSprites: "+spriteProvider.getLength(),10, 30);
 		graphicsContext.setFill(save);
+		graphicsContext.save();
+	}
+	private void displayEPILEPSY(GraphicsContext graphicsContext) {
+		Paint save = graphicsContext.getFill();
+		graphicsContext.setFill(Color.color(Math.random(),Math.random(),Math.random()));
+		Font saveFont = graphicsContext.getFont();
+		Font BIG = new Font(saveFont.getName(), 30.);
+		graphicsContext.setFont(BIG);
+		for(int i=0; i<getWidth(); i+=30) {
+			double shake = Math.random()*30;
+			graphicsContext.strokeText("EPILEPSY",i+200+shake, i+shake);
+			graphicsContext.strokeText("EPILEPSY",i+400+shake, i+shake);
+			graphicsContext.strokeText("EPILEPSY",i-200+shake, i+shake);
+			graphicsContext.strokeText("EPILEPSY",i-400+shake, i+shake);
+
+			graphicsContext.strokeText("EPILEPSY",i+shake, i+shake);
+
+		}
+		graphicsContext.setFill(save);
+		graphicsContext.setFont(saveFont);
 		graphicsContext.save();
 	}
 
