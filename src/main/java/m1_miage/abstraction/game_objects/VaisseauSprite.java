@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import m1_miage.abstraction.game_objects.Plugins.AdvancedWeapon;
+import m1_miage.abstraction.game_objects.Plugins.BasicWeapon;
 import m1_miage.abstraction.game_objects.Plugins.Weapon;
 import m1_miage.abstraction.game_objects.Plugins.WeaponType;
 import m1_miage.abstraction.game_objects.navigation.Direction;
@@ -21,7 +23,15 @@ import static m1_miage.abstraction.game_objects.navigation.Direction.*;
 import static m1_miage.presenter.PNGTools.drawRotatedImage;
 
 /**
- * Le futur objet de jeu, le vaisseau
+ * VaisseauSprite représente un vaisseau
+ *
+ * On peut modifier son comportement par un systeme d'import de code dynamiquement, par composition
+ *
+ * Plugins actuels :
+ *
+ * * {@link Weapon} : {@link BasicWeapon}, {@link AdvancedWeapon}
+ *
+ * Le vaisseau possède 5 vies et tire à vue
  */
 public class VaisseauSprite extends IntelligentSprite {
     private final int L = 20, l=50;
@@ -30,13 +40,20 @@ public class VaisseauSprite extends IntelligentSprite {
     private List<Weapon> weaponsByPlugin;
     private int weaponID;
 
+    /**
+     * On passe les choix de plugins au constructeur
+     * @param x
+     * @param y
+     * @param weaponID : choix du plugin {@link Weapon}
+     * @throws FileNotFoundException
+     */
     public VaisseauSprite(double x, double y, int weaponID) throws FileNotFoundException {
         super(x, y);
         this.weaponID = weaponID; // depuis la page de menu
         try {
-            weaponsByPlugin= new ArrayList<Weapon>();
+            weaponsByPlugin= new ArrayList<>();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();//TODO supprimer quand probleme d'execution reglé (debugger)
         }
     }
 
@@ -51,26 +68,26 @@ public class VaisseauSprite extends IntelligentSprite {
         for(Method m : weapon.getMethods()) {
           //  System.out.println("m = " + m.getName());
             WeaponType weaponType = (WeaponType) m.getAnnotation(WeaponType.class);
-
             if(weaponType!=null) {
-
-                System.out.println("weaponType.type() = " + weaponType.type());//returns null
-
+                //System.out.println("weaponType.type() = " + weaponType.type());//returns null
                 if (weaponType.type() == weaponID) {
                     System.out.println("weapon method found " + m.getName());
-
                     return (Weapon) m.invoke(new Weapon(
-                            getXForWeapon(direction),
-                            getYForWeapon(direction),
+                            getXForWeapon(direction),//permet de ne pas tirer dans le vaisseau
+                            getYForWeapon(direction),//permet de ne pas tirer dans le vaisseau
                             direction));//invoke needs a reference to a compatible objet for 1st param
                 }
             }
-
         }
+        //si on arrive jusqu'ici, on a rien trouvé
         throw new Exception("getWeaponByPlugin : weapon method not found");
     }
 
-
+    /**
+     * permet de ne pas tirer dans le vaisseau
+     * @param direction
+     * @return une coordonnée X qui n'est pas percue dans le handleCollision
+     */
     private double getXForWeapon(Direction direction) {
         if(direction==EAST){
             return x+l;
@@ -81,6 +98,11 @@ public class VaisseauSprite extends IntelligentSprite {
         else return x;
     }
 
+    /**
+     * permet de ne pas tirer dans le vaisseau
+     * @param direction
+     * @return une coordonnée Y qui n'est pas percue dans le handleCollision
+     */
     private double getYForWeapon(Direction direction) {
         if(direction==NORTH){
             return y-l;
@@ -91,6 +113,11 @@ public class VaisseauSprite extends IntelligentSprite {
         else return y;
     }
 
+    /**
+     * Methode appelée à chaque frame, anime le vaisseau
+     * @param time : permet un mouvement proportionnel au temps
+     * @param b : donne l'accès aux autres objets de jeu
+     */
     @Override
     public void update(double time, GameBoard b) {
         if(speed<120) speed+=1;//on peut accélérer mais pas trop quand même
@@ -109,22 +136,30 @@ public class VaisseauSprite extends IntelligentSprite {
     }
 
     /**
-     * ne peut tirer qu'une fois par seconde
+     * Empeche le vaisseau de tirer en continu:
+     * il ne peut tirer qu'une fois par seconde
      */
     private long timestamp = 0;
     private void shoot() throws Exception {
         if(System.currentTimeMillis()-timestamp>1000 && !isDead())
         {   timestamp=System.currentTimeMillis();
-            weaponsByPlugin.add(getWeaponByPlugin(weaponID));
+            weaponsByPlugin.add(getWeaponByPlugin(weaponID));//on utilise une liste pour stocker les armes
+            //on pourra éventuellement en avoir plusieurs
         }
     }
+
+    /**
+     * Permet l'affichage et le traitement des armes
+     * @param time : permet un mouvement proportionnel au temps
+     * @param b : donne l'accès aux autres objets de jeu
+     */
     private void updatePlugins(double time, GameBoard b) {
         for(Weapon weaponByPlugin : weaponsByPlugin) weaponByPlugin.update(time,b);
     }
 
     /**
      * fait faire un demi tour au vaisseau s'il approche une bordure
-     * @param b
+     * @param b : donne l'accès aux dimension du tableau de jeu
      */
     private void avoidBorders(GameBoard b) {
         if(b.getWidth()-x<l) setDirection(Direction.WEST);
