@@ -1,13 +1,14 @@
 package m1_miage.presenter;
 
 import javafx.scene.canvas.GraphicsContext;
-import m1_miage.abstraction.BasicSprite;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import m1_miage.abstraction.SpriteProvider;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
-import m1_miage.abstraction.game_objects.Plugins.Weapon;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -30,14 +31,14 @@ public class GameBoard {
 	 * Ajoute un objet a l'affichage
 	 * @param p
 	 */
-	public void addSprite(BasicSprite p) {
+	public void addSprite(IntelligentSprite p) {
 		spriteProvider.add(p);
 	}
 
 	/**
 	 * @return un iterator sur tous les objets affichés
 	 */
-	public Iterator<BasicSprite> spriteIterator() {
+	public Iterator<IntelligentSprite> spriteIterator() {
 		return spriteProvider.iterator();
 	}
 
@@ -48,16 +49,25 @@ public class GameBoard {
 	 * @param graphicsContext
 	 */
 	public void animate(double t, GraphicsContext graphicsContext) {
+		spriteProvider.addShots();
 		spriteProvider.removeTheDead();
 		spriteProvider.removeLostSprites(this);
-		spriteProvider.addShots();
-		Iterator<BasicSprite> it = spriteIterator();
+		displayNumberOfSprites(graphicsContext);
+		Iterator<IntelligentSprite> it = spriteIterator();
 		while (it.hasNext()) {
-			BasicSprite s = it.next();
+			IntelligentSprite s = it.next();
 			s.update(t, this);
 			spriteProvider.checkForCollision(s, this);
 			s.render(graphicsContext);
 		}
+	}
+
+	private void displayNumberOfSprites(GraphicsContext graphicsContext) {
+		Paint save = graphicsContext.getFill();
+		graphicsContext.setFill(Color.RED);
+		graphicsContext.strokeText("NumberOFSprites: "+spriteProvider.getLength(),10, 30);
+		graphicsContext.setFill(save);
+		graphicsContext.save();
 	}
 
 	/**
@@ -66,10 +76,10 @@ public class GameBoard {
 	 * @return true si un enemy est en face
 	 *///TODO TEST
 	public boolean facesAnEnemy(VaisseauSprite vaisseauSprite) {
-		Iterator<BasicSprite> it = spriteIterator();
-		int delta = 10;
+		Iterator<IntelligentSprite> it = spriteIterator();
+		int delta = 15;
 		while (it.hasNext()) {
-			BasicSprite s = it.next();
+			IntelligentSprite s = it.next();
 			if(!s.equals(vaisseauSprite)){
 				switch (vaisseauSprite.getDirection()){
 					case NORTH:

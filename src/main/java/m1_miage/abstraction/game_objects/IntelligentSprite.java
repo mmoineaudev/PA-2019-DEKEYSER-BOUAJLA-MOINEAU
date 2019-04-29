@@ -4,14 +4,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
-import m1_miage.abstraction.BasicSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
 
 import static m1_miage.abstraction.game_objects.navigation.Direction.*;
 
 /**
- * une sourcouche de sprite, mais qui se déplace seule
+ * Un objet de jeu affichable
  */
 public class IntelligentSprite extends BasicSprite {
 
@@ -76,8 +75,9 @@ public class IntelligentSprite extends BasicSprite {
      * @param p
      */
     @Override
-    public void handleCollision(GameBoard b, BasicSprite p) {
+    public void handleCollision(GameBoard b, IntelligentSprite p) {
         lifes--;
+        if(isDead()) System.out.println(this + " is dead !");
     }
 
     /**
@@ -113,5 +113,58 @@ public class IntelligentSprite extends BasicSprite {
         return this.getClass().getSimpleName() + "{ x = " + x + "y = " + y+"\n"+
                 "Direction = " + direction.name()+"\n"+
                 "speed = " + speed+ "}";
+    }
+
+
+
+
+
+}
+
+
+/**
+ * cette classe doit etre surchargée pour crée un objet de jeu, qu'on pourra animer
+ */
+abstract class BasicSprite {
+    protected double x;
+    protected double y;
+
+    public BasicSprite(double x, double y) {
+        super();
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Cette méthode permet d'animer un objet de jeu
+     * @param time
+     * @param b
+     */
+    public abstract void update(double time, GameBoard b);
+
+    public abstract Shape getBoundingShape() ;
+
+    public abstract void render(GraphicsContext gc);
+
+    public abstract void handleCollision(GameBoard b, IntelligentSprite p);
+
+    /*
+     *  getters/setters
+     */
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }

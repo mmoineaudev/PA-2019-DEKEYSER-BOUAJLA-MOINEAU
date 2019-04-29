@@ -1,13 +1,13 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.Canvas;
-import m1_miage.abstraction.BasicSprite;
 import m1_miage.presenter.GameBoard;
 import org.junit.Test;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class IntelligentBasicSpriteTest extends IntelligentSprite {
 
@@ -82,9 +82,9 @@ public class IntelligentBasicSpriteTest extends IntelligentSprite {
         g.addSprite(instance);
         g.addSprite(new IntelligentSprite(20, 20));
 
-        Iterator<BasicSprite> it = g.spriteIterator();
+        Iterator<IntelligentSprite> it = g.spriteIterator();
         while (it.hasNext()){
-            BasicSprite s = it.next();
+            IntelligentSprite s = it.next();
             try{
                 g.spriteProvider.checkForCollision(s, g);
                 assertTrue(instance.lifes == 5);//pas de collision
@@ -103,9 +103,9 @@ public class IntelligentBasicSpriteTest extends IntelligentSprite {
         g.addSprite(instance);
         g.addSprite(new IntelligentSprite(0, 0));
 
-        Iterator<BasicSprite> it = g.spriteIterator();
+        Iterator<IntelligentSprite> it = g.spriteIterator();
         while (it.hasNext()){
-            BasicSprite s = it.next();
+            IntelligentSprite s = it.next();
             try{
                 g.spriteProvider.checkForCollision(s, g);
                 assertFalse(instance.lifes == 5);//pas de collision

@@ -2,12 +2,9 @@ package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.scene.transform.Rotate;
-import m1_miage.abstraction.BasicSprite;
 import m1_miage.abstraction.game_objects.Plugins.Weapon;
 import m1_miage.abstraction.game_objects.Plugins.WeaponType;
 import m1_miage.abstraction.game_objects.navigation.Direction;
@@ -15,14 +12,12 @@ import m1_miage.presenter.GameBoard;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedType;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static m1_miage.abstraction.game_objects.navigation.Direction.*;
 import static m1_miage.presenter.PNGTools.drawRotatedImage;
 
 /**
@@ -30,6 +25,7 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
  */
 public class VaisseauSprite extends IntelligentSprite {
     private final int L = 20, l=50;
+
     private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
     private List<Weapon> weaponsByPlugin;
     private int weaponID;
@@ -63,7 +59,10 @@ public class VaisseauSprite extends IntelligentSprite {
                 if (weaponType.type() == weaponID) {
                     System.out.println("weapon method found " + m.getName());
 
-                    return (Weapon) m.invoke(new Weapon(x, y, direction));//invoke needs a reference to a compatible objet for 1st param
+                    return (Weapon) m.invoke(new Weapon(
+                            getXForWeapon(direction),
+                            getYForWeapon(direction),
+                            direction));//invoke needs a reference to a compatible objet for 1st param
                 }
             }
 
@@ -71,9 +70,30 @@ public class VaisseauSprite extends IntelligentSprite {
         throw new Exception("getWeaponByPlugin : weapon method not found");
     }
 
+
+    private double getXForWeapon(Direction direction) {
+        if(direction==EAST){
+            return x+l;
+        }
+        else if(direction==WEST){
+            return x-l;
+        }
+        else return x;
+    }
+
+    private double getYForWeapon(Direction direction) {
+        if(direction==NORTH){
+            return y-l;
+        }
+        else if(direction==SOUTH){
+            return y+l;
+        }
+        else return y;
+    }
+
     @Override
     public void update(double time, GameBoard b) {
-        if(speed<100) speed+=1;//on peut accélérer mais pas trop quand même
+        if(speed<120) speed+=1;//on peut accélérer mais pas trop quand même
         avoidBorders(b);
         super.update(time,b);
         //update des plugins
@@ -98,7 +118,6 @@ public class VaisseauSprite extends IntelligentSprite {
             weaponsByPlugin.add(getWeaponByPlugin(weaponID));
         }
     }
-
     private void updatePlugins(double time, GameBoard b) {
         for(Weapon weaponByPlugin : weaponsByPlugin) weaponByPlugin.update(time,b);
     }
@@ -109,16 +128,17 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     private void avoidBorders(GameBoard b) {
         if(b.getWidth()-x<l) setDirection(Direction.WEST);
-        if(b.getHeight()-l<y) setDirection(Direction.NORTH);
-        if(x<l) setDirection(Direction.EAST);
+        if(b.getHeight()-l<y) setDirection(NORTH);
+        if(x<l) setDirection(EAST);
         if(y<l) setDirection(Direction.SOUTH);
-        //et 5% du temps il va ou il veut
-        if(Math.random()>0.95) setDirection(Direction.random());
+        //et 1% du temps il va ou il veut
+        if(Math.random()>0.99) setDirection(Direction.random());
     }
 
 
     @Override
     public Shape getBoundingShape() {
+        if(isDead())return null;
         return new Rectangle(x,y,l,L);
     }
 
@@ -154,7 +174,7 @@ public class VaisseauSprite extends IntelligentSprite {
      * @param p
      */
     @Override
-    public void handleCollision(GameBoard b, BasicSprite p) {
+    public void handleCollision(GameBoard b, IntelligentSprite p) {
         if(isDead()) image=null;
         else {
             super.handleCollision(b, p);//pour décrémenter le nombre de vies
@@ -169,7 +189,7 @@ public class VaisseauSprite extends IntelligentSprite {
      * @param b
      * @param p
      */
-    private void handleCollisionWithWeapon(GameBoard b, BasicSprite p) {
+    private void handleCollisionWithWeapon(GameBoard b, IntelligentSprite p) {
         for(Weapon e : weaponsByPlugin){
             e.handleCollision(b,p);
         }
@@ -182,7 +202,7 @@ public class VaisseauSprite extends IntelligentSprite {
         y=b.getHeight()/2;
     }
 
-    public Collection<? extends BasicSprite> getWeaponsByPlugin() {
+    public Collection<? extends IntelligentSprite> getWeaponsByPlugin() {
         return this.weaponsByPlugin;
     }
 }
