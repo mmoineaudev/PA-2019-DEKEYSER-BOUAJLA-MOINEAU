@@ -174,7 +174,7 @@ public class VaisseauSprite extends IntelligentSprite {
     @Override
     public Shape getBoundingShape() {
         if(isDead())return null;
-        return new Rectangle(x,y,l,L);
+        return new Rectangle(x,y,l,l);//la hitbox est un peu plus petite que le vaisseau et carrée
     }
 
     @Override
@@ -188,7 +188,6 @@ public class VaisseauSprite extends IntelligentSprite {
             //on affiche ci les plugins
             drawWeapons(gc);
         }
-
     }
 
     private void drawWeapons(GraphicsContext gc) {
@@ -210,7 +209,7 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
-        if(isDead()) image=null;
+        if(isDead()) return;
         else {
             super.handleCollision(b, p);//pour décrémenter le nombre de vies
             System.out.println("lifes remaining : "+ this.lifes);
@@ -232,12 +231,22 @@ public class VaisseauSprite extends IntelligentSprite {
 
     }
 
+    /**
+     * Change les coordonnées du vaisseau
+     * @param b
+     */
     private void respawn(GameBoard b) {
-        System.out.println("Respawn");
-        x=b.getWidth()/2;
-        y=b.getHeight()/2;
+        if(!isDead()) {
+            System.out.println("Respawn");
+            x = b.getWidth() * Math.random();
+            y = b.getHeight() * Math.random();
+        }
     }
 
+    /**
+     * Contient la liste des weapons
+     * @return
+     */
     public Collection<? extends IntelligentSprite> getWeaponsByPlugin() {
         return this.weaponsByPlugin;
     }

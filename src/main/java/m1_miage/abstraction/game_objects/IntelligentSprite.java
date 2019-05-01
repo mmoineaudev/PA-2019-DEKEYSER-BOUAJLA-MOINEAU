@@ -92,7 +92,7 @@ public class IntelligentSprite extends BasicSprite {
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
         lifes--;
-        System.out.println(this + "perds une vie");
+        System.out.println(id + " touché par "+ p);
         if(isDead()) System.out.println(this + " is dead !");
     }
 
@@ -126,7 +126,7 @@ public class IntelligentSprite extends BasicSprite {
 
     @Override
     public String toString() {
-        return id + " pv: "+ lifes +" { x = " + (int)x + " y = " + (int)y+" ; "+ "Direction = " + direction.name()+" ; "+ "speed = " + (int)speed+ "}";
+        return id + " pv: "+ lifes +" { \n\tx = " + (int)x + " \n\ty = " + (int)y+" ; "+ "\n\tDirection = " + direction.name()+" ; "+ "\n\tspeed = " + (int)speed+ "}";
     }
 
 

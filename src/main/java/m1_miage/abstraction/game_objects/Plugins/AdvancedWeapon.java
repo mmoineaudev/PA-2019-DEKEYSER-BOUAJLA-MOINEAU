@@ -14,18 +14,13 @@ public class AdvancedWeapon extends Weapon {
     @Override
     public void update(double time, GameBoard b) {
         super.update(time, b);
-        if(speed>0 && speed<100)speed+=1;//celui là il fait des choses bizarres
-        else speed=10;
+        speed = Math.random()*150;
     }
 
     @Override
     public Shape getBoundingShape() {
+        if(isDead()) return null;
         return new Circle(20);
-    }
-
-    @Override
-    public void handleCollision(GameBoard b, IntelligentSprite p) {
-        super.handleCollision(b, p);
     }
 
     public AdvancedWeapon(double x, double y, Direction direction) throws FileNotFoundException {

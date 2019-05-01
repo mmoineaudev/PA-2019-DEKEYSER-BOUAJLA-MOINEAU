@@ -38,8 +38,8 @@ public class Weapon extends IntelligentSprite {
 
     @Override
     public Shape getBoundingShape() {
-        if(!isDead()) return new Circle(x, y, 10);
-        else return null;
+        if(isDead()) return null;
+        else return new Circle(x, y, 10);
     }
 
     /**
