@@ -209,7 +209,9 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
-        if(isDead()) return;
+        if(isDead()) {
+            getScore().end();
+        }
         else {
             super.handleCollision(b, p);//pour décrémenter le nombre de vies
             System.out.println("lifes remaining : "+ this.lifes);

@@ -7,8 +7,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import m1_miage.abstraction.SpriteProvider;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
+import m1_miage.abstraction.game_objects.Score;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -19,9 +22,11 @@ public class GameBoard {
 	private int width;
 	private int height;
 	public SpriteProvider spriteProvider;
+	public HashMap<String, Score> scoresPerVaisseau;
 
 	public GameBoard(int width, int height) {
 		super();
+		scoresPerVaisseau=new HashMap<>();
 		this.width = width;
 		this.height = height;
 		spriteProvider = new SpriteProvider();
@@ -50,16 +55,53 @@ public class GameBoard {
 	 */
 	public void animate(double t, GraphicsContext graphicsContext) {
 		spriteProvider.addShots();
-		spriteProvider.removeTheDead();
+		updateScores(spriteProvider.removeTheDead());
 		spriteProvider.removeLostSprites(this);
-		displayNumberOfSprites(graphicsContext);
-		Iterator<IntelligentSprite> it = spriteIterator();
-		while (it.hasNext()) {
-			IntelligentSprite s = it.next();
-			s.update(t, this);
-			spriteProvider.checkForCollision(s, this);
-			s.render(graphicsContext);
+		if(!partyIsOver()) {
+			displayNumberOfSprites(graphicsContext);
+			Iterator<IntelligentSprite> it = spriteIterator();
+			while (it.hasNext()) {
+				IntelligentSprite s = it.next();
+				s.update(t, this);
+				spriteProvider.checkForCollision(s, this);
+				s.render(graphicsContext);
+			}
+		}else{
+			displayScores(graphicsContext);
 		}
+	}
+
+	private void updateScores(ArrayList<IntelligentSprite> deadSprites) {
+		for(IntelligentSprite s : deadSprites){
+			if(s instanceof VaisseauSprite)
+				scoresPerVaisseau.put(s.getId(), s.getScore());
+		}
+
+	}
+
+	private void displayScores(GraphicsContext graphicsContext) {
+			Paint save = graphicsContext.getFill();
+			graphicsContext.setFill(Color.color(Math.random(),Math.random(),Math.random()));
+			Font saveFont = graphicsContext.getFont();
+			Font BIG = new Font(saveFont.getName(), 30.);
+			graphicsContext.setFont(BIG);
+			graphicsContext.strokeText("Partie terminée !", 30, 30 );
+			int x = 30;
+			int y = 30;
+			for(String id : scoresPerVaisseau.keySet()) {
+				graphicsContext.strokeText("* "+id+" "+ scoresPerVaisseau.get(id), x, y );
+				y+=70;
+			}
+			graphicsContext.setFill(save);
+			graphicsContext.setFont(saveFont);
+			graphicsContext.save();
+	}
+
+	/**
+	 * @return true si le famebord ne contient plus de vaisseau
+	 */
+	public boolean partyIsOver() {
+		return !spriteProvider.containsVaisseau();
 	}
 
 	/**

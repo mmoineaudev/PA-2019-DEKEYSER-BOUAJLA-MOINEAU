@@ -32,6 +32,8 @@ public class IntelligentSprite extends BasicSprite {
     protected double speed;
     protected Direction direction = Direction.values()[(int) (Math.random()* values().length)];
     protected int lifes = 5;
+    private Score score = new Score();
+
 
 
     public IntelligentSprite(double x, double y) {
@@ -93,7 +95,21 @@ public class IntelligentSprite extends BasicSprite {
     public void handleCollision(GameBoard b, IntelligentSprite p) {
         lifes--;
         System.out.println(id + " touché par "+ p);
-        if(isDead()) System.out.println(this + " is dead !");
+
+        if(isDead()) {
+            p.getScore().addKill();
+
+            System.out.println(this + " is dead !");
+        }
+    }
+
+
+
+
+    //getters / setters
+
+    public Score getScore() {
+        return score;
     }
 
     /**
@@ -103,9 +119,6 @@ public class IntelligentSprite extends BasicSprite {
     protected double getAngle() {
         return direction.getValue()*90;
     }
-
-
-    //getters / setters
 
     public double getSpeed() {
         return speed;
@@ -123,6 +136,13 @@ public class IntelligentSprite extends BasicSprite {
         this.direction = direction;
     }
 
+    public int getLifes() {
+        return this.lifes;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     @Override
     public String toString() {
@@ -130,9 +150,6 @@ public class IntelligentSprite extends BasicSprite {
     }
 
 
-    public int getLifes() {
-        return this.lifes;
-    }
 }
 
 
