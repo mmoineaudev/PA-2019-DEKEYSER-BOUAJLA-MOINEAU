@@ -35,15 +35,20 @@ public class SpriteProvider {
     }
     /**
      * Empeche l'animation des {@link IntelligentSprite} morts
+     * Les renvoie dans une liste pour mise a jour des scores
      */
-    public void removeTheDead() {
+    public ArrayList<IntelligentSprite> removeTheDead() {
         ArrayList<IntelligentSprite> newList = new ArrayList<>();
+        ArrayList<IntelligentSprite> deadList = new ArrayList<>();
         list.stream().forEach(sprite -> {
             if(!sprite.isDead()){
                 newList.add(sprite);
+            }else{
+                deadList.add(sprite);
             }
         });
         list = newList;
+        return deadList;
     }
     /**
      * Empeche l'animation des {@link IntelligentSprite} à l'exterieur de la map
@@ -93,5 +98,11 @@ public class SpriteProvider {
 
     public int getLength() {
         return list.size();
+    }
+
+    public boolean containsVaisseau() {
+        for(IntelligentSprite i : list)
+            if(i instanceof VaisseauSprite) return true;
+        return false;
     }
 }
