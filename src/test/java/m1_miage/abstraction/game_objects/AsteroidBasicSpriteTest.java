@@ -37,7 +37,7 @@ public class AsteroidBasicSpriteTest extends AsteroidSprite {
         AsteroidSprite b = new AsteroidSprite(60, 60);//ne devrait pas toucher l'autre
         g.addSprite(b);
 
-        g.spriteProvider.checkForCollision(a, g);
+        g.getSpriteProvider().checkForCollision(a, g);
 
         assertTrue(!a.isDead());
     }
@@ -48,7 +48,7 @@ public class AsteroidBasicSpriteTest extends AsteroidSprite {
         AsteroidSprite b = new AsteroidSprite(10, 10);//diametre de 10 au minimum
         g.addSprite(a);
         g.addSprite(b);
-        g.spriteProvider.checkForCollision(a, g);
+        g.getSpriteProvider().checkForCollision(a, g);
         assertTrue(a.isDead());
     }
 }

@@ -144,7 +144,9 @@ public class VaisseauSprite extends IntelligentSprite {
     private long timestamp = 0;
     public void shoot() throws Exception {
         if(System.currentTimeMillis()-timestamp>1000 && !isDead())
-        {   timestamp=System.currentTimeMillis();
+        {
+            System.out.println(getWeaponByPlugin(weaponID).getSound());
+            timestamp=System.currentTimeMillis();
             weaponsByPlugin.add(getWeaponByPlugin(weaponID));//on utilise une liste pour stocker les armes
             //on pourra éventuellement en avoir plusieurs
         }

@@ -21,8 +21,8 @@ public class GameBoard {
 
 	private int width;
 	private int height;
-	public SpriteProvider spriteProvider;
-	public HashMap<String, Score> scoresPerVaisseau;
+	private SpriteProvider spriteProvider;
+	private HashMap<String, Score> scoresPerVaisseau;
 
 	public GameBoard(int width, int height) {
 		super();
@@ -155,6 +155,19 @@ public class GameBoard {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public SpriteProvider getSpriteProvider() {
+		return this.spriteProvider;
+	}
+
+	@Override
+	public String toString() {
+		return "GameBoard{" +
+				"width=" + width +
+				", height=" + height +
+				", spriteProvider=" + spriteProvider +
+				'}';
 	}
 }
 

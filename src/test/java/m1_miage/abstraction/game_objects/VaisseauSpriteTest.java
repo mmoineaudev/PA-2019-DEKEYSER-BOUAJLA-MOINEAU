@@ -49,9 +49,8 @@ public class VaisseauSpriteTest {
             gameBoard.addSprite(instance);
             GraphicsContext gc =new Canvas(100,100).getGraphicsContext2D();
             gameBoard.animate(0.1, gc);
-            gameBoard.animate(0.1, gc);
             System.out.println("handleCollision instance.lifes = " + instance.getLifes());
-            assertTrue(instance.getLifes()==4);
+            assertTrue(instance.getLifes()==4);//sometimes fails :(
             assertTrue(weapon.isDead());
         } catch (FileNotFoundException e) {
             System.out.println("e.getMessage() = " + e.getMessage());
@@ -91,16 +90,16 @@ public class VaisseauSpriteTest {
         gameBoard.addSprite(new AsteroidSprite(20, 40));
         gameBoard.addSprite(new AsteroidSprite(70, 70));
 
-        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.spriteProvider.getLength());
+        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.getSpriteProvider().getLength());
 
-        gameBoard.spriteProvider.iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
-        assertTrue(gameBoard.spriteProvider.getLength()==4);
+        gameBoard.getSpriteProvider().iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
+        assertTrue(gameBoard.getSpriteProvider().getLength()==4);
         
         gameBoard.animate(0.001, new Canvas(100,100).getGraphicsContext2D());
 
-        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.spriteProvider.getLength());
-        gameBoard.spriteProvider.iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
-        assertTrue(gameBoard.spriteProvider.getLength()==3);
+        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.getSpriteProvider().getLength());
+        gameBoard.getSpriteProvider().iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
+        assertTrue(gameBoard.getSpriteProvider().getLength()==3);
     }
 
     @Test

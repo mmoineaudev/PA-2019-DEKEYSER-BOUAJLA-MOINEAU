@@ -13,4 +13,7 @@ public class BasicWeapon extends Weapon{
         image = new Image(new FileInputStream("src/img/basicWeapon.png"));
         System.out.println("creating "+this.getClass().getSimpleName()+" instance");
     }
+    public String getSound() {
+        return "pan";
+    }
 }

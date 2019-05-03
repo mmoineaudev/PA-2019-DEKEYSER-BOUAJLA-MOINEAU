@@ -23,15 +23,15 @@ public class SpriteProviderTest {
 
     @Test
     public void add() {
-        assertTrue(instance.spriteProvider.getLength()==0);
+        assertTrue(instance.getSpriteProvider().getLength()==0);
         try {
             instance.addSprite(new VaisseauSprite(0,0, 1));
         } catch (FileNotFoundException e) {
             fail();
         }
-        assertTrue(instance.spriteProvider.getLength()==1);
+        assertTrue(instance.getSpriteProvider().getLength()==1);
         instance.addSprite(new AsteroidSprite(0,0));
-        assertTrue(instance.spriteProvider.getLength()==2);
+        assertTrue(instance.getSpriteProvider().getLength()==2);
 
     }
 
@@ -41,11 +41,11 @@ public class SpriteProviderTest {
             instance.addSprite(new VaisseauSprite(0,0, 1));
             instance.addSprite(new AsteroidSprite(0,0));
 
-            assertTrue(instance.spriteProvider.getLength()==2);
+            assertTrue(instance.getSpriteProvider().getLength()==2);
 
             instance.animate(0.1, new Canvas(100,100).getGraphicsContext2D());
 
-            assertTrue(instance.spriteProvider.getLength()<2);
+            assertTrue(instance.getSpriteProvider().getLength()<2);
 
         } catch (FileNotFoundException e) {
             fail();
@@ -58,9 +58,9 @@ public class SpriteProviderTest {
         try {
             instance.addSprite(new VaisseauSprite(-1,0, 1));
             instance.addSprite(new AsteroidSprite(instance.getWidth()+1,instance.getHeight()+1));
-            assertTrue(instance.spriteProvider.getLength()==2);
+            assertTrue(instance.getSpriteProvider().getLength()==2);
             instance.animate(0.1, new Canvas(100,100).getGraphicsContext2D());
-            assertTrue(instance.spriteProvider.getLength()==0);
+            assertTrue(instance.getSpriteProvider().getLength()==0);
         } catch (FileNotFoundException e) {
             fail();
         }

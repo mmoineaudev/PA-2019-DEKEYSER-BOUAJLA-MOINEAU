@@ -114,4 +114,7 @@ public class Weapon extends IntelligentSprite {
     }
 
 
+    public String getSound() {
+        return "Peeeewww";
+    }
 }

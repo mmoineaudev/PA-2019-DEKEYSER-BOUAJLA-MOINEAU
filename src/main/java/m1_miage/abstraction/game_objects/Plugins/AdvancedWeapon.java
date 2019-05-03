@@ -28,4 +28,7 @@ public class AdvancedWeapon extends Weapon {
         image = new Image(new FileInputStream("src/img/advancedWeapon.png"));
         System.out.println("creating "+this.getClass().getSimpleName()+" instance");
     }
+    public String getSound() {
+        return "boom";
+    }
 }

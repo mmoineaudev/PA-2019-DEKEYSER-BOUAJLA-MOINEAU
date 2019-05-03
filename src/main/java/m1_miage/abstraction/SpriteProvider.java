@@ -105,4 +105,11 @@ public class SpriteProvider {
             if(i instanceof VaisseauSprite) return true;
         return false;
     }
+
+    @Override
+    public String toString() {
+        String res=this.getClass().getSimpleName()+"{";
+        for(IntelligentSprite s : list) res+= s +";\n ";
+        return res + "}";
+    }
 }
