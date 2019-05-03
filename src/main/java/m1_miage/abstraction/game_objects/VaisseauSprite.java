@@ -72,10 +72,12 @@ public class VaisseauSprite extends IntelligentSprite {
                 //System.out.println("weaponType.type() = " + weaponType.type());//returns null
                 if (weaponType.type() == weaponID) {
                     System.out.println("weapon method found " + m.getName());
-                    return (Weapon) m.invoke(new Weapon(
+                    Weapon weaponInstance = (Weapon) m.invoke(new Weapon(
                             getXForWeapon(direction),//permet de ne pas tirer dans le vaisseau
                             getYForWeapon(direction),//permet de ne pas tirer dans le vaisseau
                             direction));//invoke needs a reference to a compatible objet for 1st param
+                    weaponInstance.setOwner(this);//pour incrémenter le bon score
+                    return weaponInstance;
                 }
             }
         }

@@ -18,6 +18,7 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
 public class Weapon extends IntelligentSprite {
     protected Image image = null;
     private static final int default_speed = 50;
+    private VaisseauSprite owner;
 
     public Weapon(double x, double y, Direction direction) throws FileNotFoundException {
         super(x, y);
@@ -61,11 +62,19 @@ public class Weapon extends IntelligentSprite {
     public void handleCollision(GameBoard b, IntelligentSprite p) {
         if(isDead()) image=null;
         else if(p instanceof VaisseauSprite || p instanceof AsteroidSprite) { //on va tirer que sur les asteroids pour l'instant
-            System.out.println("Touché : " + p+ " lifes : remaining : "+p.getLifes());
             p.handleCollision(b,this);
-            super.handleCollision(b, p);
+            lifes--;
+            System.out.println(p + " received a shot from "+ owner);
+            if(p.isDead()) {
+                owner.getScore().addKill();
+                System.out.println(this + " is dead !");
+            }
             speed=0;
         }
+    }
+
+    public void setOwner(VaisseauSprite vaisseauSprite){
+        this.owner = vaisseauSprite;
     }
 
     @Override

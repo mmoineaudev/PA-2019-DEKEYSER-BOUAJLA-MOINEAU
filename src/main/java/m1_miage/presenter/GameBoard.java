@@ -80,21 +80,23 @@ public class GameBoard {
 	}
 
 	private void displayScores(GraphicsContext graphicsContext) {
-			Paint save = graphicsContext.getFill();
-			graphicsContext.setFill(Color.color(Math.random(),Math.random(),Math.random()));
-			Font saveFont = graphicsContext.getFont();
-			Font BIG = new Font(saveFont.getName(), 30.);
-			graphicsContext.setFont(BIG);
-			graphicsContext.strokeText("Partie terminée !", 30, 30 );
-			int x = 30;
-			int y = 30;
-			for(String id : scoresPerVaisseau.keySet()) {
-				graphicsContext.strokeText("* "+id+" "+ scoresPerVaisseau.get(id), x, y );
-				y+=70;
-			}
-			graphicsContext.setFill(save);
-			graphicsContext.setFont(saveFont);
-			graphicsContext.save();
+	    if(scoresPerVaisseau!=null && !scoresPerVaisseau.isEmpty()) {
+            Paint save = graphicsContext.getFill();
+            graphicsContext.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+            Font saveFont = graphicsContext.getFont();
+            Font BIG = new Font(saveFont.getName(), 50 / scoresPerVaisseau.size());
+            graphicsContext.setFont(BIG);
+            graphicsContext.strokeText("Partie terminée !", 30, 30);
+            int x = width / 4;
+            int y = height / 4;
+            for (String id : scoresPerVaisseau.keySet()) {
+                graphicsContext.strokeText("* " + id + " " + scoresPerVaisseau.get(id), x, y);
+                y += height / scoresPerVaisseau.size();
+            }
+            graphicsContext.setFill(save);
+            graphicsContext.setFont(saveFont);
+            graphicsContext.save();
+        }
 	}
 
 	/**
