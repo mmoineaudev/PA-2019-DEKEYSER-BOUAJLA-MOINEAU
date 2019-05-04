@@ -42,8 +42,14 @@ public class GameLoop extends AnimationTimer {
         if(Math.random()<0.01) addAsteroid();
     }
 
-    public void addAsteroid(){
-        board.addSprite(new AsteroidSprite(Math.random()*board.getWidth(),Math.random()*board.getHeight()));
+    public boolean addAsteroid(){
+        try {
+            board.addSprite(new AsteroidSprite(Math.random()*board.getWidth(),Math.random()*board.getHeight()));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+        
     }
 
 }
