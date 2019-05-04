@@ -25,39 +25,22 @@ public class WeaponTest {
         vaisseauSprite1.setDirection(Direction.EAST);
         vaisseauSprite1.setDirection(Direction.NORTH);
     }
-/*
+
     @Test
-    public void handleCollisionTest1(){
+    public void handleCollisionTest(){
         vaisseauSprite1.setSpeed(0);
         gameBoard.addSprite(vaisseauSprite1);
         asteroidSprite.setSpeed(0);
         gameBoard.addSprite(asteroidSprite);
         try {
+            vaisseauSprite1.setDirection(Direction.EAST);
+            System.out.println("Shoot");
             vaisseauSprite1.shoot();
         } catch (Exception e) {
             fail();
         }
-        gameBoard.animate(1, new Canvas(200,200).getGraphicsContext2D());
-        System.out.println(gameBoard);
-        assertTrue(gameBoard.getSpriteProvider().getLength()==1);
-        assertTrue(asteroidSprite.isDead());
-    }
-    @Test
-    public void handleCollisionTest2(){
-        vaisseauSprite2.setSpeed(0);
-        gameBoard.addSprite(vaisseauSprite2);
-        asteroidSprite.setSpeed(0);
-        gameBoard.addSprite(asteroidSprite);
-        gameBoard.animate(1, new Canvas(200,200).getGraphicsContext2D());
-        try {
-            vaisseauSprite2.shoot();
-        } catch (Exception e) {
-            fail();
-        }
-        System.out.println(gameBoard);
-        assertTrue(gameBoard.getSpriteProvider().getLength()==1);
+        for(int i=0; i<10;i++) gameBoard.animate(0.01, new Canvas(200,200).getGraphicsContext2D());
         assertTrue(asteroidSprite.isDead());
     }
 
- */
 }

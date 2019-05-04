@@ -99,7 +99,7 @@ public class VaisseauSprite extends IntelligentSprite {
         else if(direction==WEST){
             return x-l;
         }
-        else return x+l/2;
+        else return x;
     }
 
     /**
@@ -114,7 +114,7 @@ public class VaisseauSprite extends IntelligentSprite {
         else if(direction==SOUTH){
             return y+l;
         }
-        else return y+l/2;
+        else return y;
     }
 
     /**
@@ -124,6 +124,7 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     @Override
     public void update(double time, GameBoard b) {
+        System.out.println("UPDATE :\n"+this);
         if(speed<120) speed+=1;//on peut accélérer mais pas trop quand même
         avoidBorders(b);
         super.update(time,b);
@@ -194,7 +195,7 @@ public class VaisseauSprite extends IntelligentSprite {
             gc.setFill(save);
             //on affiche ci les plugins
             drawWeapons(gc);
-            drawHitBox(gc);
+            //drawHitBox(gc);//for debug
         }
     }
 

@@ -42,7 +42,7 @@ public class AsteroidSprite extends IntelligentSprite {
             gc.fillOval(x, y, diameter, diameter);
             gc.setFill(save);
         }
-        drawHitBox(gc);
+        //drawHitBox(gc); //for debug
     }
 
     @Override
