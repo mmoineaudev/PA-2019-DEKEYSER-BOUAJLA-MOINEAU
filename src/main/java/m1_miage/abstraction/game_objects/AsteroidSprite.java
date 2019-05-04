@@ -30,7 +30,7 @@ public class AsteroidSprite extends IntelligentSprite {
     @Override
     public Shape getBoundingShape() {
         if(isDead()) return null;
-        return new Circle(x, y, diameter);
+        return new Circle(x-diameter/2, y-diameter/2, diameter);
     }
 
     @Override
@@ -42,11 +42,21 @@ public class AsteroidSprite extends IntelligentSprite {
             gc.fillOval(x, y, diameter, diameter);
             gc.setFill(save);
         }
+        //drawHitBox(gc); //for debug
     }
 
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
         super.handleCollision(b,p);
     }
+
+    private void drawHitBox(GraphicsContext gc) {
+        Paint save = gc.getFill();
+        gc.setFill(Color.WHITE);
+        gc.strokeRect(x,y, diameter,diameter);
+        gc.setFill(save);
+
+    }
+
 
 }

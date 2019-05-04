@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static m1_miage.abstraction.game_objects.navigation.Direction.NORTH;
+import static m1_miage.abstraction.game_objects.navigation.Direction.SOUTH;
 import static org.junit.Assert.*;
 
 public class VaisseauSpriteTest {
@@ -23,11 +24,13 @@ public class VaisseauSpriteTest {
 
     @Before
     public void init() {
-        System.out.println("* init()");
+        //System.out.println("* init()");
         try {
             this.instance = new VaisseauSprite(50,50, 1);
+            instance.setDirection(SOUTH);
+
         } catch (FileNotFoundException e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
+            //System.out.println("e.getMessage() = " + e.getMessage());
             fail();
         }
         this.gameBoard = new GameBoard(100, 100);
@@ -35,37 +38,41 @@ public class VaisseauSpriteTest {
 
     @Test
     public void getBoundingShape() {
-        System.out.println("* getBoundingShape()");
+        //System.out.println("* getBoundingShape()");
         assertTrue(instance.getBoundingShape()!=null);
     }
 
     @Test
     public void handleCollision() {
-        System.out.println("* handleCollision()");
+        //System.out.println("* handleCollision()");
 
         try {
-            Weapon weapon = new BasicWeapon(50,50, NORTH);
+            Weapon weapon = new BasicWeapon(50,99, NORTH);
+            weapon.setOwner(instance);
             gameBoard.addSprite(weapon);
             gameBoard.addSprite(instance);
             GraphicsContext gc =new Canvas(100,100).getGraphicsContext2D();
-            gameBoard.animate(0.1, gc);
-            System.out.println("handleCollision instance.lifes = " + instance.getLifes());
+            System.out.println("handleCollision :");
+
+            gameBoard.animate(1, gc);
+
             assertTrue(instance.getLifes()==4);//sometimes fails :(
             assertTrue(weapon.isDead());
         } catch (FileNotFoundException e) {
             System.out.println("e.getMessage() = " + e.getMessage());
             fail();
         }
+
     }
 
     @Test
     public void getWeaponsByPlugin() {
-        System.out.println("* getWeaponsByPlugin()");
+        //System.out.println("* getWeaponsByPlugin()");
 
         try {
             instance.shoot();
         } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
+            //System.out.println("e.getMessage() = " + e.getMessage());
             fail();
         }
         assertTrue(instance.getWeaponsByPlugin().size()==1);//pour l'instant on a qu'une arme
@@ -73,16 +80,14 @@ public class VaisseauSpriteTest {
         try {
             instance=new VaisseauSprite(25,25, 2);
         } catch (FileNotFoundException e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
+            //System.out.println("e.getMessage() = " + e.getMessage());
             fail();
         }
     }
 
     @Test
     public void updateShoot() {
-        System.out.println("* updateShoot()");
-
-
+        //System.out.println("* updateShoot()");
         instance.setDirection(NORTH);
         gameBoard.addSprite(instance);
         gameBoard.animate(0.001, new Canvas(100,100).getGraphicsContext2D());
@@ -90,31 +95,16 @@ public class VaisseauSpriteTest {
         gameBoard.addSprite(new AsteroidSprite(20, 40));
         gameBoard.addSprite(new AsteroidSprite(70, 70));
 
-        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.getSpriteProvider().getLength());
+//        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.getSpriteProvider().getLength());
 
         gameBoard.getSpriteProvider().iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
         assertTrue(gameBoard.getSpriteProvider().getLength()==4);
         
         gameBoard.animate(0.001, new Canvas(100,100).getGraphicsContext2D());
 
-        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.getSpriteProvider().getLength());
+//        System.out.println("gameBoard.spriteProvider.getLength() = " + gameBoard.getSpriteProvider().getLength());
         gameBoard.getSpriteProvider().iterator().forEachRemaining(   intelligentSprite -> System.out.print("\t"+intelligentSprite+";\n"));
         assertTrue(gameBoard.getSpriteProvider().getLength()==3);
     }
 
-    @Test
-    public void getBoundingShape1() {
-    }
-
-    @Test
-    public void render() {
-    }
-
-    @Test
-    public void handleCollision1() {
-    }
-
-    @Test
-    public void getWeaponsByPlugin1() {
-    }
 }
