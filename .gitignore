@@ -14,3 +14,5 @@ buildNumber.properties
 \.idea/
 
 PROJET_JAVA_PLUGINS_M1\.iml
+
+logs\.txt

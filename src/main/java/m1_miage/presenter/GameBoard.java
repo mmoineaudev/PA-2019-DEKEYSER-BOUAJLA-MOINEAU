@@ -69,6 +69,7 @@ public class GameBoard {
 		}else{
 			displayScores(graphicsContext);
 		}
+
 	}
 
 	private void updateScores(ArrayList<IntelligentSprite> deadSprites) {

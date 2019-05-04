@@ -2,6 +2,7 @@ package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -55,6 +56,7 @@ public class VaisseauSprite extends IntelligentSprite {
         } catch (Exception e) {
             e.printStackTrace();//TODO supprimer quand probleme d'execution reglé (debugger)
         }
+
     }
 
     /**
@@ -97,7 +99,7 @@ public class VaisseauSprite extends IntelligentSprite {
         else if(direction==WEST){
             return x-l;
         }
-        else return x;
+        else return x+l/2;
     }
 
     /**
@@ -112,7 +114,7 @@ public class VaisseauSprite extends IntelligentSprite {
         else if(direction==SOUTH){
             return y+l;
         }
-        else return y;
+        else return y+l/2;
     }
 
     /**
@@ -172,13 +174,14 @@ public class VaisseauSprite extends IntelligentSprite {
         if(y<l) setDirection(Direction.SOUTH);
         //et 1% du temps il va ou il veut
         if(Math.random()>0.99) setDirection(Direction.random());
+
     }
 
 
     @Override
     public Shape getBoundingShape() {
         if(isDead())return null;
-        return new Rectangle(x,y,l,l);//la hitbox est un peu plus petite que le vaisseau et carrée
+        return new Rectangle(x-l/2,y,l,l);//la hitbox est un peu plus petite que le vaisseau et carrée
     }
 
     @Override
@@ -191,7 +194,16 @@ public class VaisseauSprite extends IntelligentSprite {
             gc.setFill(save);
             //on affiche ci les plugins
             drawWeapons(gc);
+            drawHitBox(gc);
         }
+    }
+
+    private void drawHitBox(GraphicsContext gc) {
+        Paint save = gc.getFill();
+        gc.setFill(Color.WHITE);
+        gc.strokeRect(x-l/2,y,l,l);
+        gc.setFill(save);
+
     }
 
     private void drawWeapons(GraphicsContext gc) {
