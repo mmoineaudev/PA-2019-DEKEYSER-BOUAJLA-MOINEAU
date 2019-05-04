@@ -1,27 +1,17 @@
 package m1_miage.controler;
 
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import m1_miage.abstraction.game_objects.AsteroidSprite;
-import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
-import m1_miage.controler.GameLoop;
 import m1_miage.presenter.GameBoard;
-
-import m1_miage.abstraction.examples.RectangleSprite;
-import m1_miage.abstraction.examples.RoundSprite;
-import m1_miage.abstraction.Sprite;
 
 
 import java.io.FileNotFoundException;
-import java.util.Iterator;
 
 /**
  * TODO refactor
@@ -36,7 +26,7 @@ public class GameGUI extends Application {
 
 	private void initGame(Stage stage) {
 
-		stage.setTitle("Demo de jeu");
+		stage.setTitle("M1 MIAGE WAR");
 		Group root = new Group();
 		Scene theScene = new Scene(root);
 		stage.setScene(theScene);
@@ -52,11 +42,7 @@ public class GameGUI extends Application {
 		RoundSprite rs = new RoundSprite(50, 200, 100);
 		board.addSprite(rs);
 		*/
-		try {
-			board.addSprite(new VaisseauSprite(250, 250));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		initBoard(board);
 
 		//c'est notre boucle de jeu principale
 		new GameLoop(gc, board, canvas).start();
@@ -65,7 +51,18 @@ public class GameGUI extends Application {
 
 	}
 
-
+	private void initBoard(GameBoard board) {
+		System.out.println("initBoard");
+		try {
+			board.addSprite(new VaisseauSprite(50, 500, 2));
+			board.addSprite(new VaisseauSprite(100, 100, 1));
+			board.addSprite(new VaisseauSprite(150, 150, 2));
+			board.addSprite(new VaisseauSprite(200, 200, 1));
+			board.addSprite(new VaisseauSprite(250, 250, 2));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 	public static void main(String[] args) {
