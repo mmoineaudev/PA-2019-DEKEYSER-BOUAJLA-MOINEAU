@@ -62,9 +62,13 @@ public class GameBoard {
 			Iterator<IntelligentSprite> it = spriteIterator();
 			while (it.hasNext()) {
 				IntelligentSprite s = it.next();
-				s.update(t, this);
-				spriteProvider.checkForCollision(s, this);
-				s.render(graphicsContext);
+				if(s.getLifes()<=0)
+					continue;//c'est moche mais au mons ca déclenchera pas les collisions engendrées par des IntelligentSprites morts
+				else{
+					s.update(t, this);
+					spriteProvider.checkForCollision(s, this);
+					s.render(graphicsContext);
+				}
 			}
 		}else{
 			displayScores(graphicsContext);

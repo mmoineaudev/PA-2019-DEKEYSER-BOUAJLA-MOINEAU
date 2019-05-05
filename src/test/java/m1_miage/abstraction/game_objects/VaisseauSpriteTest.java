@@ -54,7 +54,7 @@ public class VaisseauSpriteTest {
             GraphicsContext gc =new Canvas(100,100).getGraphicsContext2D();
             System.out.println("handleCollision :");
 
-            gameBoard.animate(1, gc);
+            for(int i = 0 ; i<10; i++)gameBoard.animate(0.1, gc);
 
             assertTrue(instance.getLifes()==4);//sometimes fails :(
             assertTrue(weapon.isDead());

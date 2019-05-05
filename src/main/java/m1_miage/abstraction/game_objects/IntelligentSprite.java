@@ -1,8 +1,6 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 import m1_miage.abstraction.game_objects.navigation.Direction;
 import m1_miage.presenter.GameBoard;
@@ -59,7 +57,7 @@ public class IntelligentSprite extends BasicSprite {
     }
 
     public boolean isDead(){
-        return this.lifes==0;
+        return this.lifes<=0;
     }
 
     @Override
@@ -73,38 +71,22 @@ public class IntelligentSprite extends BasicSprite {
     }
 
     /**
-     * fait apparaitre les vies sur le gameboard
-     */
-    public void drawLifesRemaining(GraphicsContext gc, double x, double y) {
-        if (!isDead()) {
-            Paint save = gc.getFill();
-            gc.setFill(Color.RED);
-            for(int i = 0; i < lifes ; i ++){
-                gc.strokeOval(x+i*7, y-7, 5, 5);
-                gc.fillOval(x+i*7, y-7, 5, 5);
-            }gc.setFill(save);
-        }
-    }
-
-    /**
      * On perd une vie
      * @param b
      * @param p
      */
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
-        lifes--;
-        System.out.println(id + " touché par "+ p);
-
+        if(!this.isDead()) {
+            lifes--;
+            System.out.println(id + " touché par " + p);
+        }
+        //c'est pas un else
         if(isDead()) {
-            p.getScore().addKill();
-
+            p.getScore().addPoint();
             System.out.println(this + " is dead !");
         }
     }
-
-
-
 
     //getters / setters
 
