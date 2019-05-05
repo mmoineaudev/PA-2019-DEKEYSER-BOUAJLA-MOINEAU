@@ -67,4 +67,7 @@ public class AsteroidSprite extends IntelligentSprite {
     }
 
 
+    protected double getDiameter() {
+        return diameter;
+    }
 }
