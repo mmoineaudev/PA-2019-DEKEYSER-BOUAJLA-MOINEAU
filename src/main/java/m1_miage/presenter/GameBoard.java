@@ -56,6 +56,13 @@ public class GameBoard {
 	public void animate(double t, GraphicsContext graphicsContext) {
 		spriteProvider.addShots();
 		updateScores(spriteProvider.removeTheDead());
+		if(isThereStillADeadSpriteHere(spriteProvider))
+			try {
+				throw new Exception("Dead sprite found in spriteProvider");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
 		spriteProvider.removeLostSprites(this);
 		if(!partyIsOver()) {
 			displayNumberOfSprites(graphicsContext);
@@ -70,6 +77,15 @@ public class GameBoard {
 			displayScores(graphicsContext);
 		}
 
+	}
+	//for debug
+	private boolean isThereStillADeadSpriteHere(SpriteProvider spriteProvider) {
+		Iterator<IntelligentSprite> it = spriteIterator();
+		while (it.hasNext()) {
+			IntelligentSprite s = it.next();
+			if(s.isDead()) return true;
+		}
+		return false;
 	}
 
 	private void updateScores(ArrayList<IntelligentSprite> deadSprites) {
