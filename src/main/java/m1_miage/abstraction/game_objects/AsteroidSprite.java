@@ -45,7 +45,7 @@ public class AsteroidSprite extends IntelligentSprite {
         }
         //permet de savoir visuellement si les AsteroidSprites morts on bien été retirés de la liste de sprites par
         //{@link SpriteProvider#removeLostSprites}
-        drawHitBox(gc);
+        //drawHitBox(gc);
     }
 
     @Override

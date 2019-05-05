@@ -68,7 +68,7 @@ public class Weapon extends IntelligentSprite {
             drawRotatedImage(gc, image, getAngle(), x,y);
             gc.setFill(save);
         }
-        drawHitBox(gc); //for debug
+        //drawHitBox(gc); //for debug
     }
 
     /**

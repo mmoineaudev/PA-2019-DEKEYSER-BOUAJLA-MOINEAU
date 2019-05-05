@@ -106,6 +106,12 @@ public class SpriteProvider {
             if(i instanceof VaisseauSprite) return true;
         return false;
     }
+    public boolean containsASingleVaisseau() {
+        int counter = 0;
+        for(IntelligentSprite i : list)
+            if(i instanceof VaisseauSprite) counter++;
+        return counter<=1; //si 0 il est plus cohérent que ca return true
+    }
 
     @Override
     public String toString() {
