@@ -75,6 +75,7 @@ public class SpriteProvider {
             if (d != s) {
                 if(!d.isDead() && !s.isDead())
                     if (s.getBoundingShape().getBoundsInParent().intersects(d.getBoundingShape().getBoundsInParent())) {
+                        System.out.println( s.getId()+ " a été touché");
                         s.handleCollision(gameBoard, d);
                     }
             }
