@@ -161,7 +161,15 @@ public class VaisseauSprite extends IntelligentSprite {
      * @param b : donne l'accès aux autres objets de jeu
      */
     private void updatePlugins(double time, GameBoard b) {
-        for(Weapon weaponByPlugin : weaponsByPlugin) weaponByPlugin.update(time,b);
+        List<Weapon> newList = new ArrayList<>();
+        for(Weapon weaponByPlugin : weaponsByPlugin)
+            if(!weaponByPlugin.isDead()) {
+                weaponByPlugin.update(time,b);
+                newList.add(weaponByPlugin);
+
+            }
+            //sinon on ne les affiche plus
+            weaponsByPlugin = newList;
     }
 
     /**
@@ -191,11 +199,30 @@ public class VaisseauSprite extends IntelligentSprite {
             Paint save = gc.getFill();
             //gc.drawImage(image, x, y);
             drawRotatedImage(gc, image, getAngle(), x,y);
-            drawLifesRemaining(gc, x, y);
+            drawLifesRemainingAndId(gc, x, y);
             gc.setFill(save);
             //on affiche ci les plugins
             drawWeapons(gc);
             //drawHitBox(gc);//for debug
+        }
+    }
+
+    /**
+     * fait apparaitre les vies sur le gameboard
+     */
+    private void drawLifesRemainingAndId(GraphicsContext gc, double x, double y) {
+        if (!isDead()) {
+            Paint save = gc.getFill();
+            gc.setFill(Color.RED);
+            for(int i = 0; i < lifes ; i ++){
+                gc.strokeOval(x+i*7, y-7, 5, 5);
+                gc.fillOval(x+i*7, y-7, 5, 5);
+            }gc.setFill(save);
+
+            Paint strokeSave = gc.getStroke();
+            gc.setStroke(Color.WHITE);
+            gc.strokeText(id, x-Math.max(l,L), y+Math.max(l,L));
+            gc.setStroke(strokeSave);
         }
     }
 

@@ -59,7 +59,7 @@ public class IntelligentSprite extends BasicSprite {
     }
 
     public boolean isDead(){
-        return this.lifes==0;
+        return this.lifes<=0;
     }
 
     @Override
@@ -70,20 +70,6 @@ public class IntelligentSprite extends BasicSprite {
     @Override
     public void render(GraphicsContext gc) {
         throw new UnsupportedOperationException("not implemented");
-    }
-
-    /**
-     * fait apparaitre les vies sur le gameboard
-     */
-    public void drawLifesRemaining(GraphicsContext gc, double x, double y) {
-        if (!isDead()) {
-            Paint save = gc.getFill();
-            gc.setFill(Color.RED);
-            for(int i = 0; i < lifes ; i ++){
-                gc.strokeOval(x+i*7, y-7, 5, 5);
-                gc.fillOval(x+i*7, y-7, 5, 5);
-            }gc.setFill(save);
-        }
     }
 
     /**
@@ -102,9 +88,6 @@ public class IntelligentSprite extends BasicSprite {
             System.out.println(this + " is dead !");
         }
     }
-
-
-
 
     //getters / setters
 

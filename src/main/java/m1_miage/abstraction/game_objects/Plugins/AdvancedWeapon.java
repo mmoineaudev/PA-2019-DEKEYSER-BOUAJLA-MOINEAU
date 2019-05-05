@@ -1,6 +1,9 @@
 package m1_miage.abstraction.game_objects.Plugins;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
@@ -20,7 +23,7 @@ public class AdvancedWeapon extends Weapon {
     @Override
     public Shape getBoundingShape() {
         if(isDead()) return null;
-        return new Circle(20);
+        return new Circle(30);
     }
 
     public AdvancedWeapon(double x, double y, Direction direction) throws FileNotFoundException {
@@ -31,4 +34,19 @@ public class AdvancedWeapon extends Weapon {
     public String getSound() {
         return "boom";
     }
+
+    @Override
+    /**
+     * Permet de débugger les problèmes de collision
+     * @param gc
+     */
+    protected void drawHitBox(GraphicsContext gc) {
+        Paint save = gc.getFill();
+        Paint saveStroke = gc.getStroke();
+        gc.setStroke(Color.WHITE);
+        gc.strokeOval(x,y, 30,30);
+        gc.setFill(save);
+        gc.setStroke(saveStroke);
+    }
+
 }

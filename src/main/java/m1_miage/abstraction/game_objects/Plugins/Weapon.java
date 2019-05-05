@@ -2,6 +2,7 @@ package m1_miage.abstraction.game_objects.Plugins;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -42,6 +43,18 @@ public class Weapon extends IntelligentSprite {
         if(isDead()) return null;
         else return new Circle(x, y, 10);
     }
+    /**
+     * Permet de débugger les problèmes de collision
+     * @param gc
+     */
+    protected void drawHitBox(GraphicsContext gc) {
+        Paint save = gc.getFill();
+        Paint saveStroke = gc.getStroke();
+        gc.setStroke(Color.WHITE);
+        gc.strokeOval(x,y, 10,10);
+        gc.setFill(save);
+        gc.setStroke(saveStroke);
+    }
 
     /**
      * S'il n'a pas été détruit on affiche le projectile,
@@ -56,6 +69,7 @@ public class Weapon extends IntelligentSprite {
             drawRotatedImage(gc, image, getAngle(), x,y);
             gc.setFill(save);
         }
+        //drawHitBox(gc); //for debug
     }
 
     @Override
