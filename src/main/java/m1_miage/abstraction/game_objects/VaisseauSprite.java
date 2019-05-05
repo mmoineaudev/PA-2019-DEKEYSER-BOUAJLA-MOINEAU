@@ -124,12 +124,9 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     @Override
     public void update(double time, GameBoard b) {
-        System.out.println("UPDATE :\n"+this);
         if(speed<120) speed+=1;//on peut accélérer mais pas trop quand même
         avoidBorders(b);
-        super.update(time,b);
         //update des plugins
-        updatePlugins(time,b);
         if(b.facesAnEnemy(this)) {
             try {
                 shoot();
@@ -138,6 +135,8 @@ public class VaisseauSprite extends IntelligentSprite {
                 e.printStackTrace();
             }
         }
+        updatePlugins(time,b);
+        super.update(time,b);
     }
 
     /**

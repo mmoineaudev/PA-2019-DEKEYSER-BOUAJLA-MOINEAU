@@ -3,10 +3,10 @@ package m1_miage.abstraction.game_objects;
 public class Score {
     private long startTime= System.currentTimeMillis();
     private long deathTime=-1;
-    private int kills=0;
+    private int points =0;
 
-    public void addKill(){
-        kills++;
+    public void addPoint(){
+        points++;
     }
 
     public void end(){
@@ -17,7 +17,7 @@ public class Score {
     @Override
     public String toString() {
         return  getTime() +" s"+
-                "\n\tpoints :" + kills;
+                "\n\tpoints :" + points;
     }
 
     private long getTime() {

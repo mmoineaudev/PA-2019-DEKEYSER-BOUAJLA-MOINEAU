@@ -36,7 +36,7 @@ public class GameLoop extends AnimationTimer {
 
         board.animate(t, graphicsContext);
         lastUpdateNanoTime = currentNanoTime;
-        if(Math.random()<0.01) addAsteroid();
+        if(Math.random()<0.001) addAsteroid();
     }
 
     public void addAsteroid(){

@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
-import m1_miage.abstraction.game_objects.AsteroidSprite;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
@@ -69,21 +68,22 @@ public class Weapon extends IntelligentSprite {
             drawRotatedImage(gc, image, getAngle(), x,y);
             gc.setFill(save);
         }
-        //drawHitBox(gc); //for debug
+        drawHitBox(gc); //for debug
     }
 
+    /**
+     * On va 'dupliquer' le handle collision pour les weapon afin qu'il augmente les scores des vaisseaux
+     * @param b
+     * @param p
+     */
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
-        if(isDead()) image=null;
-        else if(p instanceof VaisseauSprite || p instanceof AsteroidSprite) { //on va tirer que sur les asteroids pour l'instant
-            p.handleCollision(b,this);
+        if(!isDead() && !p.isDead()){
             lifes--;
+            p.handleCollision(b,this);
             System.out.println(p + " received a shot from "+ owner);
-            if(p.isDead()) {
-                owner.getScore().addKill();
-                System.out.println(this + " is dead !");
-            }
-            speed=0;
+            owner.getScore().addPoint();
+            System.out.println(this + " is dead !");
         }
     }
 
