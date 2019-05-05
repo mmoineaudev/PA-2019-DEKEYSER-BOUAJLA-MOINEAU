@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import m1_miage.presenter.GameBoard;
 
@@ -30,7 +31,7 @@ public class AsteroidSprite extends IntelligentSprite {
     @Override
     public Shape getBoundingShape() {
         if(isDead()) return null;
-        return new Circle(x-diameter/2, y-diameter/2, diameter);
+        return new Rectangle(x, y, diameter,diameter);//en cohérence avec drawHitbox
     }
 
     @Override
@@ -42,7 +43,9 @@ public class AsteroidSprite extends IntelligentSprite {
             gc.fillOval(x, y, diameter, diameter);
             gc.setFill(save);
         }
-        //drawHitBox(gc); //for debug
+        //permet de savoir visuellement si les AsteroidSprites morts on bien été retirés de la liste de sprites par
+        //{@link SpriteProvider#removeLostSprites}
+        //drawHitBox(gc);
     }
 
     @Override
@@ -50,13 +53,21 @@ public class AsteroidSprite extends IntelligentSprite {
         super.handleCollision(b,p);
     }
 
+    /**
+     * Permet de débugger les problèmes de collision
+     * @param gc
+     */
     private void drawHitBox(GraphicsContext gc) {
         Paint save = gc.getFill();
-        gc.setFill(Color.WHITE);
+        Paint saveStroke = gc.getStroke();
+        gc.setStroke(Color.WHITE);
         gc.strokeRect(x,y, diameter,diameter);
         gc.setFill(save);
-
+        gc.setStroke(saveStroke);
     }
 
 
+    protected double getDiameter() {
+        return diameter;
+    }
 }

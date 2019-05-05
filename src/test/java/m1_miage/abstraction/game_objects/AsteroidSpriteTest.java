@@ -1,14 +1,15 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import m1_miage.presenter.GameBoard;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AsteroidBasicSpriteTest extends AsteroidSprite {
+public class AsteroidSpriteTest extends AsteroidSprite {
 
-    public AsteroidBasicSpriteTest() {
+    public AsteroidSpriteTest() {
         super(0, 0);
     }
 
@@ -25,7 +26,7 @@ public class AsteroidBasicSpriteTest extends AsteroidSprite {
     @Test
     public void getBoundingShape1() {
         AsteroidSprite a = new AsteroidSprite(0,0);
-        assertTrue(a.getBoundingShape() instanceof Circle);
+        assertTrue(a.getBoundingShape() instanceof Rectangle);
     }
 
     @Test

@@ -75,8 +75,8 @@ public class SpriteProvider {
             if (d != s) {
                 if(!d.isDead() && !s.isDead())
                     if (s.getBoundingShape().getBoundsInParent().intersects(d.getBoundingShape().getBoundsInParent())) {
-                        System.out.println( s.getId()+ " a été touché");
                         s.handleCollision(gameBoard, d);
+
                     }
             }
         }
@@ -105,6 +105,12 @@ public class SpriteProvider {
         for(IntelligentSprite i : list)
             if(i instanceof VaisseauSprite) return true;
         return false;
+    }
+    public boolean containsASingleVaisseau() {
+        int counter = 0;
+        for(IntelligentSprite i : list)
+            if(i instanceof VaisseauSprite) counter++;
+        return counter<=1; //si 0 il est plus cohérent que ca return true
     }
 
     @Override

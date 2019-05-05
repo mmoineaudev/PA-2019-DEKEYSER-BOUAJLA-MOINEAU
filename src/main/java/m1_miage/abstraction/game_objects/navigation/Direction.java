@@ -1,7 +1,7 @@
 package m1_miage.abstraction.game_objects.navigation;
 
 /**
- * On va donner une direction aux vaisseaux pour les orienter
+ * Représente la direction des intelligentSprites
  */
 public enum  Direction {
     NORTH(0),
@@ -15,6 +15,10 @@ public enum  Direction {
         this.value = i;
     }
 
+    /**
+     * Permet d'instancier une direction aléatoire
+     * @return une Direction 
+     */
     public static Direction random() {
         return Direction.values()[(int) (Direction.values().length*Math.random())];
     }
