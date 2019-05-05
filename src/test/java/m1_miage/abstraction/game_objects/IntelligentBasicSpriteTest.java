@@ -1,22 +1,20 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import m1_miage.abstraction.Sprite;
 import m1_miage.presenter.GameBoard;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class IntelligentSpriteTest extends IntelligentSprite {
+public class IntelligentBasicSpriteTest extends IntelligentSprite {
 
     private IntelligentSprite instance = new IntelligentSprite(0,0);
     private GameBoard g = new GameBoard(100,100);
 
-    public IntelligentSpriteTest() {
+    public IntelligentBasicSpriteTest() {
         super(0., 0.);
     }
 
@@ -83,11 +81,11 @@ public class IntelligentSpriteTest extends IntelligentSprite {
         g.addSprite(instance);
         g.addSprite(new IntelligentSprite(20, 20));
 
-        Iterator<Sprite> it = g.spriteIterator();
+        Iterator<IntelligentSprite> it = g.spriteIterator();
         while (it.hasNext()){
-            Sprite s = it.next();
+            IntelligentSprite s = it.next();
             try{
-                g.checkForCollision(s);
+                g.getSpriteProvider().checkForCollision(s, g);
                 assertTrue(instance.lifes == 5);//pas de collision
             }catch(Exception e){
                 assertTrue(e instanceof UnsupportedOperationException);//on doit spécifier le IntelligentSprite mais pas
@@ -104,11 +102,11 @@ public class IntelligentSpriteTest extends IntelligentSprite {
         g.addSprite(instance);
         g.addSprite(new IntelligentSprite(0, 0));
 
-        Iterator<Sprite> it = g.spriteIterator();
+        Iterator<IntelligentSprite> it = g.spriteIterator();
         while (it.hasNext()){
-            Sprite s = it.next();
+            IntelligentSprite s = it.next();
             try{
-                g.checkForCollision(s);
+                g.getSpriteProvider().checkForCollision(s, g);
                 assertFalse(instance.lifes == 5);//pas de collision
             }catch(Exception e){
                 assertTrue(e instanceof UnsupportedOperationException);//on doit spécifier le IntelligentSprite mais pas

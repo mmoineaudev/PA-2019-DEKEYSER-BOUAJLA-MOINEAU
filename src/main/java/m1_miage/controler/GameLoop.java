@@ -4,11 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import m1_miage.abstraction.Sprite;
 import m1_miage.abstraction.game_objects.AsteroidSprite;
 import m1_miage.presenter.GameBoard;
-
-import java.util.Iterator;
 
 /**
  * Boucle de jeu, qui doit appeller les actions des différents objets de jeu
@@ -33,7 +30,7 @@ public class GameLoop extends AnimationTimer {
 
         double t = (currentNanoTime - lastUpdateNanoTime) / 1000000000.0;
 
-        graphicsContext.setFill(Color.DARKBLUE);
+        graphicsContext.setFill(Color.DARKVIOLET);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         graphicsContext.setFill(Color.BLACK);
 

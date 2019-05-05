@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
-import m1_miage.abstraction.Sprite;
 import m1_miage.presenter.GameBoard;
 
 /**
@@ -30,22 +29,34 @@ public class AsteroidSprite extends IntelligentSprite {
 
     @Override
     public Shape getBoundingShape() {
-        return new Circle(x, y, diameter);
+        if(isDead()) return null;
+        return new Circle(x-diameter/2, y-diameter/2, diameter);
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        Paint save = gc.getFill();
-        gc.setFill(Color.DARKSLATEGRAY);
-        gc.strokeOval(x,y, diameter, diameter);
-        gc.fillOval(x, y, diameter, diameter);
-        gc.setFill(save);
+        if(!isDead()) {
+            Paint save = gc.getFill();
+            gc.setFill(Color.DARKSLATEGRAY);
+            gc.strokeOval(x, y, diameter, diameter);
+            gc.fillOval(x, y, diameter, diameter);
+            gc.setFill(save);
+        }
+        //drawHitBox(gc); //for debug
     }
 
     @Override
-    public void handleCollision(GameBoard b, Sprite p) {
+    public void handleCollision(GameBoard b, IntelligentSprite p) {
         super.handleCollision(b,p);
-        this.setSpeed(0);
     }
+
+    private void drawHitBox(GraphicsContext gc) {
+        Paint save = gc.getFill();
+        gc.setFill(Color.WHITE);
+        gc.strokeRect(x,y, diameter,diameter);
+        gc.setFill(save);
+
+    }
+
 
 }
