@@ -86,8 +86,8 @@ public class GameBoard {
 
 	private void displayScores(GraphicsContext graphicsContext) {
 	    if(scoresPerVaisseau!=null && !scoresPerVaisseau.isEmpty()) {
-            Paint save = graphicsContext.getFill();
-            graphicsContext.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+            Paint save = graphicsContext.getStroke();
+            graphicsContext.setStroke(Color.WHITE);
             Font saveFont = graphicsContext.getFont();
             Font BIG = new Font(saveFont.getName(), 50 / scoresPerVaisseau.size());
             graphicsContext.setFont(BIG);
@@ -98,7 +98,7 @@ public class GameBoard {
                 graphicsContext.strokeText("* " + id + " " + scoresPerVaisseau.get(id), x, y);
                 y += height / scoresPerVaisseau.size();
             }
-            graphicsContext.setFill(save);
+            graphicsContext.setStroke(save);
             graphicsContext.setFont(saveFont);
             graphicsContext.save();
         }
@@ -112,14 +112,21 @@ public class GameBoard {
 	}
 
 	/**
+	 * @return true si le famebord ne contient plus de vaisseau
+	 */
+	public boolean ASingleOneIsLeft() {
+		return spriteProvider.containsASingleVaisseau();
+	}
+
+	/**
 	 * Affiche un compteur d'éléments dans le gameboard a chaque frame
 	 * @param graphicsContext
 	 */
 	private void displayNumberOfSprites(GraphicsContext graphicsContext) {
-		Paint save = graphicsContext.getFill();
-		graphicsContext.setFill(Color.RED);
+		Paint save = graphicsContext.getStroke();
+		graphicsContext.setStroke(Color.RED);
 		graphicsContext.strokeText("NumberOFSprites: "+spriteProvider.getLength(),10, 30);
-		graphicsContext.setFill(save);
+		graphicsContext.setStroke(save);
 		graphicsContext.save();
 	}
 
