@@ -48,13 +48,18 @@ public class VaisseauSpriteTest {
 
         try {
             Weapon weapon = new BasicWeapon(50,99, NORTH);
-            weapon.setOwner(instance);
+            weapon.setOwner(new VaisseauSprite(10,10, 1));
+            weapon.lifes=1;
             gameBoard.addSprite(weapon);
             gameBoard.addSprite(instance);
             GraphicsContext gc =new Canvas(100,100).getGraphicsContext2D();
             System.out.println("handleCollision :");
 
-            for(int i = 0 ; i<10; i++)gameBoard.animate(0.1, gc);
+            for(int i = 0 ; i<10; i++)
+            {
+                System.out.println("DEBUG handleCollision "+i+" \n" + gameBoard);
+                gameBoard.animate(0.1, gc);
+            }
 
             assertTrue(instance.getLifes()==4);//sometimes fails :(
             assertTrue(weapon.isDead());

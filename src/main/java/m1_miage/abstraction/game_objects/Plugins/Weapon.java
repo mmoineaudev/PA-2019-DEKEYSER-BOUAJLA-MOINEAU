@@ -78,7 +78,7 @@ public class Weapon extends IntelligentSprite {
      */
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
-        if(!isDead() && !p.isDead()){
+        if(!isDead()){
             lifes--;
             p.handleCollision(b,this);
             System.out.println(p + " received a shot from "+ owner);
