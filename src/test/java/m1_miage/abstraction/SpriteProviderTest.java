@@ -37,6 +37,7 @@ public class SpriteProviderTest {
 
     @Test
     public void removeTheDeadAndCheckForCollision() {
+        //ce test n'est pas suffisant, d'ou le continue dans la boucle {@link SpriteProvider#animate}
         try {
             instance.addSprite(new VaisseauSprite(0,0, 1));
             instance.addSprite(new AsteroidSprite(0,0));
