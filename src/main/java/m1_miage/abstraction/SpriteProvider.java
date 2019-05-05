@@ -73,7 +73,6 @@ public class SpriteProvider {
         while (it.hasNext()) {
             IntelligentSprite d = it.next();
             if (d != s) {
-                System.out.println("checkForCollision : "+d.getId()+" ; "+ s.getId());
                 if(!d.isDead() && !s.isDead())
                     if (s.getBoundingShape().getBoundsInParent().intersects(d.getBoundingShape().getBoundsInParent())) {
                         System.out.println( s.getId()+ " a été touché");
