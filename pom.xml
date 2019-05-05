@@ -61,7 +61,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>m1_miage.controler.GameGUI</mainClass>
+                <mainClass>m1_miage.presenter.GameMenuStart</mainClass>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>dependency-jars/</classpathPrefix>
               </manifest>
@@ -80,7 +80,7 @@
             </execution>
           </executions>
           <configuration>
-            <mainClass>m1_miage.controler.GameGUI</mainClass>
+            <mainClass>m1_miage.presenter.GameMenuStart</mainClass>
           </configuration>
         </plugin>
         <plugin>

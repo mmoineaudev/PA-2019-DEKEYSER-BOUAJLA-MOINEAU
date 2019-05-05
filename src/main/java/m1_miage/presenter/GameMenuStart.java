@@ -9,20 +9,19 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import m1_miage.controler.GameGUI;
 
 /**
  * Class which launches the game and associated classes
  */
 
 public class GameMenuStart extends Application {
-    private static int width;
-    private static int height;
-    private static Group root = new Group();
-    private static Scene scene = new Scene(root);
-    private static Stage stage;
+    private int width = 800;
+    private int height = 800;
+    private Group root = new Group();
+    private Scene scene = new Scene(root);
+    private Stage stage;
 
-    private static GameGUI startGame = new GameGUI();
+    private GameGUI startGame = new GameGUI();
 
     @Override
     public void start(Stage stage) {
@@ -96,7 +95,7 @@ public class GameMenuStart extends Application {
         primaryStage.show();
     }
 
-    public static void addHandler(Button demarrerPartie){
+    public void addHandler(Button demarrerPartie){
 
         //Button ajouterJoueurButton,Button supprimerJoueurButton
 
@@ -104,6 +103,7 @@ public class GameMenuStart extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Demarrage de la partie");
+                startGame = new GameGUI();
                 startGame.start(stage);
             }
         });

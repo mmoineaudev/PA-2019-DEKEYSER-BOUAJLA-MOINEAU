@@ -1,4 +1,4 @@
-package m1_miage.controler;
+package m1_miage.presenter;
 
 
 import javafx.application.Application;
@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
+import m1_miage.controler.GameLoop;
 import m1_miage.presenter.GameBoard;
 
 
@@ -61,11 +62,4 @@ public class GameGUI extends Application {
 			e.printStackTrace();
 		}
 	}
-
-
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
-
-
 }
