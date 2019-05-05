@@ -1,8 +1,8 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import m1_miage.presenter.GameBoard;
-import m1_miage.presenter.GameBoardTest;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -26,17 +26,20 @@ public class AsteroidSpriteTest extends AsteroidSprite {
     @Test
     public void getBoundingShape1() {
         AsteroidSprite a = new AsteroidSprite(0,0);
-        assertTrue(a.getBoundingShape() instanceof Circle);
+        assertTrue(a.getBoundingShape() instanceof Rectangle);
     }
 
     @Test
     public void handleCollision1() {
         GameBoard g = new GameBoard(100, 100);
         AsteroidSprite a = new AsteroidSprite(0,0);
-        AsteroidSprite b = new AsteroidSprite(30, 30);
         g.addSprite(a);
+
+        AsteroidSprite b = new AsteroidSprite(60, 60);//ne devrait pas toucher l'autre
         g.addSprite(b);
-        g.checkForCollision(a);
+
+        g.getSpriteProvider().checkForCollision(a, g);
+
         assertTrue(!a.isDead());
     }
     @Test
@@ -46,7 +49,7 @@ public class AsteroidSpriteTest extends AsteroidSprite {
         AsteroidSprite b = new AsteroidSprite(10, 10);//diametre de 10 au minimum
         g.addSprite(a);
         g.addSprite(b);
-        g.checkForCollision(a);
+        g.getSpriteProvider().checkForCollision(a, g);
         assertTrue(a.isDead());
     }
 }

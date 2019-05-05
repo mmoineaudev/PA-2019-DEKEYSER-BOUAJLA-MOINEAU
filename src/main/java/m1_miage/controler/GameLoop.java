@@ -4,11 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import m1_miage.abstraction.Sprite;
 import m1_miage.abstraction.game_objects.AsteroidSprite;
 import m1_miage.presenter.GameBoard;
-
-import java.util.Iterator;
 
 /**
  * Boucle de jeu, qui doit appeller les actions des différents objets de jeu
@@ -19,6 +16,7 @@ public class GameLoop extends AnimationTimer {
     private GraphicsContext graphicsContext;
 
     private long lastUpdateNanoTime=System.nanoTime();
+    private double chanceForAnAsteroidToAppear = 0.001;
 
 
     //taken from https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
@@ -33,13 +31,23 @@ public class GameLoop extends AnimationTimer {
 
         double t = (currentNanoTime - lastUpdateNanoTime) / 1000000000.0;
 
-        graphicsContext.setFill(Color.DARKBLUE);
-        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawSky();
         graphicsContext.setFill(Color.BLACK);
-
+        if(board.ASingleOneIsLeft()) chanceForAnAsteroidToAppear+=chanceForAnAsteroidToAppear/1000;
         board.animate(t, graphicsContext);
         lastUpdateNanoTime = currentNanoTime;
-        if(Math.random()<0.01) addAsteroid();
+        if(Math.random()<chanceForAnAsteroidToAppear) addAsteroid();
+    }
+
+    private void drawSky() {
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        graphicsContext.setFill(Color.WHITE);
+        for(int i = (int) (Math.random()*30); i>0; i--){
+            double size = Math.random()*5;
+            graphicsContext.fillOval(Math.random()*board.getWidth(), Math.random()*board.getHeight(), size, size);
+        }
+
     }
 
     public void addAsteroid(){
