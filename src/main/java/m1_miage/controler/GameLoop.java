@@ -16,7 +16,7 @@ public class GameLoop extends AnimationTimer {
     private GraphicsContext graphicsContext;
 
     private long lastUpdateNanoTime=System.nanoTime();
-    private double chanceForAnAsteroidToAppear = 0.005;
+    private static double chanceForAnAsteroidToAppear = 0.001;
 
 
     //taken from https://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835
@@ -27,13 +27,17 @@ public class GameLoop extends AnimationTimer {
         this.canvas = canvas;
     }
 
+    public static double getAsteroidPercentRisk() {
+        return chanceForAnAsteroidToAppear*100;
+    }
+
     public void handle(long currentNanoTime) {
 
         double t = (currentNanoTime - lastUpdateNanoTime) / 1000000000.0;
 
         drawSky();
         graphicsContext.setFill(Color.BLACK);
-        if(board.ASingleOneIsLeft() || board.getSpriteProvider().getLength()<3) chanceForAnAsteroidToAppear+=chanceForAnAsteroidToAppear/1000;
+        if(board.ASingleOneIsLeft() || board.getSpriteProvider().getLength()<=5) chanceForAnAsteroidToAppear+=chanceForAnAsteroidToAppear/1000;
         board.animate(t, graphicsContext);
         lastUpdateNanoTime = currentNanoTime;
         if(Math.random()<chanceForAnAsteroidToAppear) addAsteroid();

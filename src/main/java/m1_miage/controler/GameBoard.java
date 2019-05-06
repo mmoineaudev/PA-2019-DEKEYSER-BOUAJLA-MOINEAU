@@ -59,6 +59,7 @@ public class GameBoard {
 		spriteProvider.removeLostSprites(this);
 		if(!partyIsOver()) {
 			displayNumberOfSprites(graphicsContext);
+			displayChanceForAnAsteroidToAppear(graphicsContext);
 			Iterator<IntelligentSprite> it = spriteIterator();
 			while (it.hasNext()) {
 				IntelligentSprite s = it.next();
@@ -75,6 +76,7 @@ public class GameBoard {
 		}
 
 	}
+
 
 	/**
 	 * Mets a jour les scores des sprites morts
@@ -177,11 +179,22 @@ public class GameBoard {
 	private void displayNumberOfSprites(GraphicsContext graphicsContext) {
 		Paint save = graphicsContext.getStroke();
 		graphicsContext.setStroke(Color.RED);
-		graphicsContext.strokeText("NumberOFSprites: "+spriteProvider.getLength(),10, 30);
+		graphicsContext.strokeText("Number of sprites : "+spriteProvider.getLength(),10, 30);
 		graphicsContext.setStroke(save);
 		graphicsContext.save();
 	}
-
+	/**
+	 * Affiche les chances qu'un astéroid apparaisse
+	 */
+	private void displayChanceForAnAsteroidToAppear(GraphicsContext graphicsContext) {
+		Paint save = graphicsContext.getStroke();
+		if(GameLoop.getAsteroidPercentRisk()>50)graphicsContext.setStroke(Color.RED);
+		else if(GameLoop.getAsteroidPercentRisk()>10)graphicsContext.setStroke(Color.YELLOW);
+		else graphicsContext.setStroke(Color.GREEN);
+		graphicsContext.strokeText("Asteroid risk : "+ GameLoop.getAsteroidPercentRisk()+"%",10, 60);
+		graphicsContext.setStroke(save);
+		graphicsContext.save();
+	}
 	/**
 	 * permet a un vaisseau de savoir s'il doit tirer
 	 * @param vaisseauSprite
