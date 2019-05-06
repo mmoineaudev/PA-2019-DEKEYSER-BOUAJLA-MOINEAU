@@ -17,11 +17,15 @@ public class Score {
     @Override
     public String toString() {
         return  getTime() +" s"+
-                "\n\tpoints :" + points;
+                "; points :" + points;
     }
 
-    private long getTime() {
+    public long getTime() {
         if(deathTime==-1) end();
         return (deathTime-startTime)/1000;
+    }
+
+    public int getPoints() {
+        return points;
     }
 }

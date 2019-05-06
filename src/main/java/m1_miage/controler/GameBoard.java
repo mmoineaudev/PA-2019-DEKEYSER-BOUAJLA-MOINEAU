@@ -1,4 +1,4 @@
-package m1_miage.presenter;
+package m1_miage.controler;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -59,6 +59,7 @@ public class GameBoard {
 		spriteProvider.removeLostSprites(this);
 		if(!partyIsOver()) {
 			displayNumberOfSprites(graphicsContext);
+			displayChanceForAnAsteroidToAppear(graphicsContext);
 			Iterator<IntelligentSprite> it = spriteIterator();
 			while (it.hasNext()) {
 				IntelligentSprite s = it.next();
@@ -76,6 +77,11 @@ public class GameBoard {
 
 	}
 
+
+	/**
+	 * Mets a jour les scores des sprites morts
+	 * @param deadSprites
+	 */
 	private void updateScores(ArrayList<IntelligentSprite> deadSprites) {
 		for(IntelligentSprite s : deadSprites){
 			if(s instanceof VaisseauSprite)
@@ -84,24 +90,72 @@ public class GameBoard {
 
 	}
 
+	/**
+	 * Affiche un récapitulatif des scores a la fin de la partie
+	 * @param graphicsContext
+	 */
 	private void displayScores(GraphicsContext graphicsContext) {
 	    if(scoresPerVaisseau!=null && !scoresPerVaisseau.isEmpty()) {
             Paint save = graphicsContext.getStroke();
             graphicsContext.setStroke(Color.WHITE);
             Font saveFont = graphicsContext.getFont();
-            Font BIG = new Font(saveFont.getName(), 50 / scoresPerVaisseau.size());
+            int size = (int) (this.getHeight()/(scoresPerVaisseau.size()*2.5));
+            if(size>40)size=40;
+            if(size<8)size=8;
+            Font BIG = new Font(saveFont.getName(), size-2);
             graphicsContext.setFont(BIG);
-            graphicsContext.strokeText("Partie terminée !", 30, 30);
-            int x = width / 4;
-            int y = height / 4;
+            graphicsContext.strokeText("Partie terminée !", 30, size);
+            int x = width/5;
+            int y = 2*size;
+			String idMax = findMax(scoresPerVaisseau);
+			String idSurvivor = findSurvivor(scoresPerVaisseau);
             for (String id : scoresPerVaisseau.keySet()) {
-                graphicsContext.strokeText("* " + id + " " + scoresPerVaisseau.get(id), x, y);
-                y += height / scoresPerVaisseau.size();
+                graphicsContext.strokeText(
+                		((id==idMax)?
+								" * \tVAINQUEUR => "
+								:" * "+((id==idSurvivor)?"\tSURVIVOR => ":""
+						))
+						+ id + " " + scoresPerVaisseau.get(id), x, y);
+                y += 2*size;
             }
             graphicsContext.setStroke(save);
             graphicsContext.setFont(saveFont);
             graphicsContext.save();
         }
+	}
+
+	/**
+	 * Trouve le vaisseau qui a le plus de points
+	 * @param scoresPerVaisseau
+	 * @return le vaisseau gagnant
+	 */
+	private String findMax(HashMap<String, Score> scoresPerVaisseau) {
+		String max = "";
+		int maxPoint = 0;
+		for(String id : scoresPerVaisseau.keySet()){
+			if(maxPoint<scoresPerVaisseau.get(id).getPoints()){
+				maxPoint=scoresPerVaisseau.get(id).getPoints();
+				max=id;
+			}
+		}
+		return max;
+	}
+
+	/**
+	 * Trouve le vaisseau qui a survécu le plus longtemps
+	 * @param scoresPerVaisseau
+	 * @return le vaisseau survivant
+	 */
+	private String findSurvivor(HashMap<String, Score> scoresPerVaisseau) {
+		String max = "";
+		int maxPoint = 0;
+		for(String id : scoresPerVaisseau.keySet()){
+			if(maxPoint<scoresPerVaisseau.get(id).getTime()){
+				maxPoint= (int) scoresPerVaisseau.get(id).getTime();
+				max=id;
+			}
+		}
+		return max;
 	}
 
 	/**
@@ -125,11 +179,22 @@ public class GameBoard {
 	private void displayNumberOfSprites(GraphicsContext graphicsContext) {
 		Paint save = graphicsContext.getStroke();
 		graphicsContext.setStroke(Color.RED);
-		graphicsContext.strokeText("NumberOFSprites: "+spriteProvider.getLength(),10, 30);
+		graphicsContext.strokeText("Number of sprites : "+spriteProvider.getLength(),10, 30);
 		graphicsContext.setStroke(save);
 		graphicsContext.save();
 	}
-
+	/**
+	 * Affiche les chances qu'un astéroid apparaisse
+	 */
+	private void displayChanceForAnAsteroidToAppear(GraphicsContext graphicsContext) {
+		Paint save = graphicsContext.getStroke();
+		if(GameLoop.getAsteroidPercentRisk()>50)graphicsContext.setStroke(Color.RED);
+		else if(GameLoop.getAsteroidPercentRisk()>10)graphicsContext.setStroke(Color.YELLOW);
+		else graphicsContext.setStroke(Color.GREEN);
+		graphicsContext.strokeText("Asteroid risk : "+ GameLoop.getAsteroidPercentRisk()+"%",10, 60);
+		graphicsContext.setStroke(save);
+		graphicsContext.save();
+	}
 	/**
 	 * permet a un vaisseau de savoir s'il doit tirer
 	 * @param vaisseauSprite

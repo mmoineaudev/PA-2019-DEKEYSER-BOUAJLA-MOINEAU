@@ -6,23 +6,30 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import m1_miage.controler.GameGUI;
+import m1_miage.presenter.fields.NumberTextField;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Class which launches the game and associated classes
  */
 
 public class GameMenuStart extends Application {
-    private static int width;
-    private static int height;
-    private static Group root = new Group();
-    private static Scene scene = new Scene(root);
-    private static Stage stage;
+    private int width = 300;
+    private int height = 600;
+    private Group root = new Group();
+    private Scene scene = new Scene(root);
+    private Stage stage;
 
-    private static GameGUI startGame = new GameGUI();
+    private int nbVaisseaux = 2;
+    private ArrayList<Integer> weapons = new ArrayList<>();
+
+    private GameGUI startGame;
 
     @Override
     public void start(Stage stage) {
@@ -37,76 +44,78 @@ public class GameMenuStart extends Application {
         root.getChildren().add(canvas);
         primaryStage.sizeToScene();
 
-        Label guiLabel = new Label("GUI");
-        guiLabel.setLayoutX(60);
-        guiLabel.setLayoutY(50);
+        Label title = new Label("PARAMETRAGE DU JEU");
+        title.setTextFill(Color.BLUE);
+        title.setLayoutX(20);
+        title.setLayoutY(10);
 
-        Label pluggin1label = new Label("Pluggin1");
-        pluggin1label.setLayoutX(160);
-        pluggin1label.setLayoutY(70);
-
-        Label pluggin2label = new Label("Pluggin2");
-        pluggin2label.setLayoutX(360);
-        pluggin2label.setLayoutY(70);
-
-//        //Create menu items
-//        MenuItem option1 = new MenuItem("option 1");
-//        MenuItem option2 = new MenuItem("option 2");
-//
-//        plugginMenu.getItems().addAll(option1);
-//        plugginMenu2.getItems().addAll(option2);
-//
-//        menuBar.getMenus().addAll(plugginMenu,plugginMenu2);
-
-
-        Label joueursLabel = new Label("Joueurs");
-        joueursLabel.setLayoutX(60);
+        Label joueursLabel = new Label("Nombre de joueurs : ");
+        joueursLabel.setLayoutX(10);
         joueursLabel.setLayoutY(100);
 
-        Label nomsJoueurLabel = new Label("Noms");
-        nomsJoueurLabel.setLayoutX(60);
-        nomsJoueurLabel.setLayoutY(120);
+        NumberTextField ntf = new NumberTextField();
+        ntf.setNumber(new BigDecimal(nbVaisseaux));
+        ntf.setLayoutX(10);
+        ntf.setLayoutY(150);
 
-        Label mouvementsLabel = new Label("Mouvements");
-        mouvementsLabel.setLayoutX(160);
-        mouvementsLabel.setLayoutY(120);
-
-
-        Label armesLabel = new Label("Armes");
-        armesLabel.setLayoutX(360);
-        armesLabel.setLayoutY(120);
-
-        Label graphismesLabel = new Label("Graphismes");
-        graphismesLabel.setLayoutX(560);
-        graphismesLabel.setLayoutY(120);
-
-        Button ajouterJoueurButton = new Button("Ajouter joueur");
-        ajouterJoueurButton.setLayoutX(60);
-
-        Button supprimerJoueurButton = new Button("Suppimer joueur");
-        supprimerJoueurButton.setLayoutX(180);
-
+        Button choixDesArmes = new Button("Choisir les armes des joueurs");
+        choixDesArmes.setLayoutX(10);
+        choixDesArmes.setLayoutY(200);
 
         Button demarrerPartie = new Button("Démarrer la partie");
-        demarrerPartie.setLayoutX(400);
-
-        this.addHandler(demarrerPartie);
-        root.getChildren().addAll(ajouterJoueurButton, supprimerJoueurButton, demarrerPartie, graphismesLabel, armesLabel, mouvementsLabel,nomsJoueurLabel, joueursLabel, pluggin2label, pluggin1label, guiLabel);
+        demarrerPartie.setLayoutX(10);
+        demarrerPartie.setLayoutY(550);
+        this.addHandler(demarrerPartie,ntf, choixDesArmes);
+        root.getChildren().addAll(title, demarrerPartie, joueursLabel, ntf, choixDesArmes);
 
         primaryStage.show();
     }
 
-    public static void addHandler(Button demarrerPartie){
-
-        //Button ajouterJoueurButton,Button supprimerJoueurButton
+    public void addHandler(Button demarrerPartie, NumberTextField ntf, Button choixDesArmes){
 
         demarrerPartie.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Demarrage de la partie");
+                if(weapons==null) weapons=new ArrayList<>();
+                nbVaisseaux = ntf.getNumber().intValue();
+                System.out.println("Demarrage de la partie : \n"+nbVaisseaux+" joueur"+((nbVaisseaux>1)?"s":""));
+                startGame = new GameGUI(nbVaisseaux, weapons);
                 startGame.start(stage);
             }
         });
+
+        choixDesArmes.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                weapons = new ArrayList<>();
+                nbVaisseaux = ntf.getNumber().intValue();
+                System.out.println("Choix des armes de la partie : \n"+nbVaisseaux+" joueur"+((nbVaisseaux>1)?"s":""));
+                for(int i=0 ; i<nbVaisseaux;i++){
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.setTitle("Choix d'arme : Vaisseau "+(i+1));
+                    ButtonType buttonTypeOne = new ButtonType("N°1");
+                    ButtonType buttonTypeTwo = new ButtonType("N°2");
+
+                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == buttonTypeOne){
+                        weapons.add(1);
+                    } else if (result.get() == buttonTypeTwo) {
+                        weapons.add(2);
+                    } else {
+                        //annulation
+                    }
+                }
+            }
+        });
+
+
+
+
+
     }
     public static void main(String[] args){
         Application.launch(args);

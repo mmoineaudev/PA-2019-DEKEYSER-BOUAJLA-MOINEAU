@@ -1,8 +1,7 @@
 package m1_miage.abstraction.game_objects;
 
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -3,7 +3,7 @@ package m1_miage.abstraction.game_objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Shape;
 import m1_miage.abstraction.game_objects.navigation.Direction;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 
 import java.util.Random;
 

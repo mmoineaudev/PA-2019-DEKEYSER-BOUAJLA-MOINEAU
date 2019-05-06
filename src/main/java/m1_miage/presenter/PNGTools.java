@@ -2,6 +2,8 @@ package m1_miage.presenter;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.transform.Rotate;
 
 /**
@@ -18,4 +20,15 @@ public class PNGTools {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
+
+    public static Paint getColor() {
+        switch ((int) (Math.random()*5.)){
+            case 0 : return Color.DARKKHAKI;
+            case 1 : return Color.DARKORANGE;
+            case 2 : return Color.DARKGRAY;
+            case 3 : return Color.DARKSLATEBLUE;
+            default: return Color.DARKOLIVEGREEN;
+        }
+    }
+
 }

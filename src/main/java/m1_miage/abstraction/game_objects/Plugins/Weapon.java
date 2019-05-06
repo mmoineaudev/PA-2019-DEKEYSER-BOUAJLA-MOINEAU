@@ -9,7 +9,7 @@ import javafx.scene.shape.Shape;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 
 import java.io.FileNotFoundException;
 
@@ -18,6 +18,7 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
 public class Weapon extends IntelligentSprite {
     protected Image image = null;
     private static final int default_speed = 50;
+
     private VaisseauSprite owner;
 
     public Weapon(double x, double y, Direction direction) throws FileNotFoundException {
@@ -78,7 +79,7 @@ public class Weapon extends IntelligentSprite {
      */
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
-        if(!isDead()){
+        if(!isDead() && p!=this){
             lifes--;
             p.handleCollision(b,this);
             System.out.println(p + " received a shot from "+ owner);
@@ -130,5 +131,9 @@ public class Weapon extends IntelligentSprite {
 
     public String getSound() {
         return "Peeeewww";
+    }
+
+    public VaisseauSprite getOwner() {
+        return owner;
     }
 }

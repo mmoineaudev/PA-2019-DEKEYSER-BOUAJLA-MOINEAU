@@ -1,10 +1,8 @@
 package m1_miage.abstraction;
 
-import javafx.scene.Node;
-import javafx.scene.shape.Shape;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -118,5 +116,14 @@ public class SpriteProvider {
         String res=this.getClass().getSimpleName()+"{";
         for(IntelligentSprite s : list) res+= s +";\n ";
         return res + "}";
+    }
+
+    public boolean containsASpriteAt(int x, int y) {
+        double delta=60;
+        for(IntelligentSprite is : list)
+            if(x+delta>is.getX() && x-delta<=is.getX()
+            && y+delta>is.getY() && y-delta<is.getY())
+                return true;
+        return false;
     }
 }
