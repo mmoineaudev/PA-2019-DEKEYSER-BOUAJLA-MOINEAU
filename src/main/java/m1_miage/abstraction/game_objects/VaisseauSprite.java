@@ -99,10 +99,10 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     private double getXForWeapon(Direction direction) {
         if(direction==EAST){
-            return x+l;
+            return x+2*l;
         }
         else if(direction==WEST){
-            return x-l;
+            return x-2*l;
         }
         else return x;
     }
@@ -114,10 +114,10 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     private double getYForWeapon(Direction direction) {
         if(direction==NORTH){
-            return y-l;
+            return y-2*l;
         }
         else if(direction==SOUTH){
-            return y+l;
+            return y+2*l;
         }
         else return y;
     }
@@ -131,7 +131,7 @@ public class VaisseauSprite extends IntelligentSprite {
     public void update(double time, GameBoard b) {
         updatePlugins(time,b);
         super.update(time,b);
-        if(speed<100) speed+=1*lifes;//on peut accélérer mais pas trop quand même, mais plus quand on est en bon état que endommagé
+        if(speed<70) speed+=1*lifes;//on peut accélérer mais pas trop quand même, mais plus quand on est en bon état que endommagé
         avoidBorders(b);
         //update des plugins
         if(b.facesAnEnemy(this)) {
@@ -259,6 +259,9 @@ public class VaisseauSprite extends IntelligentSprite {
     @Override
 
     public void handleCollision(GameBoard b, IntelligentSprite p) {
+
+        if(p instanceof Weapon && ((Weapon) p).getOwner().getId().equals(getId())) return;//on ne se tire pas dessus
+
         super.handleCollision(b, p);//pour décrémenter le nombre de vies
 
         if(isDead()) {

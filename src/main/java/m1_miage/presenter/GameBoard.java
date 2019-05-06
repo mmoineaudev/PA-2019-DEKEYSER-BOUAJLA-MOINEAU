@@ -95,14 +95,16 @@ public class GameBoard {
             Font BIG = new Font(saveFont.getName(), size-2);
             graphicsContext.setFont(BIG);
             graphicsContext.strokeText("Partie terminée !", 30, size);
-            int x = 10;
+            int x = 2*size;
             int y = 2*size;
 			String idMax = findMax(scoresPerVaisseau);
 			String idSurvivor = findSurvivor(scoresPerVaisseau);
             for (String id : scoresPerVaisseau.keySet()) {
                 graphicsContext.strokeText(
-                		((id==idMax)?"\tVAINQUEUR => ":" * ")
-						+((id==idSurvivor)?"\tSURVIVOR => ":" * ")
+                		((id==idMax)?
+								" * \tVAINQUEUR => "
+								:" * "+((id==idSurvivor)?"\tSURVIVOR => ":""
+						))
 						+ id + " " + scoresPerVaisseau.get(id), x, y);
                 y += 2*size;
             }

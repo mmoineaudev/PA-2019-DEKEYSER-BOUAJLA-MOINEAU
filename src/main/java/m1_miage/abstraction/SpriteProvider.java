@@ -119,4 +119,13 @@ public class SpriteProvider {
         for(IntelligentSprite s : list) res+= s +";\n ";
         return res + "}";
     }
+
+    public boolean containsASpriteAt(int x, int y) {
+        double delta=60;
+        for(IntelligentSprite is : list)
+            if(x+delta>is.getX() && x-delta<=is.getX()
+            && y+delta>is.getY() && y-delta<is.getY())
+                return true;
+        return false;
+    }
 }

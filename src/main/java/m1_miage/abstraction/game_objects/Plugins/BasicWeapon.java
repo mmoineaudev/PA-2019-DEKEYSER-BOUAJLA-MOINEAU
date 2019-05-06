@@ -14,6 +14,6 @@ public class BasicWeapon extends Weapon{
         System.out.println("creating "+this.getClass().getSimpleName()+" instance");
     }
     public String getSound() {
-        return "pan";
+        return this.id+":pan";
     }
 }

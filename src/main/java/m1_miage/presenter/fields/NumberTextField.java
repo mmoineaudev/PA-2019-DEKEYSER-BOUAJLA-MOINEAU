@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 
 /**
+ * //From the internet
  * Textfield implementation that accepts formatted number and stores them in a
  * BigDecimal property The user input is formatted when the focus is lost or the
  * user hits RETURN.

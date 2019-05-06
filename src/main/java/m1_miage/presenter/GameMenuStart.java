@@ -44,22 +44,10 @@ public class GameMenuStart extends Application {
         root.getChildren().add(canvas);
         primaryStage.sizeToScene();
 
-
-//        //Create menu items
-//        MenuItem option1 = new MenuItem("option 1");
-//        MenuItem option2 = new MenuItem("option 2");
-//
-//        plugginMenu.getItems().addAll(option1);
-//        plugginMenu2.getItems().addAll(option2);
-//
-//        menuBar.getMenus().addAll(plugginMenu,plugginMenu2);
-
-
         Label title = new Label("PARAMETRAGE DU JEU");
         title.setTextFill(Color.BLUE);
         title.setLayoutX(20);
         title.setLayoutY(10);
-
 
         Label joueursLabel = new Label("Nombre de joueurs : ");
         joueursLabel.setLayoutX(10);

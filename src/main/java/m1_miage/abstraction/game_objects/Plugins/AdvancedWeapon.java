@@ -27,7 +27,7 @@ public class AdvancedWeapon extends Weapon {
         System.out.println("creating "+this.getClass().getSimpleName()+" instance");
     }
     public String getSound() {
-        return "boom";
+        return this.id+":boom";
     }
 
 }

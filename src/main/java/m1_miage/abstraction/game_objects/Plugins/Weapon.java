@@ -18,6 +18,7 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
 public class Weapon extends IntelligentSprite {
     protected Image image = null;
     private static final int default_speed = 50;
+
     private VaisseauSprite owner;
 
     public Weapon(double x, double y, Direction direction) throws FileNotFoundException {
@@ -130,5 +131,9 @@ public class Weapon extends IntelligentSprite {
 
     public String getSound() {
         return "Peeeewww";
+    }
+
+    public VaisseauSprite getOwner() {
+        return owner;
     }
 }
