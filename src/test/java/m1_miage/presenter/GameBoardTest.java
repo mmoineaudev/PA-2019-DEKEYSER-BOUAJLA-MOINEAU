@@ -1,7 +1,5 @@
 package m1_miage.presenter;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import m1_miage.abstraction.SpriteProvider;
 import m1_miage.abstraction.game_objects.AsteroidSprite;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
@@ -50,48 +48,7 @@ public class GameBoardTest extends GameBoard {
         assertTrue(nbSprite == spriteProviders.length);
     }
 
-    @Test
-    public void testAnimate() {
-        SpriteProvider spriteProviders = new SpriteProvider();
-        spriteProviders.addShots();
 
-        GraphicsContext graphicsContext;
-        
-
-    }
-
-
-//    public void animate(double t, GraphicsContext graphicsContext) {
-//        spriteProvider.addShots();
-//        updateScores(spriteProvider.removeTheDead());
-//        spriteProvider.removeLostSprites(this);
-//        if(!partyIsOver()) {
-//            displayNumberOfSprites(graphicsContext);
-//            Iterator<IntelligentSprite> it = spriteIterator();
-//            while (it.hasNext()) {
-//                IntelligentSprite s = it.next();
-//                if(s.getLifes()<=0)
-//                    continue;
-//                else{
-//                    s.update(t, this);
-//                    spriteProvider.checkForCollision(s, this);
-//                    s.render(graphicsContext);
-//                }
-//            }
-//        }else{
-//            displayScores(graphicsContext);
-//        }
-//
-//    }
-//      try {
-//        instance.addSprite(new VaisseauSprite(-1,0, 1));
-//        instance.addSprite(new AsteroidSprite(instance.getWidth()+1,instance.getHeight()+1));
-//        assertTrue(instance.getSpriteProvider().getLength()==2);
-//        instance.animate(0.1, new Canvas(100,100).getGraphicsContext2D());
-//        assertTrue(instance.getSpriteProvider().getLength()==0);
-//    } catch (FileNotFoundException e) {
-//        fail();
-//    }
     @Test
     public void testFacesAnEnemy() {
         VaisseauSprite vaisseauSprite = null;
