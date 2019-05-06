@@ -63,7 +63,7 @@ public class GameBoard {
 			while (it.hasNext()) {
 				IntelligentSprite s = it.next();
 				if(s.getLifes()<=0)
-					continue;//c'est moche mais au mons ca déclenchera pas les collisions engendrées par des IntelligentSprites morts
+					continue;
 				else{
 					s.update(t, this);
 					spriteProvider.checkForCollision(s, this);
@@ -134,7 +134,7 @@ public class GameBoard {
 	 * permet a un vaisseau de savoir s'il doit tirer
 	 * @param vaisseauSprite
 	 * @return true si un enemy est en face
-	 *///TODO TEST
+	 */
 	public boolean facesAnEnemy(VaisseauSprite vaisseauSprite) {
 		Iterator<IntelligentSprite> it = spriteIterator();
 		int delta = 15;

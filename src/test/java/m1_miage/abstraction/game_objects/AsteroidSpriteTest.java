@@ -14,7 +14,7 @@ public class AsteroidSpriteTest extends AsteroidSprite {
     }
 
     @Test
-    public void update1() {
+    public void testUpdate() {
         AsteroidSprite a = new AsteroidSprite(0,0);
         double oldx = a.getX() , oldy = a.getY() , oldSpeed = a.getSpeed();
         a.update(1, new GameBoard(100, 100));
@@ -24,13 +24,13 @@ public class AsteroidSpriteTest extends AsteroidSprite {
     }
 
     @Test
-    public void getBoundingShape1() {
+    public void testGetBoundingShape() {
         AsteroidSprite a = new AsteroidSprite(0,0);
         assertTrue(a.getBoundingShape() instanceof Rectangle);
     }
 
     @Test
-    public void handleCollision1() {
+    public void testHandleCollision() {
         GameBoard g = new GameBoard(100, 100);
         AsteroidSprite a = new AsteroidSprite(0,0);
         g.addSprite(a);
@@ -43,7 +43,7 @@ public class AsteroidSpriteTest extends AsteroidSprite {
         assertTrue(!a.isDead());
     }
     @Test
-    public void handleCollision2() {
+    public void testHandleCollision2() {
         GameBoard g = new GameBoard(100, 100);
         AsteroidSprite a = new AsteroidSprite(0,0);
         AsteroidSprite b = new AsteroidSprite(10, 10);//diametre de 10 au minimum
