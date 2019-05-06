@@ -112,10 +112,6 @@ public class GameMenuStart extends Application {
             }
         });
 
-
-
-
-
     }
     public static void main(String[] args){
         Application.launch(args);
