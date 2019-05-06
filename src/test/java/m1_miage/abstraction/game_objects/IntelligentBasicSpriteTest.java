@@ -25,7 +25,6 @@ public class IntelligentBasicSpriteTest extends IntelligentSprite {
         double oldx = instance.getX(), oldy = instance.getY(), oldspeed = instance.speed;
         for(int i = 0; i<10; i++) {
             instance.update(0.1, g);
-            //System.out.println("instance = " + instance);
         }
         assertFalse(oldx != instance.getX()||oldy != instance.getY());//on bouge pas
         assertFalse(oldspeed != instance.getSpeed());//on accélère pas
@@ -38,17 +37,16 @@ public class IntelligentBasicSpriteTest extends IntelligentSprite {
         double oldx = instance.getX(), oldy = instance.getY(), oldspeed = instance.speed;
         for (int i = 0; i < 10; i++) {
             instance.update(0.1, g);
-            //System.out.println("instance = " + instance);
         }
         assertTrue(oldx != instance.getX() || oldy != instance.getY());//on bouge
         assertTrue(oldspeed == instance.getSpeed());//on accélère pas
     }
     @Test
     public void isDead1() {
-        assertFalse(isDead());//on est pas morts a la création
+        assertFalse(isDead());//on n'est pas morts a la création
         lifes=0;
         assertTrue(isDead());//mais quand on a plus de vie
-        lifes=5;//on remet les vies a 5
+        lifes=5;//on remet les vies à 5
     }
 
     @Test
@@ -88,8 +86,7 @@ public class IntelligentBasicSpriteTest extends IntelligentSprite {
                 g.getSpriteProvider().checkForCollision(s, g);
                 assertTrue(instance.lifes == 5);//pas de collision
             }catch(Exception e){
-                assertTrue(e instanceof UnsupportedOperationException);//on doit spécifier le IntelligentSprite mais pas
-                //l'utiliser directement
+                assertTrue(e instanceof UnsupportedOperationException);
             }
         }
     }
@@ -109,8 +106,7 @@ public class IntelligentBasicSpriteTest extends IntelligentSprite {
                 g.getSpriteProvider().checkForCollision(s, g);
                 assertFalse(instance.lifes == 5);//pas de collision
             }catch(Exception e){
-                assertTrue(e instanceof UnsupportedOperationException);//on doit spécifier le IntelligentSprite mais pas
-                //l'utiliser directement
+                assertTrue(e instanceof UnsupportedOperationException);
             }
          }
     }

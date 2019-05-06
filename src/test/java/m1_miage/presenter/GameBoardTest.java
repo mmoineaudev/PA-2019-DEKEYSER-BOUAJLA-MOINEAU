@@ -22,7 +22,7 @@ public class GameBoardTest extends GameBoard {
     private IntelligentSprite intelligentSprite2 = new IntelligentSprite(30,30);
 
     public GameBoardTest() {
-        super(200, 100  );
+        super(200, 100);
     }
 
     @Test
