@@ -13,14 +13,25 @@ import m1_miage.presenter.GameBoard;
 
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 /**
  * TODO refactor
  */
 public class GameGUI extends Application {
-	private GameBoard board;
 
-	@Override
+	private int width = 1000;
+	private int height = 600;
+
+	private GameBoard board;
+	private int nbVaisseaux;
+	private ArrayList<Integer> weapons ;
+    public GameGUI(int nbVaisseaux, ArrayList<Integer> weapons) {
+    	this.nbVaisseaux = nbVaisseaux;
+    	this.weapons = weapons;
+    }
+
+    @Override
 	public void start(Stage stage) {
 		initGame(stage);
 	}
@@ -31,12 +42,12 @@ public class GameGUI extends Application {
 		Group root = new Group();
 		Scene theScene = new Scene(root);
 		stage.setScene(theScene);
-		Canvas canvas = new Canvas(512, 512);
+		Canvas canvas = new Canvas(width, height);
 		root.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		stage.sizeToScene();
 
-		board = new GameBoard(512, 512);
+		board = new GameBoard(width, height);
 
 		/*RectangleSprite r = new RectangleSprite(50, 10);
 		board.addSprite(r);
@@ -55,9 +66,14 @@ public class GameGUI extends Application {
 	private void initBoard(GameBoard board) {
 		System.out.println("initBoard");
 		try {
-			board.addSprite(new VaisseauSprite(50, 500, 2));
-			board.addSprite(new VaisseauSprite(200, 200, 1));
-			board.addSprite(new VaisseauSprite(250, 250, 2));
+			for(int i = 0; i<nbVaisseaux ; i++){
+				int weapon = (Math.random()>0.5)?2:1 ;
+				if(weapons.size()==nbVaisseaux) weapon = weapons.get(i);
+				System.out.println("ajout vaisseau "+i+":\n"+(board.getWidth()/(nbVaisseaux+2))*i+","+(board.getHeight()/(nbVaisseaux+2))*i+","+weapon);
+				board.addSprite(new VaisseauSprite((board.getWidth()/(nbVaisseaux+1))*(i+1),
+						(board.getHeight()/(nbVaisseaux+1))*(i+1),
+						weapon));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
