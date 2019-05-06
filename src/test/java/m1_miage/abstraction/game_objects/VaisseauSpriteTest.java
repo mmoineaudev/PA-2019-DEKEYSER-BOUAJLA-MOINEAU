@@ -4,8 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import m1_miage.abstraction.game_objects.Plugins.BasicWeapon;
 import m1_miage.abstraction.game_objects.Plugins.Weapon;
-import m1_miage.abstraction.game_objects.navigation.Direction;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 import org.junit.Before;
 import org.junit.Test;
 

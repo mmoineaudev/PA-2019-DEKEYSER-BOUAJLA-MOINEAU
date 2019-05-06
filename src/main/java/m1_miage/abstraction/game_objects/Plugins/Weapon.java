@@ -9,7 +9,7 @@ import javafx.scene.shape.Shape;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 
 import java.io.FileNotFoundException;
 
@@ -69,7 +69,7 @@ public class Weapon extends IntelligentSprite {
             drawRotatedImage(gc, image, getAngle(), x,y);
             gc.setFill(save);
         }
-        drawHitBox(gc); //for debug
+        //drawHitBox(gc); //for debug
     }
 
     /**

@@ -1,8 +1,7 @@
 package m1_miage.presenter;
 
+import m1_miage.controler.GameBoard;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class GameBoardTest extends GameBoard {
 

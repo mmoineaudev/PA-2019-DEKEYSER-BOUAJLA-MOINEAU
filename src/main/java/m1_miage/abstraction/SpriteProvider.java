@@ -1,10 +1,8 @@
 package m1_miage.abstraction;
 
-import javafx.scene.Node;
-import javafx.scene.shape.Shape;
 import m1_miage.abstraction.game_objects.IntelligentSprite;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 
 import java.util.ArrayList;
 import java.util.Iterator;

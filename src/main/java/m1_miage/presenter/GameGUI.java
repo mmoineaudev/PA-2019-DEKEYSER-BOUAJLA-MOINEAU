@@ -9,10 +9,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.controler.GameLoop;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**

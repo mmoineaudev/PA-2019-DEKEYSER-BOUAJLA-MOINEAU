@@ -1,7 +1,7 @@
 package m1_miage.abstraction.game_objects;
 
 import javafx.scene.canvas.Canvas;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 import org.junit.Test;
 
 import java.util.Iterator;

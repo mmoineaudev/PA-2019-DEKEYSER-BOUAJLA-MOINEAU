@@ -5,7 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import m1_miage.abstraction.game_objects.AsteroidSprite;
-import m1_miage.presenter.GameBoard;
+import m1_miage.presenter.PNGTools;
 
 /**
  * Boucle de jeu, qui doit appeller les actions des différents objets de jeu
@@ -42,10 +42,13 @@ public class GameLoop extends AnimationTimer {
     private void drawSky() {
         graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        graphicsContext.setFill(Color.WHITE);
-        for(int i = (int) (Math.random()*30); i>0; i--){
+
+        for(int i = (int) (Math.random()*100); i>0; i--){
             double size = Math.random()*5;
-            graphicsContext.fillOval(Math.random()*board.getWidth(), Math.random()*board.getHeight(), size, size);
+            double x = Math.random()*board.getWidth();
+            double y = Math.random()*board.getHeight();
+            graphicsContext.setFill(PNGTools.getColor());
+            graphicsContext.fillOval(x, y, size, size);
         }
 
     }

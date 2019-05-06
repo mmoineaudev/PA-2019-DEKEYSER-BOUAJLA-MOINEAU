@@ -1,4 +1,4 @@
-package m1_miage.presenter;
+package m1_miage.controler;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -76,6 +76,10 @@ public class GameBoard {
 
 	}
 
+	/**
+	 * Mets a jour les scores des sprites morts
+	 * @param deadSprites
+	 */
 	private void updateScores(ArrayList<IntelligentSprite> deadSprites) {
 		for(IntelligentSprite s : deadSprites){
 			if(s instanceof VaisseauSprite)
@@ -84,6 +88,10 @@ public class GameBoard {
 
 	}
 
+	/**
+	 * Affiche un récapitulatif des scores a la fin de la partie
+	 * @param graphicsContext
+	 */
 	private void displayScores(GraphicsContext graphicsContext) {
 	    if(scoresPerVaisseau!=null && !scoresPerVaisseau.isEmpty()) {
             Paint save = graphicsContext.getStroke();
@@ -95,7 +103,7 @@ public class GameBoard {
             Font BIG = new Font(saveFont.getName(), size-2);
             graphicsContext.setFont(BIG);
             graphicsContext.strokeText("Partie terminée !", 30, size);
-            int x = 2*size;
+            int x = width/5;
             int y = 2*size;
 			String idMax = findMax(scoresPerVaisseau);
 			String idSurvivor = findSurvivor(scoresPerVaisseau);
@@ -114,6 +122,11 @@ public class GameBoard {
         }
 	}
 
+	/**
+	 * Trouve le vaisseau qui a le plus de points
+	 * @param scoresPerVaisseau
+	 * @return le vaisseau gagnant
+	 */
 	private String findMax(HashMap<String, Score> scoresPerVaisseau) {
 		String max = "";
 		int maxPoint = 0;
@@ -126,6 +139,11 @@ public class GameBoard {
 		return max;
 	}
 
+	/**
+	 * Trouve le vaisseau qui a survécu le plus longtemps
+	 * @param scoresPerVaisseau
+	 * @return le vaisseau survivant
+	 */
 	private String findSurvivor(HashMap<String, Score> scoresPerVaisseau) {
 		String max = "";
 		int maxPoint = 0;
@@ -168,7 +186,7 @@ public class GameBoard {
 	 * permet a un vaisseau de savoir s'il doit tirer
 	 * @param vaisseauSprite
 	 * @return true si un enemy est en face
-	 *///TODO TEST
+	 */
 	public boolean facesAnEnemy(VaisseauSprite vaisseauSprite) {
 		Iterator<IntelligentSprite> it = spriteIterator();
 		int delta = 15;

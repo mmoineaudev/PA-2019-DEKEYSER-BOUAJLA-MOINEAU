@@ -3,24 +3,31 @@ package m1_miage.abstraction.game_objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
+
+import static m1_miage.presenter.PNGTools.getColor;
 
 /**
  * Le futur objet de jeu : asteroid
  */
 public class AsteroidSprite extends IntelligentSprite {
     private final int max_speed = 100;
-    private int diameter = (int) (Math.random()*30);
+    private static int total;
+    private int diameter = (int) (Math.random()*45);
+    private Paint color;
 
     public AsteroidSprite(double x, double y) {
         super(x, y);
+        total++;
         this.setSpeed(Math.random()*max_speed);
+        color = getColor();
         lifes = 1;
-        if(diameter<10) diameter=10;
+        if(diameter<15) diameter=15;
+        if(total%50==0) diameter= (int) (Math.random()*150);//des fois ils sont très gros
     }
+
 
     @Override
     public void update(double time, GameBoard b) {
@@ -38,7 +45,7 @@ public class AsteroidSprite extends IntelligentSprite {
     public void render(GraphicsContext gc) {
         if(!isDead()) {
             Paint save = gc.getFill();
-            gc.setFill(Color.DARKSLATEGRAY);
+            gc.setFill(color);
             gc.strokeOval(x, y, diameter, diameter);
             gc.fillOval(x, y, diameter, diameter);
             gc.setFill(save);

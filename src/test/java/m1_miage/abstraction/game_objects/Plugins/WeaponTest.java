@@ -4,7 +4,7 @@ import javafx.scene.canvas.Canvas;
 import m1_miage.abstraction.game_objects.AsteroidSprite;
 import m1_miage.abstraction.game_objects.VaisseauSprite;
 import m1_miage.abstraction.game_objects.navigation.Direction;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 import org.junit.Before;
 import org.junit.Test;
 

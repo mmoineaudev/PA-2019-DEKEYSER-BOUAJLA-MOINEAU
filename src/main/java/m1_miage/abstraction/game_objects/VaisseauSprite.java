@@ -11,7 +11,7 @@ import m1_miage.abstraction.game_objects.Plugins.BasicWeapon;
 import m1_miage.abstraction.game_objects.Plugins.Weapon;
 import m1_miage.abstraction.game_objects.Plugins.WeaponType;
 import m1_miage.abstraction.game_objects.navigation.Direction;
-import m1_miage.presenter.GameBoard;
+import m1_miage.controler.GameBoard;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +35,7 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
  * Le vaisseau possède 5 vies et tire à vue
  */
 public class VaisseauSprite extends IntelligentSprite {
-    private final int L = 20, l=50;
+    private final int L = 20, l=30;
     private static int totalCounter = 1;
     private int numId = totalCounter;
     private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
@@ -99,10 +99,10 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     private double getXForWeapon(Direction direction) {
         if(direction==EAST){
-            return x+2*l;
+            return x+1.5*l;
         }
         else if(direction==WEST){
-            return x-2*l;
+            return x-1.5*l;
         }
         else return x;
     }
@@ -114,10 +114,10 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     private double getYForWeapon(Direction direction) {
         if(direction==NORTH){
-            return y-2*l;
+            return y-1.5*l;
         }
         else if(direction==SOUTH){
-            return y+2*l;
+            return y+1.5*l;
         }
         else return y;
     }
@@ -226,7 +226,7 @@ public class VaisseauSprite extends IntelligentSprite {
 
             Paint strokeSave = gc.getStroke();
             gc.setStroke(Color.WHITE);
-            gc.strokeText(id, x-Math.max(l,L), y+Math.max(l,L));
+            gc.strokeText(id, x-2*Math.max(l,L), y+2*Math.max(l,L));
             gc.setStroke(strokeSave);
         }
     }
