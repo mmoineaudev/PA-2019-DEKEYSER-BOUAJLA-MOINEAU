@@ -10,12 +10,12 @@ Une partie du jeu se déroule de la façon suivante :
    * Un nombre paramétrable de joueurs se déplace à l'écran 
    * Chaque joueur a une barre de vie
    * Une collision entre joueurs leur fait perdre de la vie
-   * Les joueurs peuvent tirer sur leurs adversaires
-   * Les gagnant sont le dernier à avoir encore de la vie et celui qui a tiré sur le plus de cibles.
+   * Les joueurs peuvent tirer sur leurs adversaires et sur les astéroides
+   * Les gagnants sont le dernier à avoir encore de la vie et celui qui a tiré sur le plus de cibles.
 
 ### Plugins 
 
-Deux type de projectiles disponibles. 
+Deux types de projectiles disponibles. 
 
 ## Lancement projet
 
