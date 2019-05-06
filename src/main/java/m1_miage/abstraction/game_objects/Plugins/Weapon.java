@@ -68,7 +68,7 @@ public class Weapon extends IntelligentSprite {
             drawRotatedImage(gc, image, getAngle(), x,y);
             gc.setFill(save);
         }
-        //drawHitBox(gc); //for debug
+        drawHitBox(gc); //for debug
     }
 
     /**
@@ -78,7 +78,7 @@ public class Weapon extends IntelligentSprite {
      */
     @Override
     public void handleCollision(GameBoard b, IntelligentSprite p) {
-        if(!isDead()){
+        if(!isDead() && p!=this){
             lifes--;
             p.handleCollision(b,this);
             System.out.println(p + " received a shot from "+ owner);

@@ -36,10 +36,12 @@ import static m1_miage.presenter.PNGTools.drawRotatedImage;
  */
 public class VaisseauSprite extends IntelligentSprite {
     private final int L = 20, l=50;
-
+    private static int totalCounter = 1;
+    private int numId = totalCounter;
     private Image image = new Image(new FileInputStream("src/img/vaisseau.png"));
     private List<Weapon> weaponsByPlugin;
     private int weaponID;
+    private long cadence = 200;//en milliseconde, cadence de tir
 
     /**
      * On passe les choix de plugins au constructeur
@@ -50,12 +52,15 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     public VaisseauSprite(double x, double y, int weaponID) throws FileNotFoundException {
         super(x, y);
+        totalCounter++;
         this.weaponID = weaponID; // depuis la page de menu
+        if(this.weaponID==2) cadence = 500;
         try {
             weaponsByPlugin= new ArrayList<>();
         } catch (Exception e) {
             e.printStackTrace();//TODO supprimer quand probleme d'execution reglé (debugger)
         }
+        this.id= this.getClass().getSimpleName()+"#"+numId+"\nweapon:"+weaponID;
 
     }
 
@@ -124,7 +129,9 @@ public class VaisseauSprite extends IntelligentSprite {
      */
     @Override
     public void update(double time, GameBoard b) {
-        if(speed<120) speed+=1;//on peut accélérer mais pas trop quand même
+        updatePlugins(time,b);
+        super.update(time,b);
+        if(speed<100) speed+=1*lifes;//on peut accélérer mais pas trop quand même, mais plus quand on est en bon état que endommagé
         avoidBorders(b);
         //update des plugins
         if(b.facesAnEnemy(this)) {
@@ -135,17 +142,16 @@ public class VaisseauSprite extends IntelligentSprite {
                 e.printStackTrace();
             }
         }
-        updatePlugins(time,b);
-        super.update(time,b);
+
     }
 
     /**
      * Empeche le vaisseau de tirer en continu:
-     * il ne peut tirer qu'une fois par seconde
+     * il ne peut tirer que 2 fois par seconde
      */
     private long timestamp = 0;
     public void shoot() throws Exception {
-        if(System.currentTimeMillis()-timestamp>1000 && !isDead())
+        if(System.currentTimeMillis()-timestamp>cadence && !isDead())
         {
             System.out.println(getWeaponByPlugin(weaponID).getSound());
             timestamp=System.currentTimeMillis();

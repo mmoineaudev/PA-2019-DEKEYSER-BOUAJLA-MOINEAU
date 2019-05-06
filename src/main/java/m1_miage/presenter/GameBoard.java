@@ -89,19 +89,51 @@ public class GameBoard {
             Paint save = graphicsContext.getStroke();
             graphicsContext.setStroke(Color.WHITE);
             Font saveFont = graphicsContext.getFont();
-            Font BIG = new Font(saveFont.getName(), 50 / scoresPerVaisseau.size());
+            int size = (int) (this.getHeight()/(scoresPerVaisseau.size()*2.5));
+            if(size>40)size=40;
+            if(size<8)size=8;
+            Font BIG = new Font(saveFont.getName(), size-2);
             graphicsContext.setFont(BIG);
-            graphicsContext.strokeText("Partie terminée !", 30, 30);
-            int x = width / 4;
-            int y = height / 4;
+            graphicsContext.strokeText("Partie terminée !", 30, size);
+            int x = 10;
+            int y = 2*size;
+			String idMax = findMax(scoresPerVaisseau);
+			String idSurvivor = findSurvivor(scoresPerVaisseau);
             for (String id : scoresPerVaisseau.keySet()) {
-                graphicsContext.strokeText("* " + id + " " + scoresPerVaisseau.get(id), x, y);
-                y += height / scoresPerVaisseau.size();
+                graphicsContext.strokeText(
+                		((id==idMax)?"\tVAINQUEUR => ":" * ")
+						+((id==idSurvivor)?"\tSURVIVOR => ":" * ")
+						+ id + " " + scoresPerVaisseau.get(id), x, y);
+                y += 2*size;
             }
             graphicsContext.setStroke(save);
             graphicsContext.setFont(saveFont);
             graphicsContext.save();
         }
+	}
+
+	private String findMax(HashMap<String, Score> scoresPerVaisseau) {
+		String max = "";
+		int maxPoint = 0;
+		for(String id : scoresPerVaisseau.keySet()){
+			if(maxPoint<scoresPerVaisseau.get(id).getPoints()){
+				maxPoint=scoresPerVaisseau.get(id).getPoints();
+				max=id;
+			}
+		}
+		return max;
+	}
+
+	private String findSurvivor(HashMap<String, Score> scoresPerVaisseau) {
+		String max = "";
+		int maxPoint = 0;
+		for(String id : scoresPerVaisseau.keySet()){
+			if(maxPoint<scoresPerVaisseau.get(id).getTime()){
+				maxPoint= (int) scoresPerVaisseau.get(id).getTime();
+				max=id;
+			}
+		}
+		return max;
 	}
 
 	/**
